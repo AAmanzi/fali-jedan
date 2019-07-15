@@ -1,22 +1,35 @@
 import React, { Component } from "react";
-import EventCard from "EventCard";
+import EventCard from "./EventCard";
 
 class EventFeed extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      eventList = []
-    }
+      eventList: [
+        {
+          sport: "default",
+          host: "Stipe",
+          dateOfEvent: "30.7.2019",
+          location: "FESB",
+          startTime: "18:00",
+          endTime: "19:00",
+          currentPlayers: 4,
+          targetPlayers: 6
+        }
+      ]
+    };
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <ul className="list__events">
-        {eventList.map((event, index) => <EventCard key={index} event={event}/>)}
+        {this.state.eventList.map((event, index) => (
+          <EventCard key={index} event={event} />
+        ))}
       </ul>
     );
   }
 }
 
-export const EventFeed;
+export default EventFeed;

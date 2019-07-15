@@ -10,7 +10,7 @@ namespace FaliJedan.Data.Entities.Models
     public class Subscription
     {
         public Guid Id { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
         [Required]
         public DateTime StartDate { get; set; }

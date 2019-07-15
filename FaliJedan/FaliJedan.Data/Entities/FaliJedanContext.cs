@@ -4,7 +4,7 @@ using System.Text;
 using FaliJedan.Data.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CashRegister.Data.Entities
+namespace FaliJedan.Data.Entities
 {
     public class FaliJedanContext : DbContext
     {
@@ -12,11 +12,12 @@ namespace CashRegister.Data.Entities
         {
         }
 
-        //public DbSet<Cashier> Cashiers { get; set; }
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<Receipt> Receipts { get; set; }
-        //public DbSet<ReceiptProduct> ReceiptProducts { get; set; }
-        //public DbSet<Register> Registers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Sport> Sports { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Subscription> Subsctiptions { get; set; }
+        public DbSet<UserFavouriteSport> UserFavouriteSports { get; set; }
+        public DbSet<EventUser> EventUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +42,16 @@ namespace CashRegister.Data.Entities
                 .HasOne(eu => eu.Event)
                 .WithMany(e => e.EventUsers)
                 .HasForeignKey(eu => eu.EventId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Subscription)
+                .WithOne(s => s.User)
+                .HasForeignKey<Subscription>(s => s.UserId);
+
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.User)
+                .WithOne(u => u.Subscription)
+                .HasForeignKey<User>(u => u.SubscriptionId);
 
             modelBuilder.Entity<Sport>().HasData(
                 new Sport { Id = 1, Name = "Nogomet" },

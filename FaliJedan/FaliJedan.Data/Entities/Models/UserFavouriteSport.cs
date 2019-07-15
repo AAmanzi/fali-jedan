@@ -8,7 +8,7 @@ namespace FaliJedan.Data.Entities.Models
 {
     public class UserFavouriteSport
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
         public int SportId { get; set; }
         public Sport Sport { get; set; }

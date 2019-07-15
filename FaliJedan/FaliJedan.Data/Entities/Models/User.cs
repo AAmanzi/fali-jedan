@@ -12,7 +12,7 @@ namespace FaliJedan.Data.Entities.Models
         public Guid Id { get; set; }
         public ICollection<UserFavouriteSport> UserFavouriteSports { get; set; }
         public ICollection<EventUser> EventUsers { get; set; }
-        public int SubscriptionId { get; set; }
+        public Guid SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
 
         [Required]

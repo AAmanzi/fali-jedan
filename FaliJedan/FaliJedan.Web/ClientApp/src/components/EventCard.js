@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import LocationDisplay from "./Map/LocationDisplay";
 
 class EventCard extends Component {
   constructor(props) {
@@ -8,6 +9,13 @@ class EventCard extends Component {
       isMapActive: false
     };
   }
+
+  toggleMap = () => {
+    this.setState(prevState => {
+      const isMapActive = !{ ...prevState }.isMapActive;
+      return { isMapActive };
+    });
+  };
 
   render() {
     const { event } = this.props;
@@ -34,9 +42,21 @@ class EventCard extends Component {
             event.targetPlayers
           }`}</span>
         </div>
-        <button className="event__card--button-slide">&#x25B6;</button>
+        <button className="event__card--button-slide" onClick={this.toggleMap}>
+          &#x25B6;
+        </button>
 
-        <div className="event__card--map"></div>
+        <div
+          className={`event__card--map ${
+            this.state.isMapActive ? "event__card--map-active" : undefined
+          }`}
+        >
+          {this.state.isMapActive ? (
+            <LocationDisplay coordinates={event.coordinates} />
+          ) : (
+            undefined
+          )}
+        </div>
       </div>
     );
   }

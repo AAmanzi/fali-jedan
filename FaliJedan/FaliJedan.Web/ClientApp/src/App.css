@@ -9,6 +9,7 @@ ul {
 }
 
 .event__card {
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -24,4 +25,29 @@ ul {
 .event__card--icon {
   width: 50px;
   height: 50px;
+}
+
+.event__card--map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b4d0d0;
+  opacity: 0;
+  top: 0;
+  right: -100%;
+  z-index: 1;
+  transition: 0.3s all ease-in-out;
+}
+
+.event__card--map-active {
+  right: 0 !important;
+  opacity: 1 !important;
+}
+
+.map__container {
+  width: 80%;
+  height: 80%;
 }

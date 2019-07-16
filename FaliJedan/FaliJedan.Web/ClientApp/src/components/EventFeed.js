@@ -15,7 +15,8 @@ class EventFeed extends Component {
           startTime: "18:00",
           endTime: "19:00",
           currentPlayers: 4,
-          targetPlayers: 6
+          targetPlayers: 6,
+          coordinates: [1831660.5088, 5389880.6125]
         }
       ]
     };

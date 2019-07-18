@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LocationDisplay from "./Map/LocationDisplay";
 import EventCardInfo from "./EventCardInfo";
 import { Swipeable } from "react-swipeable";
+import { LEFT, RIGHT } from "../constants";
 
 class EventCard extends Component {
   constructor(props) {
@@ -11,6 +12,15 @@ class EventCard extends Component {
       isMapActive: false
     };
   }
+
+  swipe = direction => {
+    if (
+      (direction === LEFT && !this.state.isMapActive) ||
+      (direction === RIGHT && this.state.isMapActive)
+    ) {
+      this.toggleMap();
+    }
+  };
 
   toggleMap = () => {
     this.setState(prevState => {
@@ -23,8 +33,8 @@ class EventCard extends Component {
     const { event } = this.props;
     return (
       <Swipeable
-        onSwipedLeft={this.toggleMap}
-        onSwipedRight={this.toggleMap}
+        onSwipedLeft={() => this.swipe(LEFT)}
+        onSwipedRight={() => this.swipe(RIGHT)}
         preventDefaultTouchmoveEvent={true}
         trackMouse={true}
         className="event__card"

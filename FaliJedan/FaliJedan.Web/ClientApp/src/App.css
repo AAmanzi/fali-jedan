@@ -15,6 +15,7 @@ ul {
   justify-content: space-between;
   width: 100%;
   overflow: hidden;
+  flex-wrap: wrap;
 }
 
 .event__card--panel,
@@ -22,6 +23,20 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.event__card--panel {
+  width: 20%;
+}
+
+.event__card--content {
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.event__card--button-slide {
+  width: 10%;
 }
 
 .event__card--icon {
@@ -52,4 +67,21 @@ ul {
 .map__container {
   width: 80%;
   height: 80%;
+}
+
+.event__card--description {
+  text-align: center;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  transition: max-height .3s ease-out;
+  max-height: 0;
+  padding: 5 10px;
+  background-color: #ccc;
+}
+
+.event__card--description-active {
+  max-height: 100vh;
+  height: initial;
+  transition: max-height 1.5s ease-out;
 }

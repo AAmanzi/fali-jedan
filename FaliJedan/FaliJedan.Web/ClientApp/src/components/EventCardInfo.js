@@ -2,6 +2,12 @@ import React from "react";
 
 const EventCardInfo = props => {
   const { event } = props;
+
+  const redirectToProfile = () => {
+    console.log("UserProfile");
+    //TODO
+  };
+
   return (
     <>
       <div className="event__card--panel">
@@ -12,9 +18,11 @@ const EventCardInfo = props => {
         />
         <button className="event__card--button">Join</button>
       </div>
-      <div className="event__card--content">
+      <div className="event__card--content" onClick={e => props.handleClick(e)}>
         <div className="event__card--content--header">
-          <h1 className="event__card--host-name">{event.host}</h1>
+          <h1 className="event__card--host-name" onClick={redirectToProfile}>
+            {event.host}
+          </h1>
           <span className="event__card--date">{event.dateOfEvent}</span>
         </div>
         <span className="event__card--location">{event.location}</span>

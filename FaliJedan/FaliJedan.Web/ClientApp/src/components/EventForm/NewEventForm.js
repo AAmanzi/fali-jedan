@@ -3,6 +3,7 @@ import { newEvent, isEventValid } from "../../utils/event";
 
 import Loading from "../Loading";
 import Navbar from "../Navbar";
+import LocationPicker from "../Map/LocationPicker";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -196,6 +197,8 @@ class NewEventForm extends Component {
                 onChange={this.handleInputChange}
               />
             </label>
+
+            <LocationPicker />
 
             <input type="submit" value="Submit" />
           </form>

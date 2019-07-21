@@ -44,10 +44,12 @@ class EventCard extends Component {
   render() {
     const { event } = this.props;
     return (
+      <li>
       <Swipeable
         onSwipedLeft={() => this.swipe(LEFT)}
         onSwipedRight={() => this.swipe(RIGHT)}
         preventDefaultTouchmoveEvent={true}
+        //TODO preventDefaults
         trackTouch={true}
         trackMouse={true}
         className="event__card"
@@ -79,6 +81,7 @@ class EventCard extends Component {
           <span>{event.targetSkillLevel}</span>
         </div>
       </Swipeable>
+      </li>
     );
   }
 }

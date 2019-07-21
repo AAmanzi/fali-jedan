@@ -12,7 +12,7 @@ const EventCardInfo = props => {
     <>
       <div className="event__card--panel">
         <img
-          className="event__card--icon"
+          className="icon--sport"
           src={`/assets/sports/${event.sport}.jpg`}
           alt={event.sport}
         />

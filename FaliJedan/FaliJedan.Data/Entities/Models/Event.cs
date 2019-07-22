@@ -25,7 +25,9 @@ namespace FaliJedan.Data.Entities.Models
         public DateTime EndTime { get; set; }
         [Required]
         public string GeoLocation { get; set; }
-        public int? TargetSkillLevel { get; set; }
+        public int TargetSkillLevel { get; set; }
         public string Description { get; set; }
+        public bool IsInstantJoin { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

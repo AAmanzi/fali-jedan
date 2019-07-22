@@ -1,4 +1,6 @@
 using FaliJedan.Data.Entities;
+using FaliJedan.Domain.Repositories.Implementations;
+using FaliJedan.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +30,7 @@ namespace FaliJedan.Web
             services.AddDbContext<FaliJedanContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("FaliJedanContext")));
 
-            //services.AddScoped<ICashierRepository, CashierRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
             //services.AddScoped<IRegisterRepository, RegisterRepository>();
             //services.AddScoped<IProductRepository, ProductRepository>();
             //services.AddScoped<IReceiptRepository, ReceiptRepository>();

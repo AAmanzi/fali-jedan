@@ -12,6 +12,5 @@ namespace FaliJedan.Data.Entities.Models
         public string Name { get; set; }
 
         public ICollection<Event> Events { get; set; }
-        public ICollection<UserFavouriteSport> UserFavouriteSports { get; set; }
     }
 }

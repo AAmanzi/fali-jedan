@@ -119,15 +119,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\FaliJedanContext.cs" />
+    <Compile Include="Entities\Models\Badge.cs" />
     <Compile Include="Entities\Models\Event.cs" />
     <Compile Include="Entities\Models\EventUser.cs" />
     <Compile Include="Entities\Models\Sport.cs" />
     <Compile Include="Entities\Models\Subscription.cs" />
     <Compile Include="Entities\Models\User.cs" />
-    <Compile Include="Entities\Models\UserFavouriteSport.cs" />
+    <Compile Include="Entities\Models\UserBadge.cs" />
     <Compile Include="Migrations\20190715172608_InitialMigration.cs" />
     <Compile Include="Migrations\20190715172608_InitialMigration.designer.cs">
       <DependentUpon>20190715172608_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190722162540_DatabaseRefactor.cs" />
+    <Compile Include="Migrations\20190722162540_DatabaseRefactor.designer.cs">
+      <DependentUpon>20190722162540_DatabaseRefactor.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

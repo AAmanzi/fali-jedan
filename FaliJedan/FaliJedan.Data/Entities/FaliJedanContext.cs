@@ -16,21 +16,22 @@ namespace FaliJedan.Data.Entities
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Subscription> Subsctiptions { get; set; }
-        public DbSet<UserFavouriteSport> UserFavouriteSports { get; set; }
+        public DbSet<Badge> Badges { get; set; }
+        public DbSet<UserBadge> UserBadges { get; set; }
         public DbSet<EventUser> EventUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserFavouriteSport>()
-                .HasKey(ufs => new { ufs.UserId, ufs.SportId });
-            modelBuilder.Entity<UserFavouriteSport>()
-                .HasOne(ufs => ufs.User)
-                .WithMany(u => u.UserFavouriteSports)
-                .HasForeignKey(ufs => ufs.UserId);
-            modelBuilder.Entity<UserFavouriteSport>()
-                .HasOne(ufs => ufs.Sport)
-                .WithMany(s => s.UserFavouriteSports)
-                .HasForeignKey(ufs => ufs.SportId);
+            modelBuilder.Entity<UserBadge>()
+                .HasKey(ub => new { ub.UserId, ub.BadgeId });
+            modelBuilder.Entity<UserBadge>()
+                .HasOne(ub => ub.User)
+                .WithMany(u => u.UserBadges)
+                .HasForeignKey(ub => ub.UserId);
+            modelBuilder.Entity<UserBadge>()
+                .HasOne(ub => ub.Badge)
+                .WithMany(b => b.UserBadges)
+                .HasForeignKey(ub => ub.BadgeId);
 
             modelBuilder.Entity<EventUser>()
                 .HasKey(eu => new { eu.UserId, eu.EventId });

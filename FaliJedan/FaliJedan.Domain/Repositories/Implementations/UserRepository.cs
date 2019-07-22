@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FaliJedan.Data.Entities;
+using FaliJedan.Data.Entities.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace FaliJedan.Domain.Repositories.Interfaces
+{
+    public class UserRepository : IUserRepository
+    {
+        public UserRepository(FaliJedanContext context)
+        {
+            _context = context;
+        }
+
+        public FaliJedanContext _context { get; set; }
+
+        public bool AddUser(User userToAdd)
+        {
+            var doesUserExist = _context.Users.Any(u => u.Id == userToAdd.Id);
+            if (doesUserExist)
+                return false;
+
+            _context.Users.Add(userToAdd);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return _context.Users.Include(u => u.Subscription).Include(u => u.UserBadges).ThenInclude(ub => ub.Badge).ToList();
+        }
+
+        public User GetUserById(Guid id)
+        {
+            return _context.Users.FirstOrDefault(u => u.Id == id);
+        }
+    }
+}

@@ -198,7 +198,7 @@ class NewEventForm extends Component {
               />
             </label>
 
-            <LocationPicker />
+            {/* <LocationPicker /> */}
 
             <input type="submit" value="Submit" />
           </form>

@@ -31,10 +31,6 @@ class EventCard extends Component {
   };
 
   toggleDetails = event => {
-    if (event.target.className === HOST_NAME_CLASS) {
-      return undefined;
-    }
-
     this.setState(prevState => {
       const isDetailsActive = !{ ...prevState }.isDetailsActive;
       return { isDetailsActive };

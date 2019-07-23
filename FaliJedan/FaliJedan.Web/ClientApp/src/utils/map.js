@@ -26,8 +26,15 @@ export const mapUtils = () => {
     });
   };
 
+  const newFeature = style => {
+    const feature = new Feature({});
+    feature.setStyle(style);
+
+    return feature;
+  };
+
   // coordinates must be an array of 2 doubles
-  const newMarker = coordinates => {
+  const newMarkerFeature = coordinates => {
     const marker = new Feature({
       geometry: new Point(coordinates)
     });
@@ -37,31 +44,18 @@ export const mapUtils = () => {
     return marker;
   };
 
-  // features must be an array
-  const newFeaturesLayer = features => {
+  // coordinates must be an array of 2 doubles
+  const addCoordinatesToFeature = (feature, coordinates) => {
+    feature.setGeometry(coordinates ? new Point(coordinates) : null);
+  };
+
+  const newVector = (map, features) => {
     return new VectorLayer({
+      map,
       source: new Vector({
         features
       })
     });
-  };
-
-  const newFeature = style => {
-    const feature = new Feature({});
-    feature.setStyle(style);
-
-    return feature;
-  };
-
-  const newView = (coordinates, zoom) => {
-    return new View({
-      center: coordinates,
-      zoom
-    });
-  };
-
-  const addCoordinatesToFeature = (feature, coordinates) => {
-    feature.setGeometry(coordinates ? new Point(coordinates) : null);
   };
 
   const newGeolocation = (view, positionFeature, positionHasChanged) => {
@@ -86,21 +80,15 @@ export const mapUtils = () => {
     return geolocation;
   };
 
-  // layers must be an array
-  const newMap = (target, layers, view) => {
-    return new Map({
-      target,
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        ...layers
-      ],
-      view
+  // coordinates must be an array of 2 doubles
+  const newView = (coordinates, zoom) => {
+    return new View({
+      center: coordinates,
+      zoom
     });
   };
 
-  const newEmptyMap = (target, view) => {
+  const newMap = (target, view) => {
     return new Map({
       layers: [
         new TileLayer({
@@ -118,26 +106,18 @@ export const mapUtils = () => {
     });
   };
 
-  const newVector = (map, features) => {
-    return new VectorLayer({
-      map,
-      source: new Vector({
-        features
-      })
-    });
-  };
-
   return {
     newMarkerStyle,
-    newMarker,
-    newView,
-    newFeaturesLayer,
+
     newFeature,
+    newMarkerFeature,
     addCoordinatesToFeature,
+    newVector,
+
     newGeolocation,
+
+    newView,
     newMap,
-    newEmptyMap,
-    addClickEventToMap,
-    newVector
+    addClickEventToMap
   };
 };

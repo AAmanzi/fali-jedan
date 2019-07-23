@@ -5,13 +5,13 @@ class LocationDisplay extends Component {
   componentDidMount = () => {
     const ol = mapUtils();
 
-    const marker = ol.newMarker(this.props.coordinates);
-
-    const featuresLayer = ol.newFeaturesLayer([marker]);
+    const marker = ol.newMarkerFeature(this.props.coordinates);
 
     const view = ol.newView(this.props.coordinates, 16);
 
-    ol.newMap(this.refs.mapContainer, [featuresLayer], view);
+    const map = ol.newMap(this.refs.mapContainer, view);
+
+    ol.newVector(map, [marker]);
   };
 
   render() {

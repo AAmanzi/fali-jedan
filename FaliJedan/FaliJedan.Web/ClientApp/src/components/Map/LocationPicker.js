@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { mapUtils, markerStyle } from "../../utils/map";
+import { mapUtils } from "../../utils/map";
 import Loading from "../Loading";
 
 class LocationPicker extends Component {
@@ -25,7 +25,7 @@ class LocationPicker extends Component {
       this.handleCoordinateChange
     );
 
-    const map = ol.newEmptyMap(this.refs.mapContainer, view);
+    const map = ol.newMap(this.refs.mapContainer, view);
 
     ol.addClickEventToMap(map, this.handleMapClick);
 

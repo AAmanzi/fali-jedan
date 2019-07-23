@@ -5,7 +5,7 @@ const EventCardInfo = props => {
 
   const redirectToProfile = event => {
     event.stopPropagation();
-    
+
     console.log("UserProfile");
     //TODO
   };

@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-
 import { mapUtils } from "../../utils/map";
 
 class LocationDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount = () => {
     const ol = mapUtils();
 
@@ -16,7 +11,7 @@ class LocationDisplay extends Component {
 
     const view = ol.newView(this.props.coordinates, 16);
 
-    ol.newMap(this.refs.mapContainer, featuresLayer, view);
+    ol.newMap(this.refs.mapContainer, [featuresLayer], view);
   };
 
   render() {

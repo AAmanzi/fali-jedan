@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import LocationDisplay from "./Map/LocationDisplay";
 import EventCardInfo from "./EventCardInfo";
 import { Swipeable } from "react-swipeable";
-import { LEFT, RIGHT, HOST_NAME_CLASS } from "../constants";
+import { LEFT, RIGHT } from "../constants";
 
 class EventCard extends Component {
   constructor(props) {
@@ -41,42 +41,44 @@ class EventCard extends Component {
     const { event } = this.props;
     return (
       <li>
-      <Swipeable
-        onSwipedLeft={() => this.swipe(LEFT)}
-        onSwipedRight={() => this.swipe(RIGHT)}
-        preventDefaultTouchmoveEvent={true}
-        //TODO preventDefaults
-        trackTouch={true}
-        trackMouse={true}
-        className="event__card"
-      >
-        <EventCardInfo
-          event={event}
-          toggleMap={this.toggleMap}
-          handleClick={this.toggleDetails}
-        />
-
-        <div
-          className={`event__card--map ${
-            this.state.isMapActive ? "event__card--map-active" : undefined
-          }`}
+        <Swipeable
+          onSwipedLeft={() => this.swipe(LEFT)}
+          onSwipedRight={() => this.swipe(RIGHT)}
+          preventDefaultTouchmoveEvent={true}
+          //TODO preventDefaults
+          trackTouch={true}
+          trackMouse={true}
+          className="event__card"
         >
-          {this.state.isMapActive ? (
-            <LocationDisplay coordinates={event.coordinates} />
-          ) : (
-            undefined
-          )}
-        </div>
+          <EventCardInfo
+            event={event}
+            toggleMap={this.toggleMap}
+            handleClick={this.toggleDetails}
+          />
 
-        <div
-          className={`event__card--description ${
-            this.state.isDetailsActive ? "event__card--description-active" : ""
-          }`}
-        >
-          <p>{event.description}</p>
-          <span>{event.targetSkillLevel}</span>
-        </div>
-      </Swipeable>
+          <div
+            className={`event__card--map ${
+              this.state.isMapActive ? "event__card--map-active" : undefined
+            }`}
+          >
+            {this.state.isMapActive ? (
+              <LocationDisplay coordinates={event.coordinates} />
+            ) : (
+              undefined
+            )}
+          </div>
+
+          <div
+            className={`event__card--description ${
+              this.state.isDetailsActive
+                ? "event__card--description-active"
+                : ""
+            }`}
+          >
+            <p>{event.description}</p>
+            <span>{event.targetSkillLevel}</span>
+          </div>
+        </Swipeable>
       </li>
     );
   }

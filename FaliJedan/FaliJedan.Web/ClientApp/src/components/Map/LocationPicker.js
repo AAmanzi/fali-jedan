@@ -1,31 +1,24 @@
-// import React, { Component } from "react";
+import React, { Component } from "react";
+import { mapUtils } from "../../utils/map";
 
-// import Geolocation from "ol/Geolocation.js";
+class LocationPicker extends Component {
+  componentDidMount = () => {
+    const ol = mapUtils();
 
-// class LocationPicker extends Component {
-//   constructor(props) {
-//     super(props);
+    const markerFeature = ol.newFeature(ol.markerStyle);
 
-//     this.state = {
-//       coordinates: null,
-//       map: null,
-//       featuresLayer: null,
-//       marker: null,
-//       geolocation: new Geolocation({
-//         tracking: true
-//       })
-//     };
-//   }
+    const view = ol.newView([0, 0], 16);
 
-//   componentDidMount = () => {
-    
+    ol.newGeolocation(view, markerFeature);
 
-//     this.setState({ map, featuresLayer, marker });
-//   };
+    const map = ol.newEmptyMap(this.refs.mapContainer, view);
 
-//   render() {
-//     return <div className="map__container" ref="mapContainer" />;
-//   }
-// }
+    ol.newVector(map, [markerFeature]);
+  };
 
-// export default LocationPicker;
+  render() {
+    return <div className="map__container" ref="mapContainer" />;
+  }
+}
+
+export default LocationPicker;

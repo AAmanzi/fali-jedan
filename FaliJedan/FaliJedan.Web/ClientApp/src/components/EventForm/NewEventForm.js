@@ -15,7 +15,8 @@ class NewEventForm extends Component {
       currentNumberOfPlayers: "",
       targetNumberOfPlayers: "",
       skillLevel: 0,
-      isInstantJoin: false
+      isInstantJoin: false,
+      location: [0, 0]
     };
   }
 
@@ -198,7 +199,7 @@ class NewEventForm extends Component {
               />
             </label>
 
-            {/* <LocationPicker /> */}
+            <LocationPicker />
 
             <input type="submit" value="Submit" />
           </form>

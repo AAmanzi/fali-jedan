@@ -8,6 +8,7 @@ import Geolocation from "ol/Geolocation.js";
 import Vector from "ol/source/Vector";
 import OSM from "ol/source/OSM";
 import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style.js";
+import { transform } from "ol/proj";
 
 export const mapUtils = () => {
   const markerStyle = new Style({
@@ -55,7 +56,11 @@ export const mapUtils = () => {
     });
   };
 
-  const newGeolocation = (view, positionFeature, callback) => {
+  const addCoordinatesToFeature = (feature, coordinates) => {
+    feature.setGeometry(coordinates ? new Point(coordinates) : null);
+  };
+
+  const newGeolocation = (view, positionFeature, positionHasChanged) => {
     const geolocation = new Geolocation({
       tracking: true,
       projection: view.getProjection()
@@ -65,13 +70,13 @@ export const mapUtils = () => {
       const coordinates = geolocation.getPosition();
       const prevCoordinates = view.getCenter();
 
-      positionFeature.setGeometry(coordinates ? new Point(coordinates) : null);
+      addCoordinatesToFeature(positionFeature, coordinates);
 
       if (prevCoordinates.every(coord => coord === 0)) {
         view.setCenter(coordinates ? coordinates : null);
       }
 
-      callback();
+      positionHasChanged();
     });
 
     return geolocation;
@@ -103,6 +108,12 @@ export const mapUtils = () => {
     });
   };
 
+  const addClickEventToMap = (map, handleClick) => {
+    map.on("click", function(evt) {
+      handleClick(transform(evt.coordinate, "EPSG:3857", "EPSG:3857"));
+    });
+  };
+
   const newVector = (map, features) => {
     return new VectorLayer({
       map,
@@ -118,9 +129,11 @@ export const mapUtils = () => {
     newView,
     newFeaturesLayer,
     newFeature,
+    addCoordinatesToFeature,
     newGeolocation,
     newMap,
     newEmptyMap,
+    addClickEventToMap,
     newVector
   };
 };

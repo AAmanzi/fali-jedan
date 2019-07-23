@@ -1,5 +1,6 @@
 export const isEventValid = event => {
-
+  // TODO
+  return true;
 };
 
 export const newEvent = (
@@ -7,13 +8,21 @@ export const newEvent = (
   currentNumberOfPlayers,
   targetNumberOfPlayers,
   skillLevel,
-  isInstantJoin
+  isInstantJoin,
+  date,
+  startTime,
+  endTime,
+  coordinates
 ) => {
   return {
     sport,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
     skillLevel,
-    isInstantJoin
+    isInstantJoin,
+    date,
+    startTime,
+    endTime,
+    coordinates
   };
 };

@@ -7,21 +7,31 @@ class LocationPicker extends Component {
     super(props);
 
     this.state = {
-      hasMapLoaded: false
+      hasMapLoaded: false,
+      eventLocationFeature: null
     };
   }
   componentDidMount = () => {
     const ol = mapUtils();
 
-    const markerFeature = ol.newFeature(ol.markerStyle);
+    const currentLocationFeature = ol.newFeature(ol.markerStyle);
+    const eventLocationFeature = ol.newFeature(ol.markerStyle);
 
     const view = ol.newView([0, 0], 16);
 
-    ol.newGeolocation(view, markerFeature, this.handleCoordinateChange);
+    ol.newGeolocation(
+      view,
+      currentLocationFeature,
+      this.handleCoordinateChange
+    );
 
     const map = ol.newEmptyMap(this.refs.mapContainer, view);
 
-    ol.newVector(map, [markerFeature]);
+    ol.addClickEventToMap(map, this.handleMapClick);
+
+    ol.newVector(map, [currentLocationFeature, eventLocationFeature]);
+
+    this.setState({ eventLocationFeature });
   };
 
   handleCoordinateChange = () => {
@@ -30,6 +40,14 @@ class LocationPicker extends Component {
         hasMapLoaded: true
       });
     }
+  };
+
+  handleMapClick = coordinates => {
+    const ol = mapUtils();
+
+    ol.addCoordinatesToFeature(this.state.eventLocationFeature, coordinates);
+
+    this.props.handleClick(coordinates);
   };
 
   render() {

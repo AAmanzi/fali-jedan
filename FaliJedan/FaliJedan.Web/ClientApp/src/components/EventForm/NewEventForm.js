@@ -16,7 +16,10 @@ class NewEventForm extends Component {
       targetNumberOfPlayers: "",
       skillLevel: 0,
       isInstantJoin: false,
-      location: [0, 0]
+      date: "",
+      startTime: "",
+      endTime: "",
+      coordinates: null
     };
   }
 
@@ -43,25 +46,43 @@ class NewEventForm extends Component {
     });
   };
 
+  handleCoordinateChange = coordinates => {
+    console.log(coordinates);
+
+    this.setState({
+      coordinates
+    });
+  };
+
   handleSubmit = () => {
     const {
       sport,
       currentNumberOfPlayers,
       targetNumberOfPlayers,
       skillLevel,
-      isInstantJoin
+      isInstantJoin,
+      date,
+      startTime,
+      endTime,
+      coordinates
     } = this.state;
     const eventToAdd = newEvent(
       sport,
       currentNumberOfPlayers,
       targetNumberOfPlayers,
       skillLevel,
-      isInstantJoin
+      isInstantJoin,
+      date,
+      startTime,
+      endTime,
+      coordinates
     );
 
     if (!isEventValid(eventToAdd)) {
       return undefined;
     }
+
+    alert(JSON.stringify(eventToAdd))
 
     // TODO Update Database
   };
@@ -199,7 +220,7 @@ class NewEventForm extends Component {
               />
             </label>
 
-            <LocationPicker />
+            <LocationPicker handleClick={this.handleCoordinateChange} />
 
             <input type="submit" value="Submit" />
           </form>

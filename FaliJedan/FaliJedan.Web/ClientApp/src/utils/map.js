@@ -55,7 +55,7 @@ export const mapUtils = () => {
     });
   };
 
-  const newGeolocation = (view, positionFeature) => {
+  const newGeolocation = (view, positionFeature, callback) => {
     const geolocation = new Geolocation({
       tracking: true,
       projection: view.getProjection()
@@ -70,6 +70,8 @@ export const mapUtils = () => {
       if (prevCoordinates.every(coord => coord === 0)) {
         view.setCenter(coordinates ? coordinates : null);
       }
+
+      callback();
     });
 
     return geolocation;

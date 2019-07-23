@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { mapUtils } from "../../utils/map";
+import { mapUtils, markerStyle } from "../../utils/map";
 import Loading from "../Loading";
 
 class LocationPicker extends Component {
@@ -14,8 +14,8 @@ class LocationPicker extends Component {
   componentDidMount = () => {
     const ol = mapUtils();
 
-    const currentLocationFeature = ol.newFeature(ol.markerStyle);
-    const eventLocationFeature = ol.newFeature(ol.markerStyle);
+    const currentLocationFeature = ol.newFeature(ol.newMarkerStyle("#f55742", "#fff"));
+    const eventLocationFeature = ol.newFeature(ol.newMarkerStyle("#00baba", "#fff"));
 
     const view = ol.newView([0, 0], 16);
 

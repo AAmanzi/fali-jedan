@@ -47,8 +47,6 @@ class NewEventForm extends Component {
   };
 
   handleCoordinateChange = coordinates => {
-    console.log(coordinates);
-
     this.setState({
       coordinates
     });

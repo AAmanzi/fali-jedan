@@ -11,25 +11,28 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style.js";
 import { transform } from "ol/proj";
 
 export const mapUtils = () => {
-  const markerStyle = new Style({
-    image: new CircleStyle({
-      radius: 6,
-      fill: new Fill({
-        color: "#3399CC"
-      }),
-      stroke: new Stroke({
-        color: "#fff",
-        width: 2
+  const newMarkerStyle = (fillColor, borderColor) => {
+    return new Style({
+      image: new CircleStyle({
+        radius: 6,
+        fill: new Fill({
+          color: fillColor
+        }),
+        stroke: new Stroke({
+          color: borderColor,
+          width: 2
+        })
       })
-    })
-  });
+    });
+  };
+
   // coordinates must be an array of 2 doubles
   const newMarker = coordinates => {
     const marker = new Feature({
       geometry: new Point(coordinates)
     });
 
-    marker.setStyle(markerStyle);
+    marker.setStyle(newMarkerStyle("#00baba", "#fff"));
 
     return marker;
   };
@@ -44,9 +47,10 @@ export const mapUtils = () => {
   };
 
   const newFeature = style => {
-    return new Feature({
-      style
-    });
+    const feature = new Feature({});
+    feature.setStyle(style);
+
+    return feature;
   };
 
   const newView = (coordinates, zoom) => {
@@ -124,7 +128,7 @@ export const mapUtils = () => {
   };
 
   return {
-    markerStyle,
+    newMarkerStyle,
     newMarker,
     newView,
     newFeaturesLayer,

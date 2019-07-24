@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Enums\BadgeType.cs" />
     <Compile Include="Entities\FaliJedanContext.cs" />
     <Compile Include="Entities\Models\Badge.cs" />
     <Compile Include="Entities\Models\Event.cs" />
@@ -133,6 +134,10 @@
     <Compile Include="Migrations\20190722162540_DatabaseRefactor.cs" />
     <Compile Include="Migrations\20190722162540_DatabaseRefactor.designer.cs">
       <DependentUpon>20190722162540_DatabaseRefactor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.cs" />
+    <Compile Include="Migrations\20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.designer.cs">
+      <DependentUpon>20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

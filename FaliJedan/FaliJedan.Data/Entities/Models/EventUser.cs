@@ -17,5 +17,6 @@ namespace FaliJedan.Data.Entities.Models
         [Required]
         public bool IsHost { get; set; }
         public bool IsApproved { get; set; }
+        public bool isCanceled { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FaliJedan.Data.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,6 @@ namespace FaliJedan.Data.Entities.Models
 
         public string Name { get; set; }
         public string RulesForAquire { get; set; }
-        //public BadgeType Type { get; set; }
+        public BadgeType Type { get; set; }
     }
 }

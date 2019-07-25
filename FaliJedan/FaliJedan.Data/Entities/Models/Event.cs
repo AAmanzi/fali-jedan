@@ -24,7 +24,9 @@ namespace FaliJedan.Data.Entities.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         [Required]
-        public string GeoLocation { get; set; }
+        public double LocationLongitude { get; set; }
+        [Required]
+        public double LocationLatitude { get; set; }
         public int TargetSkillLevel { get; set; }
         public string Description { get; set; }
         public bool IsInstantJoin { get; set; }

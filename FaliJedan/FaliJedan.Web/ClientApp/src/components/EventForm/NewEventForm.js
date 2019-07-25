@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { newEvent, isEventValid } from "../../utils/event";
+import { addEvent } from "../../services/event";
 
 import Loading from "../Loading";
 import Navbar from "../Navbar";
@@ -14,12 +15,13 @@ class NewEventForm extends Component {
       sport: "",
       currentNumberOfPlayers: "",
       targetNumberOfPlayers: "",
-      skillLevel: 0,
-      isInstantJoin: false,
-      date: "",
+      targetSkillLevel: 0,
+      isInstantJoin: true,
+      dateOfEvent: "",
       startTime: "",
       endTime: "",
-      coordinates: null
+      locationLatitude: null,
+      locationLongitude: null
     };
   }
 
@@ -48,41 +50,32 @@ class NewEventForm extends Component {
 
   handleCoordinateChange = coordinates => {
     this.setState({
-      coordinates
+      locationLatitude: coordinates[0],
+      locationLongitude: coordinates[1]
     });
   };
 
   handleSubmit = () => {
-    const {
-      sport,
-      currentNumberOfPlayers,
-      targetNumberOfPlayers,
-      skillLevel,
-      isInstantJoin,
-      date,
-      startTime,
-      endTime,
-      coordinates
-    } = this.state;
     const eventToAdd = newEvent(
-      sport,
-      currentNumberOfPlayers,
-      targetNumberOfPlayers,
-      skillLevel,
-      isInstantJoin,
-      date,
-      startTime,
-      endTime,
-      coordinates
+      1,
+      this.state.currentNumberOfPlayers,
+      this.state.targetNumberOfPlayers,
+      this.state.targetSkillLevel,
+      this.state.isInstantJoin,
+      this.state.dateOfEvent,
+      this.state.startTime,
+      this.state.endTime,
+      this.state.locationLatitude,
+      this.state.locationLongitude
     );
 
     if (!isEventValid(eventToAdd)) {
       return undefined;
     }
 
-    alert(JSON.stringify(eventToAdd))
-
-    // TODO Update Database
+    addEvent(eventToAdd)
+      .then(response => response)
+      .catch(exception => exception);
   };
 
   render() {
@@ -92,11 +85,7 @@ class NewEventForm extends Component {
     return (
       <>
         <div className="event__form__container">
-          <form
-            className="event__form"
-            name="eventForm"
-            onSubmit={this.handleSubmit}
-          >
+          <form className="event__form" name="eventForm">
             <label
               htmlFor="toggleSportList"
               className="event__form--label-sport"
@@ -151,7 +140,7 @@ class NewEventForm extends Component {
                 <label>
                   <input
                     type="radio"
-                    name="skillLevel"
+                    name="targetSkillLevel"
                     value="1"
                     onChange={this.handleInputChange}
                   />
@@ -160,7 +149,7 @@ class NewEventForm extends Component {
                 <label>
                   <input
                     type="radio"
-                    name="skillLevel"
+                    name="targetSkillLevel"
                     value="2"
                     onChange={this.handleInputChange}
                   />
@@ -170,7 +159,7 @@ class NewEventForm extends Component {
                 <label>
                   <input
                     type="radio"
-                    name="skillLevel"
+                    name="targetSkillLevel"
                     value="3"
                     onChange={this.handleInputChange}
                   />
@@ -193,9 +182,9 @@ class NewEventForm extends Component {
             <label>
               Date:
               <input
-                name="date"
+                name="dateOfEvent"
                 type="date"
-                value={this.state.date}
+                value={this.state.dateOfEvent}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -219,9 +208,8 @@ class NewEventForm extends Component {
             </label>
 
             <LocationPicker handleClick={this.handleCoordinateChange} />
-
-            <input type="submit" value="Submit" />
           </form>
+          <button onClick={this.handleSubmit}>Submit</button>
         </div>
         <Navbar />
       </>

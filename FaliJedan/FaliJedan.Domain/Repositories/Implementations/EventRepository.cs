@@ -21,8 +21,14 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         public bool AddEvent(Event eventToAdd)
         {
-            if (eventToAdd.CurrentNumberOfPlayers < 1 || eventToAdd.TargetNumberOfPlayers < 2 ||
-                eventToAdd.DateOfEvent == null || eventToAdd.StartTime == null || eventToAdd.LocationLongitude == null || eventToAdd.LocationLatitude == null)
+            if (
+                eventToAdd.CurrentNumberOfPlayers < 1 || 
+                eventToAdd.TargetNumberOfPlayers < 2 ||
+                eventToAdd.DateOfEvent == null || 
+                eventToAdd.StartTime == null || 
+                eventToAdd.LocationLongitude == null || 
+                eventToAdd.LocationLatitude == null
+                )
                 return false;
 
             var doesEventExist = _context.Events.Any(e => e.Id == eventToAdd.Id);

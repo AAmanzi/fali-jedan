@@ -139,6 +139,10 @@
     <Compile Include="Migrations\20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.designer.cs">
       <DependentUpon>20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190725152432_NamingAndRequiredChanges.cs" />
+    <Compile Include="Migrations\20190725152432_NamingAndRequiredChanges.designer.cs">
+      <DependentUpon>20190725152432_NamingAndRequiredChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

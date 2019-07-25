@@ -24,7 +24,6 @@ namespace FaliJedan.Web.Controllers
         public IActionResult GetAllEvents()
         {
             return Ok(_eventRepository.GetAllEvents());
-
         }
 
         [HttpPost("add")]

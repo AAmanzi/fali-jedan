@@ -8,8 +8,8 @@ namespace FaliJedan.Data.Entities.Enums
 {
     public enum BadgeType
     {
-        scalable,
-        special,
-        hidden
+        Scalable,
+        Special,
+        Hidden
     }
 }

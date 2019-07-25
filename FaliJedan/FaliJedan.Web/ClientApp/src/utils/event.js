@@ -4,25 +4,27 @@ export const isEventValid = event => {
 };
 
 export const newEvent = (
-  sport,
+  sportId,
   currentNumberOfPlayers,
   targetNumberOfPlayers,
-  skillLevel,
+  targetSkillLevel,
   isInstantJoin,
-  date,
+  dateOfEvent,
   startTime,
   endTime,
-  coordinates
+  locationLatitude,
+  locationLongitude
 ) => {
   return {
-    sport,
+    sportId,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
-    skillLevel,
+    targetSkillLevel,
     isInstantJoin,
-    date,
+    dateOfEvent,
     startTime,
     endTime,
-    coordinates
+    locationLatitude,
+    locationLongitude
   };
 };

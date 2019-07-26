@@ -80,6 +80,20 @@ export const mapUtils = () => {
     return geolocation;
   };
 
+  const newEmptyGeolocation = positionHasChanged => {
+    const geolocation = new Geolocation({
+      tracking: true
+    });
+
+    geolocation.on("change:position", function() {
+      const coordinates = geolocation.getPosition();
+
+      positionHasChanged(coordinates);
+    });
+
+    return geolocation;
+  };
+
   // coordinates must be an array of 2 doubles
   const newView = (coordinates, zoom) => {
     return new View({
@@ -106,6 +120,14 @@ export const mapUtils = () => {
     });
   };
 
+  const convertToWebMercator = (lon, lat) => {
+    const x = (lon * 20037508.34) / 180;
+    const y =
+      (Math.log(Math.tan(((90 + lat) * Math.PI) / 360)) * 20037508.34) /
+      Math.PI;
+    return [x, y];
+  };
+
   return {
     newMarkerStyle,
 
@@ -115,9 +137,12 @@ export const mapUtils = () => {
     newVector,
 
     newGeolocation,
+    newEmptyGeolocation,
 
     newView,
     newMap,
-    addClickEventToMap
+    addClickEventToMap,
+
+    convertToWebMercator
   };
 };

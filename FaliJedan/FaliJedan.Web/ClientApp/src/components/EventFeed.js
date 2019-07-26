@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import EventCard from "./EventCard";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
+import FilterBar from "./Filter/FilterBar";
 
 class EventFeed extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      eventList: null
+      eventList: null,
+      selectedSports: [],
+      timeframeStartDate: null,
+      timeframeEndDate: null
     };
   }
 
@@ -101,8 +105,15 @@ class EventFeed extends Component {
     if (this.state.eventList === null) {
       return <Loading />;
     }
+
     return (
       <>
+        <FilterBar
+          coordinates={this.props.currentCoordinates}
+          handleSetLocation={this.props.handleLocationFilterChange}
+          handleResetLocation={this.props.handleLocationFilterReset}
+        />
+
         <ul className="event__list">
           {this.state.eventList.map((event, index) => (
             <EventCard key={index} event={event} />

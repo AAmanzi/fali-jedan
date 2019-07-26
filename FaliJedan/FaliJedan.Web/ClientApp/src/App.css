@@ -305,3 +305,17 @@ ul {
 .ol-overlaycontainer-stopevent {
   display: none;
 }
+
+/* fiter bar */
+
+.filter__list {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.filter__list__item {
+  width: 33%;
+  display: flex;
+  justify-content: center;
+}

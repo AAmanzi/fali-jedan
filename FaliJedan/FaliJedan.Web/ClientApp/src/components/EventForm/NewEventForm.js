@@ -207,7 +207,10 @@ class NewEventForm extends Component {
               />
             </label>
 
-            <LocationPicker handleClick={this.handleCoordinateChange} />
+            <LocationPicker
+              coordinates={this.props.currentCoordinates}
+              handleClick={this.handleCoordinateChange}
+            />
           </form>
           <button onClick={this.handleSubmit}>Submit</button>
         </div>

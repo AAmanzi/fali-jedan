@@ -15,43 +15,22 @@ export default class App extends Component {
     this.state = {
       geolocation: null,
       currentLatitude: null,
-      currentLongitude: null,
-      isCoordinatesManual: true,
-      hasGeolocationPrompted: false
+      currentLongitude: null
     };
   }
 
   componentDidMount = () => {
-    const geolocation = ol.newEmptyGeolocation(this.handleGeolocationChange);
+    const geolocation = ol.newEmptyGeolocation(this.resetLocation);
 
     this.setState({
       geolocation
     });
   };
 
-  handleGeolocationChange = coordinates => {
-    if (this.state.isCoordinatesManual && this.state.hasGeolocationPrompted) {
-      return;
-    }
-
-    const convertedCoordinates = ol.convertToWebMercator(
-      parseFloat(coordinates[0]),
-      parseFloat(coordinates[1])
-    );
-
-    this.setState({
-      currentLatitude: convertedCoordinates[0],
-      currentLongitude: convertedCoordinates[1],
-      isCoordinatesManual: false,
-      hasGeolocationPrompted: true
-    });
-  };
-
   handleManualLocationChange = coordinates => {
     this.setState({
       currentLatitude: coordinates[0],
-      currentLongitude: coordinates[1],
-      isCoordinatesManual: true
+      currentLongitude: coordinates[1]
     });
   };
 
@@ -62,8 +41,7 @@ export default class App extends Component {
     );
     this.setState({
       currentLatitude: convertedCoordinates[0],
-      currentLongitude: convertedCoordinates[1],
-      isCoordinatesManual: true
+      currentLongitude: convertedCoordinates[1]
     });
   };
 

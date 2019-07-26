@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { mapUtils } from "../../utils/map";
-import Loading from "../Loading";
 
 class LocationPicker extends Component {
   constructor(props) {

@@ -58,28 +58,6 @@ export const mapUtils = () => {
     });
   };
 
-  const newGeolocation = (view, positionFeature, positionHasChanged) => {
-    const geolocation = new Geolocation({
-      tracking: true,
-      projection: view.getProjection()
-    });
-
-    geolocation.on("change:position", function() {
-      const coordinates = geolocation.getPosition();
-      const prevCoordinates = view.getCenter();
-
-      addCoordinatesToFeature(positionFeature, coordinates);
-
-      if (prevCoordinates.every(coord => coord === 0)) {
-        view.setCenter(coordinates ? coordinates : null);
-      }
-
-      positionHasChanged();
-    });
-
-    return geolocation;
-  };
-
   const newEmptyGeolocation = positionHasChanged => {
     const geolocation = new Geolocation({
       tracking: true
@@ -136,7 +114,6 @@ export const mapUtils = () => {
     addCoordinatesToFeature,
     newVector,
 
-    newGeolocation,
     newEmptyGeolocation,
 
     newView,

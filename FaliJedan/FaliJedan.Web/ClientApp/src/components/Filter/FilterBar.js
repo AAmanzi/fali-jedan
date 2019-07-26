@@ -12,8 +12,13 @@ class FilterBar extends Component {
   }
 
   handleFilterClick = event => {
-    this.setState({
-      selectedFilter: event.target.id
+    const clickedFilter = event.target.id;
+
+    this.setState(prevState => {
+      const newSelectedFilter =
+        prevState.selectedFilter !== clickedFilter ? clickedFilter : null;
+
+      return { selectedFilter: newSelectedFilter };
     });
   };
 

@@ -34,8 +34,6 @@ export default class App extends Component {
       return;
     }
 
-    console.log(coordinates);
-
     const convertedCoordinates = ol.convertToWebMercator(
       parseFloat(coordinates[0]),
       parseFloat(coordinates[1])

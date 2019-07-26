@@ -13,6 +13,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      geolocation: null,
       currentLatitude: null,
       currentLongitude: null,
       isCoordinatesManual: true,
@@ -21,7 +22,11 @@ export default class App extends Component {
   }
 
   componentDidMount = () => {
-    ol.newEmptyGeolocation(this.handleGeolocationChange);
+    const geolocation = ol.newEmptyGeolocation(this.handleGeolocationChange);
+
+    this.setState({
+      geolocation
+    });
   };
 
   handleGeolocationChange = coordinates => {
@@ -53,7 +58,13 @@ export default class App extends Component {
   };
 
   resetLocation = () => {
+    const convertedCoordinates = ol.convertToWebMercator(
+      parseFloat(this.state.geolocation.position_[0]),
+      parseFloat(this.state.geolocation.position_[1])
+    );
     this.setState({
+      currentLatitude: convertedCoordinates[0],
+      currentLongitude: convertedCoordinates[1],
       isCoordinatesManual: true
     });
   };

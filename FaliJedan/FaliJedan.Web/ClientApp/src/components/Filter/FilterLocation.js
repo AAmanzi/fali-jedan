@@ -2,7 +2,6 @@ import React from "react";
 import LocationPicker from "../Map/LocationPicker";
 
 const FilterLocation = props => {
-  console.log(props.coordinates);
   return (
     <div className="filter__location__dropdown">
       <LocationPicker

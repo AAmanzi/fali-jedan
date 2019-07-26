@@ -101,6 +101,13 @@ class EventFeed extends Component {
     });
   };
 
+  setTimeframe = (timeframeStartDate, timeframeEndDate) => {
+    this.setState({
+      timeframeStartDate,
+      timeframeEndDate
+    });
+  };
+
   render() {
     if (this.state.eventList === null) {
       return <Loading />;
@@ -112,6 +119,7 @@ class EventFeed extends Component {
           coordinates={this.props.currentCoordinates}
           handleSetLocation={this.props.handleLocationFilterChange}
           handleResetLocation={this.props.handleLocationFilterReset}
+          handleSetTimeframe={this.setTimeframe}
         />
 
         <ul className="event__list">

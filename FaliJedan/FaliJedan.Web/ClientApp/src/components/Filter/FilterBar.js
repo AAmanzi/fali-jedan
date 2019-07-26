@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FILTER } from "../../constants";
 import FilterLocation from "./FilterLocation";
+import FilterTime from "./FilterTime";
 
 class FilterBar extends Component {
   constructor(props) {
@@ -29,6 +30,11 @@ class FilterBar extends Component {
 
   handleResetLocation = () => {
     this.props.handleResetLocation();
+    this.resetSelectedFilter();
+  };
+
+  handleSetTimeframe = (dateFrom, dateTo) => {
+    this.props.handleSetTimeframe(dateFrom, dateTo);
     this.resetSelectedFilter();
   };
 
@@ -62,8 +68,12 @@ class FilterBar extends Component {
         ) : (
           undefined
         )}
-        {/* {selectedFilter === FILTER.sport}
-        {selectedFilter === FILTER.time} */}
+        {/* {selectedFilter === FILTER.sport} */}
+        {this.state.selectedFilter === FILTER.time ? (
+          <FilterTime handleApply={this.handleSetTimeframe} />
+        ) : (
+          undefined
+        )}
       </>
     );
   }

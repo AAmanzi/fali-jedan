@@ -12,7 +12,6 @@ class FilterBar extends Component {
       selectedFilter: null
     };
   }
-
   handleFilterClick = event => {
     const clickedFilter = event.target.id;
 
@@ -27,16 +26,17 @@ class FilterBar extends Component {
 
   handleSetLocation = coordinates => {
     this.props.handleSetLocation(coordinates);
-    this.resetSelectedFilter();
+    this.props.applyFilters();
   };
 
   handleResetLocation = () => {
     this.props.handleResetLocation();
-    this.resetSelectedFilter();
+    this.props.applyFilters();
   };
 
   handleSetTimeframe = (dateFrom, dateTo) => {
     this.props.handleSetTimeframe(dateFrom, dateTo);
+    this.props.applyFilters();
     this.resetSelectedFilter();
   };
 
@@ -45,21 +45,35 @@ class FilterBar extends Component {
       selectedFilter: null
     });
 
-    this.props.applyFilters();
+    if (this.state.selectedFilter === FILTER.sport) {
+      this.props.applyFilters();
+    }
   };
 
   render() {
     return (
       <>
         <ul className="filter__list">
-          <li className="filter__list__item" onClick={this.handleFilterClick}>
-            <span id={FILTER.location}>Location</span>
+          <li
+            className="filter__list__item"
+            id={FILTER.location}
+            onClick={this.handleFilterClick}
+          >
+            <span>Location</span>
           </li>
-          <li className="filter__list__item" onClick={this.handleFilterClick}>
-            <span id={FILTER.sport}>Sport</span>
+          <li
+            className="filter__list__item"
+            id={FILTER.sport}
+            onClick={this.handleFilterClick}
+          >
+            <span>Sport</span>
           </li>
-          <li className="filter__list__item" onClick={this.handleFilterClick}>
-            <span id={FILTER.time}>Time</span>
+          <li
+            className="filter__list__item"
+            id={FILTER.time}
+            onClick={this.handleFilterClick}
+          >
+            <span>Time</span>
           </li>
         </ul>
 

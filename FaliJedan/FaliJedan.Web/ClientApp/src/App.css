@@ -320,4 +320,5 @@ ul {
   justify-content: center;
   background-color: #ccc;
   border: 1px solid black;
+  cursor: pointer;
 }

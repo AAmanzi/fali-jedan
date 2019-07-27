@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FILTER } from "../../constants";
 import FilterLocation from "./FilterLocation";
 import FilterTime from "./FilterTime";
+import FilterSport from "./FilterSport";
 
 class FilterBar extends Component {
   constructor(props) {
@@ -15,12 +16,13 @@ class FilterBar extends Component {
   handleFilterClick = event => {
     const clickedFilter = event.target.id;
 
-    this.setState(prevState => {
-      const newSelectedFilter =
-        prevState.selectedFilter !== clickedFilter ? clickedFilter : null;
-
-      return { selectedFilter: newSelectedFilter };
+    this.setState({
+      selectedFilter: clickedFilter
     });
+
+    if (FILTER.hasOwnProperty(this.state.selectedFilter)) {
+      this.resetSelectedFilter();
+    }
   };
 
   handleSetLocation = coordinates => {
@@ -42,6 +44,8 @@ class FilterBar extends Component {
     this.setState({
       selectedFilter: null
     });
+
+    this.props.applyFilters();
   };
 
   render() {
@@ -68,7 +72,14 @@ class FilterBar extends Component {
         ) : (
           undefined
         )}
-        {/* {selectedFilter === FILTER.sport} */}
+        {this.state.selectedFilter === FILTER.sport ? (
+          <FilterSport
+            selectedSports={this.props.selectedSports}
+            handleApply={this.props.handleAddSport}
+          />
+        ) : (
+          undefined
+        )}
         {this.state.selectedFilter === FILTER.time ? (
           <FilterTime handleApply={this.handleSetTimeframe} />
         ) : (

@@ -5,6 +5,7 @@ import { addEvent } from "../../services/event";
 import Loading from "../Loading";
 import Navbar from "../Navbar";
 import LocationPicker from "../Map/LocationPicker";
+import SportIcon from "../SportIcon";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -108,12 +109,7 @@ class NewEventForm extends Component {
                       value={sport}
                       onChange={this.handleSportChange}
                     />
-                    <img
-                      className="icon--sport"
-                      src={`/assets/sports/${sport}.jpg`}
-                      alt={sport}
-                      htmlFor="sportRadio"
-                    />
+                    <SportIcon className="icon--sport" sport={sport} />
                   </label>
                 </li>
               ))}

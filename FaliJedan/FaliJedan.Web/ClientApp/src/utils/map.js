@@ -58,23 +58,15 @@ export const mapUtils = () => {
     });
   };
 
-  const newGeolocation = (view, positionFeature, positionHasChanged) => {
+  const newEmptyGeolocation = positionHasChanged => {
     const geolocation = new Geolocation({
-      tracking: true,
-      projection: view.getProjection()
+      tracking: true
     });
 
     geolocation.on("change:position", function() {
       const coordinates = geolocation.getPosition();
-      const prevCoordinates = view.getCenter();
 
-      addCoordinatesToFeature(positionFeature, coordinates);
-
-      if (prevCoordinates.every(coord => coord === 0)) {
-        view.setCenter(coordinates ? coordinates : null);
-      }
-
-      positionHasChanged();
+      positionHasChanged(coordinates);
     });
 
     return geolocation;
@@ -106,6 +98,14 @@ export const mapUtils = () => {
     });
   };
 
+  const convertToWebMercator = (lon, lat) => {
+    const x = (lon * 20037508.34) / 180;
+    const y =
+      (Math.log(Math.tan(((90 + lat) * Math.PI) / 360)) * 20037508.34) /
+      Math.PI;
+    return [x, y];
+  };
+
   return {
     newMarkerStyle,
 
@@ -114,10 +114,12 @@ export const mapUtils = () => {
     addCoordinatesToFeature,
     newVector,
 
-    newGeolocation,
+    newEmptyGeolocation,
 
     newView,
     newMap,
-    addClickEventToMap
+    addClickEventToMap,
+
+    convertToWebMercator
   };
 };

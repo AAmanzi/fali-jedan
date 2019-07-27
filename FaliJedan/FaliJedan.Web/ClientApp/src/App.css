@@ -305,3 +305,19 @@ ul {
 .ol-overlaycontainer-stopevent {
   display: none;
 }
+
+/* fiter bar */
+
+.filter__list {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.filter__list__item {
+  width: 33.3333%;
+  display: flex;
+  justify-content: center;
+  background-color: #ccc;
+  border: 1px solid black;
+}

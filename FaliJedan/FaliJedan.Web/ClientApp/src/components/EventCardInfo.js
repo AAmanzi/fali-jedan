@@ -1,4 +1,5 @@
 import React from "react";
+import SportIcon from "./SportIcon";
 
 const EventCardInfo = props => {
   const { event } = props;
@@ -13,11 +14,7 @@ const EventCardInfo = props => {
   return (
     <>
       <div className="event__card--panel">
-        <img
-          className="icon--sport"
-          src={`/assets/sports/${event.sport}.jpg`}
-          alt={event.sport}
-        />
+        <SportIcon className="icon--sport" sport={event.sport} />
         <button className="event__card--button">Join</button>
       </div>
       <div className="event__card--content" onClick={e => props.handleClick(e)}>

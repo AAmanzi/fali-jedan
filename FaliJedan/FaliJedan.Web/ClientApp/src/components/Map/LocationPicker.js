@@ -1,61 +1,47 @@
 import React, { Component } from "react";
 import { mapUtils } from "../../utils/map";
-import Loading from "../Loading";
 
 class LocationPicker extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      hasMapLoaded: false,
-      eventLocationFeature: null
+      locationFeature: null
     };
   }
   componentDidMount = () => {
     const ol = mapUtils();
 
-    const currentLocationFeature = ol.newFeature(ol.newMarkerStyle("#f55742", "#fff"));
-    const eventLocationFeature = ol.newFeature(ol.newMarkerStyle("#00baba", "#fff"));
+    let locationFeature = ol.newFeature(ol.newMarkerStyle("#00baba", "#fff"));
 
-    const view = ol.newView([0, 0], 16);
+    if (this.props.coordinates !== null && this.props.displayCurrentLocation) {
+      locationFeature = ol.newMarkerFeature(this.props.coordinates);
+    }
 
-    ol.newGeolocation(
-      view,
-      currentLocationFeature,
-      this.handleCoordinateChange
-    );
+    const coordinates =
+      this.props.coordinates !== null ? this.props.coordinates : [0, 0];
+
+    const view = ol.newView(coordinates, 16);
 
     const map = ol.newMap(this.refs.mapContainer, view);
 
     ol.addClickEventToMap(map, this.handleMapClick);
 
-    ol.newVector(map, [currentLocationFeature, eventLocationFeature]);
+    ol.newVector(map, [locationFeature]);
 
-    this.setState({ eventLocationFeature });
-  };
-
-  handleCoordinateChange = () => {
-    if (!this.state.hasMapLoaded) {
-      this.setState({
-        hasMapLoaded: true
-      });
-    }
+    this.setState({ locationFeature });
   };
 
   handleMapClick = coordinates => {
     const ol = mapUtils();
 
-    ol.addCoordinatesToFeature(this.state.eventLocationFeature, coordinates);
+    ol.addCoordinatesToFeature(this.state.locationFeature, coordinates);
 
     this.props.handleClick(coordinates);
   };
 
   render() {
-    return (
-      <div className="map__container" ref="mapContainer">
-        {this.state.hasMapLoaded ? undefined : <Loading />}
-      </div>
-    );
+    return <div className="map__container" ref="mapContainer" />;
   }
 }
 

@@ -66,47 +66,29 @@ namespace FaliJedan.Domain.Repositories.Implementations
         {
             List<Event> events = new List<Event>();
 
-            if(filters.Sports.Count == 0 && filters.TimeframeStartDate == null)
+            if (filters.Sports.Count == 0)
             {
-                events = _context.Events.Include(e => e.Sport).Include(e => e.EventUsers).ThenInclude(eu => eu.User).ToList();
+                events = GetAllEvents();
             }
-
-            else if(filters.Sports.Count > 0 && filters.TimeframeStartDate == null)
-            {
-                filters.Sports.ForEach(sport => events.AddRange(
-                    _context.Events.Where(
-                        e => e.Sport.Id == sport.Id)
-                    .Include(e => e.Sport).Include(e => e.EventUsers).ThenInclude(eu => eu.User)));
-            }
-
-            else if(filters.TimeframeStartDate != null && filters.Sports.Count == 0)
-            {
-                if(filters.TimeframeEndDate == null)
-                {
-                    events.AddRange(_context.Events.Where(e => e.DateOfEvent >= filters.TimeframeStartDate)
-                        .Include(e => e.Sport).Include(e => e.EventUsers).ThenInclude(eu => eu.User));
-                }
-                else
-                {
-                    events.AddRange(
-                        _context.Events.Where(e => e.DateOfEvent >= filters.TimeframeStartDate && 
-                        e.DateOfEvent <= filters.TimeframeEndDate)
-                        .Include(e => e.Sport).Include(e => e.EventUsers).ThenInclude(eu => eu.User));
-                }
-            }
-
             else
             {
                 filters.Sports.ForEach(sport => events.AddRange(
                     _context.Events.Where(
-                        e => e.Sport.Name == sport.Name && 
-                        e.DateOfEvent.Date >= filters.TimeframeStartDate.Date &&
-                        e.DateOfEvent.Date <= filters.TimeframeEndDate)
-                    .Include(e => e.Sport).Include(e => e.EventUsers).ThenInclude(eu => eu.User)));
-
+                        e => e.Sport.Id == sport.Id)
+                    .Include(e => e.Sport)
+                    .Include(e => e.EventUsers)
+                    .ThenInclude(eu => eu.User).ToList()));
             }
 
-            if(filters.CurrentLatitude != null && filters.CurrentLongitude != null)
+            if (filters.TimeframeStartDate != null) {
+                events = events.Where(e => e.DateOfEvent >= filters.TimeframeStartDate).ToList();
+            }
+            if (filters.TimeframeEndDate != null)
+            {
+                events = events.Where(e => e.DateOfEvent <= filters.TimeframeEndDate).ToList();
+            }
+
+            if (filters.CurrentLatitude != null && filters.CurrentLongitude != null)
             {
                 events.OrderBy(e => e.DateOfEvent)
                 .ThenBy(e => Math.Sqrt(
@@ -116,7 +98,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
             }
             else
             {
-                events.OrderBy(e => e.DateOfEvent);
+                events.OrderBy(e => e.DateOfEvent).ThenBy(e => e.StartTime);
             }
 
 

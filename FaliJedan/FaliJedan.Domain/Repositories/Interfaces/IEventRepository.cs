@@ -16,5 +16,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
         bool DeleteEventById(Guid id);
 
         Event GetEventById(Guid id);
+
+        List<Event> GetFilteredEvents(EventFilterDTO filters);
     }
 }

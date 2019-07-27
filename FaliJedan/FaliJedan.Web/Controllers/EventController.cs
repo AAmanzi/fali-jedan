@@ -52,5 +52,14 @@ namespace FaliJedan.Web.Controllers
                 return Ok(eventById);
             return NotFound();
         }
+
+        [HttpGet("filtered")]
+        public IActionResult GetFilteredEvents(EventFilterDTO filters)
+        {
+            var filteredEvents = _eventRepository.GetFilteredEvents(filters);
+            if (filteredEvents.Count > 0)
+                return Ok(filteredEvents);
+            return NotFound();
+        }
     }
 }

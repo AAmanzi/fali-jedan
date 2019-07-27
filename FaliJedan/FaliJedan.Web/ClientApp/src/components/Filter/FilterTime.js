@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getDateNow } from "../../utils/common";
+import { getDateNow } from "../../utils/dateFormatting";
 
 class FilterTime extends Component {
   constructor(props) {

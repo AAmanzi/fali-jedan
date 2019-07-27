@@ -21,3 +21,10 @@ export const getEventById = async id => {
     .then(response => response.data)
     .catch(exception => exception);
 };
+
+export const getAvailableEvents = async () => {
+  return api
+    .getAll(CONTROLLER.event)
+    .then(response => response.data)
+    .catch(exception => exception);
+};

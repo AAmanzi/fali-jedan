@@ -14,7 +14,7 @@ const EventCardInfo = props => {
   return (
     <>
       <div className="event__card--panel">
-        <SportIcon className="icon--sport" sport={event.sport} />
+        <SportIcon className="icon--sport" sport={event.sport.name} />
         <button className="event__card--button">Join</button>
       </div>
       <div className="event__card--content" onClick={e => props.handleClick(e)}>

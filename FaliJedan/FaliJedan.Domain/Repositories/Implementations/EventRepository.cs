@@ -27,9 +27,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 eventToAdd.TargetNumberOfPlayers > eventToAdd.CurrentNumberOfPlayers ||
                 eventToAdd.DateOfEvent.Date < DateTime.Now.Date ||
                 eventToAdd.StartTime == null || 
-                eventToAdd.StartTime <= eventToAdd.EndTime ||
-                eventToAdd.LocationLongitude == null || 
-                eventToAdd.LocationLatitude == null
+                eventToAdd.StartTime <= eventToAdd.EndTime
                 )
                 return false;
 
@@ -64,7 +62,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 .ForEach(
                     e => {
                         if (((e.DateOfEvent == DateTime.Now.Date &&
-                        e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay)
+                        e.EndTime == null ? true : (e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay))
                         || e.DateOfEvent > DateTime.Now.Date) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers) {
                         availableEvents.Add(new EventHostDTO(e, _context));            
@@ -90,7 +88,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .ThenInclude(eu => eu.User)
                     .Where(
                     e => ((e.DateOfEvent == DateTime.Now.Date &&
-                        e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay) 
+                        e.EndTime == null ? true : (e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay))
                         || e.DateOfEvent > DateTime.Now.Date) && 
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .ToList();
@@ -103,7 +101,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                         e => 
                         e.Sport.Id == sport.Id && 
                         ((e.DateOfEvent == DateTime.Now.Date &&
-                        e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay)
+                        e.EndTime == null ? true : (e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay))
                         || e.DateOfEvent > DateTime.Now.Date) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .Include(e => e.Sport)

@@ -9,12 +9,14 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 {
     public interface IEventRepository
     {
-        List<Event> GetAllEvents();
+        List<EventHostDTO> GetAvailableEvents();
 
         bool AddEvent(Event eventToAdd);
 
         bool DeleteEventById(Guid id);
 
         Event GetEventById(Guid id);
+
+        List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters);
     }
 }

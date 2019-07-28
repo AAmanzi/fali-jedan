@@ -46,35 +46,66 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         public bool DeleteEventById(Guid id)
         {
-            var eventToDelete = _context.Events.FirstOrDefault(e => e.Id == id);
+            var eventToDelete = _context.Events.Find(id);
             if (eventToDelete == null)
                 return false;
             return true;
         }
 
-        public List<Event> GetAllEvents()
+        public List<EventHostDTO> GetAvailableEvents()
         {
-            return _context.Events.Include(e => e.Sport).Include(e => e.EventUsers).ThenInclude(eu => eu.User).ToList();
+            var availableEvents = new List<EventHostDTO>();
+
+            _context.Events
+                .Include(e => e.Sport)
+                .Include(e => e.EventUsers)
+                .ThenInclude(eu => eu.User)
+                .ToList()
+                .ForEach(
+                    e => {
+                        if (((e.DateOfEvent == DateTime.Now.Date &&
+                        e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay)
+                        || e.DateOfEvent > DateTime.Now.Date) &&
+                        e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers) {
+                        availableEvents.Add(new EventHostDTO(e, _context));            
+                    }}
+            );
+            return availableEvents;
         }
 
         public Event GetEventById(Guid id)
         {
-            return _context.Events.FirstOrDefault(e => e.Id == id);
+            return _context.Events.Find(id);
         }
 
-        public List<Event> GetFilteredEvents(EventFilterDTO filters)
+        public List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters)
         {
             List<Event> events = new List<Event>();
 
             if (filters.Sports.Count == 0)
             {
-                events = GetAllEvents();
+                events = _context.Events
+                    .Include(e => e.Sport)
+                    .Include(e => e.EventUsers)
+                    .ThenInclude(eu => eu.User)
+                    .Where(
+                    e => ((e.DateOfEvent == DateTime.Now.Date &&
+                        e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay) 
+                        || e.DateOfEvent > DateTime.Now.Date) && 
+                        e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
+                    .ToList();
             }
             else
             {
                 filters.Sports.ForEach(sport => events.AddRange(
-                    _context.Events.Where(
-                        e => e.Sport.Id == sport.Id)
+                    _context.Events
+                    .Where(
+                        e => 
+                        e.Sport.Id == sport.Id && 
+                        ((e.DateOfEvent == DateTime.Now.Date &&
+                        e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay)
+                        || e.DateOfEvent > DateTime.Now.Date) &&
+                        e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .Include(e => e.Sport)
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User).ToList()));
@@ -96,13 +127,19 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     Math.Pow(filters.CurrentLongitude.Value - e.LocationLongitude, 2)
                 ));
             }
+
             else
             {
                 events.OrderBy(e => e.DateOfEvent).ThenBy(e => e.StartTime);
             }
 
+            var eventHosts = new List<EventHostDTO>();
 
-            return events;
+            events.ForEach(e => {
+                eventHosts.Add(new EventHostDTO(e, _context));
+            });
+
+            return eventHosts;
         }
     }
 }

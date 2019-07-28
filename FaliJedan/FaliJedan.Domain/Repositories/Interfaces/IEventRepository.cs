@@ -9,7 +9,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 {
     public interface IEventRepository
     {
-        List<Event> GetAllEvents();
+        List<EventHostDTO> GetAvailableEvents();
 
         bool AddEvent(Event eventToAdd);
 
@@ -17,6 +17,6 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         Event GetEventById(Guid id);
 
-        List<Event> GetFilteredEvents(EventFilterDTO filters);
+        List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters);
     }
 }

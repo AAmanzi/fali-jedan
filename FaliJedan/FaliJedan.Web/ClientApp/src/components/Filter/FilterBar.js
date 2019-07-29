@@ -88,6 +88,7 @@ class FilterBar extends Component {
         )}
         {this.state.selectedFilter === FILTER.sport ? (
           <FilterSport
+            allSports={this.props.allSports}
             selectedSports={this.props.selectedSports}
             handleApply={this.props.handleAddSport}
           />

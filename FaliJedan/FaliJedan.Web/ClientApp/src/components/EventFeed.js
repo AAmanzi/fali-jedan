@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Loading from "./Loading";
 import FilterBar from "./Filter/FilterBar";
 import { getAvailableEvents } from "../services/event";
+import { getAllSports } from "../services/sport";
 import { eventDto } from "../utils/event";
 
 class EventFeed extends Component {
@@ -12,6 +13,7 @@ class EventFeed extends Component {
 
     this.state = {
       eventList: null,
+      allSports: null,
       selectedSports: [],
       timeframeStartDate: null,
       timeframeEndDate: null
@@ -20,8 +22,12 @@ class EventFeed extends Component {
 
   componentDidMount = () => {
     getAvailableEvents().then(availableEvents => {
-      const eventList = availableEvents.map(event => eventDto(event));
+      const eventList = availableEvents.map(element => eventDto(element));
       this.setState({ eventList });
+    });
+
+    getAllSports().then(allSports => {
+      this.setState({ allSports });
     });
   };
 
@@ -55,13 +61,14 @@ class EventFeed extends Component {
   };
 
   render() {
-    if (this.state.eventList === null) {
+    if (this.state.eventList === null || this.state.allSports === null) {
       return <Loading />;
     }
 
     return (
       <>
         <FilterBar
+          allSports={this.state.allSports}
           coordinates={this.props.currentCoordinates}
           selectedSports={this.state.selectedSports}
           handleSetLocation={this.props.handleLocationFilterChange}

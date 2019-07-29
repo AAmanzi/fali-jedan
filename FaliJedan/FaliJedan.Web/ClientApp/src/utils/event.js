@@ -31,17 +31,17 @@ export const newEvent = (
   };
 };
 
-export const eventDto = event => {
+export const eventDto = dto => {
   return {
-    sport: event.sport,
-    // host: event.hostName,
-    dateOfEvent: dateFormat.getDate(event.dateOfEvent),
-    startTime: dateFormat.getTime(event.startTime),
-    endTime: dateFormat.getTime(event.endTime),
-    currentPlayers: event.currentNumberOfPlayers,
-    targetPlayers: event.targetNumberOfPlayers,
-    coordinates: [event.locationLatitude, event.locationLongitude],
-    description: event.description,
-    targetSkillLevel: event.targetSkillLevel
+    sport: dto.event.sport,
+    host: dto.host,
+    dateOfEvent: dateFormat.getDate(dto.event.dateOfEvent),
+    startTime: dateFormat.getTime(dto.event.startTime),
+    endTime: dateFormat.getTime(dto.event.endTime),
+    currentPlayers: dto.event.currentNumberOfPlayers,
+    targetPlayers: dto.event.targetNumberOfPlayers,
+    coordinates: [dto.event.locationLatitude, dto.event.locationLongitude],
+    description: dto.event.description,
+    targetSkillLevel: dto.event.targetSkillLevel
   };
 };

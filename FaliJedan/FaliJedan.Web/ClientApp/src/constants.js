@@ -4,7 +4,8 @@ export const RIGHT = "right";
 export const API_ROUTE = "/api";
 
 export const CONTROLLER = {
-  event: "events"
+  event: "events",
+  sport: "sports"
 };
 
 export const FILTER = {

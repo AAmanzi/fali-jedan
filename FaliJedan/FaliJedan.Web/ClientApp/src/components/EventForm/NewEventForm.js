@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { newEvent, isEventValid } from "../../utils/event";
 import { addEvent } from "../../services/event";
+import { getAllSports } from "../../services/sport";
 
 import Loading from "../Loading";
 import Navbar from "../Navbar";
@@ -15,7 +16,8 @@ class NewEventForm extends Component {
 
     this.state = {
       sportList: null,
-      sport: "",
+      sport: undefined,
+      sportId: null,
       currentNumberOfPlayers: "",
       targetNumberOfPlayers: "",
       targetSkillLevel: 0,
@@ -32,12 +34,23 @@ class NewEventForm extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ sportList: ["default", "default", "default", "default"] });
+    getAllSports().then(sportList => {
+      this.setState({ sportList });
+    });
   };
 
   handleSportChange = event => {
     const sportListInput = document.eventForm.toggleSportList;
     sportListInput.checked = false;
+
+    const selectedId = parseInt(event.target.value);
+
+    const sport = this.state.sportList.find(sp => {
+      return sp.id === selectedId;
+    });
+    this.setState({
+      sport
+    });
 
     this.handleInputChange(event);
   };
@@ -63,7 +76,7 @@ class NewEventForm extends Component {
 
   handleSubmit = () => {
     const eventToAdd = newEvent(
-      1,
+      this.state.sportId,
       this.state.currentNumberOfPlayers,
       this.state.targetNumberOfPlayers,
       this.state.targetSkillLevel,
@@ -118,7 +131,7 @@ class NewEventForm extends Component {
               htmlFor="toggleSportList"
               className="event__form--label-sport"
             >
-              {sport === "" ? "Sport" : sport}
+              {sport === undefined ? "Sport" : sport.name}
             </label>
             <input
               type="checkbox"
@@ -131,12 +144,12 @@ class NewEventForm extends Component {
                   <label>
                     <input
                       type="radio"
-                      name="sport"
+                      name="sportId"
                       id="sportRadio"
-                      value={sport}
+                      value={sport.id}
                       onChange={this.handleSportChange}
                     />
-                    <SportIcon className="icon--sport" sport={sport} />
+                    <SportIcon className="icon--sport" sport={sport.name} />
                   </label>
                 </li>
               ))}

@@ -23,7 +23,7 @@ namespace FaliJedan.Web.Controllers
         [HttpGet("all")]
         public IActionResult GetAllEvents()
         {
-            return Ok(_eventRepository.GetAllEvents());
+            return Ok(_eventRepository.GetAvailableEvents());
         }
 
         [HttpPost("add")]
@@ -50,6 +50,15 @@ namespace FaliJedan.Web.Controllers
             var eventById = _eventRepository.GetEventById(id);
             if (eventById != null)
                 return Ok(eventById);
+            return NotFound();
+        }
+
+        [HttpGet("filtered")]
+        public IActionResult GetFilteredEvents(EventFilterDTO filters)
+        {
+            var filteredEvents = _eventRepository.GetFilteredEvents(filters);
+            if (filteredEvents.Count > 0)
+                return Ok(filteredEvents);
             return NotFound();
         }
     }

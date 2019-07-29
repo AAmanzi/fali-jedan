@@ -31,8 +31,8 @@ namespace FaliJedan.Web
                 options.UseSqlServer(Configuration.GetConnectionString("FaliJedanContext")));
 
             services.AddScoped<IEventRepository, EventRepository>();
-            //services.AddScoped<IRegisterRepository, RegisterRepository>();
-            //services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISportRepository, SportRepository>();
             //services.AddScoped<IReceiptRepository, ReceiptRepository>();
 
             services.AddMvc().AddJsonOptions(options =>

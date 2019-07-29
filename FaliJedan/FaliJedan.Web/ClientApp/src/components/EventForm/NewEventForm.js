@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { newEvent, isEventValid } from "../../utils/event";
 import { addEvent } from "../../services/event";
 
@@ -6,6 +7,7 @@ import Loading from "../Loading";
 import Navbar from "../Navbar";
 import LocationPicker from "../Map/LocationPicker";
 import SportIcon from "../SportIcon";
+import PostMessage from "./PostMessage";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -22,7 +24,10 @@ class NewEventForm extends Component {
       startTime: "",
       endTime: "",
       locationLatitude: null,
-      locationLongitude: null
+      locationLongitude: null,
+
+      isPostSuccessful: null,
+      redirect: false
     };
   }
 
@@ -75,13 +80,35 @@ class NewEventForm extends Component {
     }
 
     addEvent(eventToAdd)
-      .then(response => response)
-      .catch(exception => exception);
+      .then(response => {
+        this.displaySuccess();
+        return response;
+      })
+      .catch(exception => {
+        this.displayError();
+        return exception;
+      });
+  };
+
+  displaySuccess = () => {
+    this.setState({ isPostSuccessful: true });
+  };
+
+  displayError = () => {
+    this.setState({ isPostSuccessful: false });
+  };
+
+  redirectToFeed = () => {
+    this.setState({ redirect: true });
   };
 
   render() {
-    if (this.state.sportList === null) {
+    const { sport, sportList, isPostSuccessful, redirect } = this.state;
+    if (sportList === null) {
       return <Loading />;
+    }
+    if (redirect) {
+      return <Redirect to="/feed" />;
     }
     return (
       <>
@@ -91,7 +118,7 @@ class NewEventForm extends Component {
               htmlFor="toggleSportList"
               className="event__form--label-sport"
             >
-              {this.state.sport === "" ? "Sport" : this.state.sport}
+              {sport === "" ? "Sport" : sport}
             </label>
             <input
               type="checkbox"
@@ -99,7 +126,7 @@ class NewEventForm extends Component {
               id="toggleSportList"
             />
             <ul className="event__form--list-sport">
-              {this.state.sportList.map((sport, index) => (
+              {sportList.map((sport, index) => (
                 <li key={index}>
                   <label>
                     <input
@@ -211,6 +238,15 @@ class NewEventForm extends Component {
           <button onClick={this.handleSubmit}>Submit</button>
         </div>
         <Navbar />
+
+        {isPostSuccessful !== null ? (
+          <PostMessage
+            isPostSuccessful={isPostSuccessful}
+            onClose={this.redirectToFeed}
+          />
+        ) : (
+          undefined
+        )}
       </>
     );
   }

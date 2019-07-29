@@ -322,3 +322,25 @@ ul {
   border: 1px solid black;
   cursor: pointer;
 }
+
+/* modal */
+
+.modal__cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  background-color: #453d3d77;
+}
+
+.modal__content {
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  background-color: #fff;
+}

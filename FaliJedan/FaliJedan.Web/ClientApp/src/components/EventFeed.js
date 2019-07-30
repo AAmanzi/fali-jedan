@@ -6,6 +6,7 @@ import FilterBar from "./Filter/FilterBar";
 import { getAvailableEvents, getFilteredEvents } from "../services/event";
 import { getAllSports } from "../services/sport";
 import { eventDto } from "../utils/event";
+import { getDateNow } from "../utils/dateFormatting";
 
 class EventFeed extends Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class EventFeed extends Component {
       eventList: null,
       allSports: null,
       selectedSports: [],
-      timeframeStartDate: null,
-      timeframeEndDate: null
+      timeframeStartDate: "",
+      timeframeEndDate: ""
     };
   }
 
@@ -29,12 +30,18 @@ class EventFeed extends Component {
     getAllSports().then(allSports => {
       this.setState({ allSports });
     });
+
+    this.setState({
+      timeframeStartDate: getDateNow()
+    });
   };
 
-  setTimeframe = (timeframeStartDate, timeframeEndDate) => {
+  handleInputChange = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+
     this.setState({
-      timeframeStartDate,
-      timeframeEndDate
+      [name]: value
     });
   };
 
@@ -63,7 +70,7 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
-      console.log(filteredEvents)
+      console.log(filteredEvents);
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
     });
@@ -80,9 +87,11 @@ class EventFeed extends Component {
           allSports={this.state.allSports}
           coordinates={this.props.currentCoordinates}
           selectedSports={this.state.selectedSports}
+          timeframeStartDate={this.state.timeframeStartDate}
+          timeframeEndDate={this.state.timeframeEndDate}
           handleSetLocation={this.props.handleLocationFilterChange}
           handleResetLocation={this.props.handleLocationFilterReset}
-          handleSetTimeframe={this.setTimeframe}
+          handleTimeChange={this.handleInputChange}
           handleAddSport={this.addSport}
           applyFilters={this.applyFilters}
         />

@@ -34,8 +34,7 @@ class FilterBar extends Component {
     this.props.applyFilters();
   };
 
-  handleSetTimeframe = (dateFrom, dateTo) => {
-    this.props.handleSetTimeframe(dateFrom, dateTo);
+  handleSetTimeframe = () => {
     this.props.applyFilters();
     this.resetSelectedFilter();
   };
@@ -96,7 +95,10 @@ class FilterBar extends Component {
           undefined
         )}
         {this.state.selectedFilter === FILTER.time ? (
-          <FilterTime handleApply={this.handleSetTimeframe} />
+          <FilterTime handleApply={this.handleSetTimeframe}
+          dateFrom={this.props.timeframeStartDate}
+          dateTo={this.props.timeframeEndDate}
+          handleInputChange={this.props.handleTimeChange} />
         ) : (
           undefined
         )}

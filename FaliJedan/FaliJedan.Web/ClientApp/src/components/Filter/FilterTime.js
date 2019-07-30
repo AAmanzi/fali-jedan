@@ -1,60 +1,29 @@
-import React, { Component } from "react";
-import { getDateNow } from "../../utils/dateFormatting";
+import React from "react";
 
-class FilterTime extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dateFrom: "",
-      dateTo: ""
-    };
-  }
-
-  componentDidMount = () => {
-    this.setState({
-      dateFrom: getDateNow()
-    });
-  };
-
-  handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
-
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleApply = () => {
-    this.props.handleApply(this.state.dateFrom, this.state.dateTo);
-  };
-
-  render() {
+const FilterTime = props => {
     return (
       <section className="filter__time">
         <label>
           From:
           <input
             type="date"
-            value={this.state.dateFrom}
-            name="dateFrom"
-            onChange={this.handleInputChange}
+            value={props.dateFrom}
+            name="timeframeStartDate"
+            onChange={props.handleInputChange}
           />
         </label>
         <label>
           To:
           <input
             type="date"
-            value={this.state.dateTo}
-            name="dateTo"
-            onChange={this.handleInputChange}
+            value={props.dateTo}
+            name="timeframeEndDate"
+            onChange={props.handleInputChange}
           />
         </label>
-        <button onClick={this.handleApply}>Apply</button>
+        <button onClick={props.handleApply}>Apply</button>
       </section>
     );
-  }
 }
 
 export default FilterTime;

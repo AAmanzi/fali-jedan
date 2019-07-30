@@ -62,8 +62,11 @@ class EventFeed extends Component {
       timeframeEndDate: this.state.timeframeEndDate,
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
-    }).then(events => console.log(events));
-    console.log("filter events");
+    }).then(filteredEvents => {
+      console.log(filteredEvents)
+      const eventList = filteredEvents.map(element => eventDto(element));
+      this.setState({ eventList });
+    });
   };
 
   render() {

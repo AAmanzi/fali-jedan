@@ -4,6 +4,7 @@ import EventFeed from "./components/EventFeed";
 import NewEventForm from "./components/EventForm/NewEventForm";
 import "./App.css";
 import { mapUtils } from "./utils/map";
+import LoginScreen from "./components/Login/LoginScreen";
 
 const ol = mapUtils();
 
@@ -75,7 +76,7 @@ export default class App extends Component {
               <NewEventForm currentCoordinates={currentCoordinates} />
             )}
           />
-
+          <Route exact path="/login" render={() => <LoginScreen />} />
           <Redirect to="/feed" />
         </Switch>
       </BrowserRouter>

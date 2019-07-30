@@ -35,6 +35,9 @@ export default class App extends Component {
   };
 
   resetLocation = () => {
+    if (this.state.geolocation.position_ === null) {
+      return;
+    }
     const convertedCoordinates = ol.convertToWebMercator(
       parseFloat(this.state.geolocation.position_[0]),
       parseFloat(this.state.geolocation.position_[1])

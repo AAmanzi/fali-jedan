@@ -3,7 +3,7 @@ import EventCard from "./EventCard";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
 import FilterBar from "./Filter/FilterBar";
-import { getAvailableEvents } from "../services/event";
+import { getAvailableEvents, getFilteredEvents } from "../services/event";
 import { getAllSports } from "../services/sport";
 import { eventDto } from "../utils/event";
 
@@ -56,7 +56,13 @@ class EventFeed extends Component {
   };
 
   applyFilters = () => {
-    // TODO: get filtered events
+    getFilteredEvents({
+      sports: this.state.selectedSports,
+      timeframeStartDate: this.state.timeframeStartDate,
+      timeframeEndDate: this.state.timeframeEndDate,
+      currentLatitude: this.props.currentCoordinates[0],
+      currentLongitude: this.props.currentCoordinates[1]
+    }).then(events => console.log(events));
     console.log("filter events");
   };
 

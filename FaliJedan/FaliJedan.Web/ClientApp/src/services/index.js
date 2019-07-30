@@ -5,9 +5,12 @@ export const getAll = controller => {
   return axios.get(`${API_ROUTE}/${controller}/all`);
 };
 
-export const getFiltered = (controller, params) => {
-  return axios.get(`${API_ROUTE}/${controller}/filtered`, {
-    params
+export const getFiltered = (controller, filters) => {
+  //NE MOGU.
+  return axios.post(`${API_ROUTE}/${controller}/filtered`, {
+    params: {
+      filters
+    }
   });
 };
 

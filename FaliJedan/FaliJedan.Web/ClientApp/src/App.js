@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import EventFeed from "./components/EventFeed";
+import EventFeed from "./components/EventFeed/EventFeed";
 import NewEventForm from "./components/EventForm/NewEventForm";
 import "./App.css";
 import { mapUtils } from "./utils/map";

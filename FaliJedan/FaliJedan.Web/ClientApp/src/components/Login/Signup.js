@@ -33,13 +33,13 @@ class Signup extends Component {
         <form className="form-login">
           <h1>Create Account</h1>
           <div className="social-container">
-            <a className="social">
+            <a href="/" className="social">
               <i className="fab fa-facebook-f" />
             </a>
-            <a className="social">
+            <a href="/" className="social">
               <i className="fab fa-google-plus-g" />
             </a>
-            <a className="social">
+            <a href="/" className="social">
               <i className="fab fa-linkedin-in" />
             </a>
           </div>

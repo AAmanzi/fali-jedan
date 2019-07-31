@@ -29,13 +29,13 @@ class Login extends Component {
         <form className="form-login">
           <h1>Log in</h1>
           <div className="social-container">
-            <a className="social">
+            <a href="/" className="social">
               <i className="fab fa-facebook-f" />
             </a>
-            <a className="social">
+            <a href="/" className="social">
               <i className="fab fa-google-plus-g" />
             </a>
-            <a className="social">
+            <a href="/" className="social">
               <i className="fab fa-linkedin-in" />
             </a>
           </div>
@@ -54,7 +54,7 @@ class Login extends Component {
             placeholder="Password"
             onChange={this.handleInputChange}
           />
-          <a href="#">Forgot your password?</a>
+          <a href="/">Forgot your password?</a>
         </form>
         <button className="button-login" onClick={this.handleLogin}>
           Log In

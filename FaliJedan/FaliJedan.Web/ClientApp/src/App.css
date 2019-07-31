@@ -177,12 +177,14 @@ ul {
 
 /* Event form skill level */
 
-.event__form--rating--container {
+.event__form--rating--container,
+.user__rating--input--container {
   display: flex;
   align-items: center;
 }
 
-.event__form--rating {
+.event__form--rating,
+.user__rating--input {
   display: inline-block;
   position: relative;
   height: 50px;
@@ -190,7 +192,8 @@ ul {
   font-size: 30px;
 }
 
-.event__form--rating label {
+.event__form--rating label,
+.user__rating--input label {
   position: absolute;
   top: 0;
   left: 0;
@@ -198,23 +201,36 @@ ul {
   cursor: pointer;
 }
 
-.event__form--rating label:last-child {
+.event__form--rating label:last-child,
+.user__rating--input label:last-child {
   position: static;
 }
 
-.event__form--rating label:nth-child(1) {
+.event__form--rating label:nth-child(1),
+.user__rating--input label:nth-child(1) {
+  z-index: 5;
+}
+
+.event__form--rating label:nth-child(2),
+.user__rating--input label:nth-child(2) {
+  z-index: 4;
+}
+
+.event__form--rating label:nth-child(3),
+.user__rating--input label:nth-child(3) {
   z-index: 3;
 }
 
-.event__form--rating label:nth-child(2) {
+.user__rating--input label:nth-child(4) {
   z-index: 2;
 }
 
-.event__form--rating label:nth-child(3) {
+.user__rating--input label:nth-child(5) {
   z-index: 1;
 }
 
 .event__form--rating label input,
+.user__rating--input label input,
 .event__form--list-sport li input {
   position: absolute;
   top: 0;
@@ -222,21 +238,26 @@ ul {
   opacity: 0;
 }
 
-.event__form--rating label .icon--rating {
+.event__form--rating label .icon--rating,
+.user__rating--input label .icon--rating {
   float: left;
   color: transparent;
 }
 
-.event__form--rating label:last-child .icon--rating {
+.event__form--rating label:last-child .icon--rating,
+.user__rating--input label:last-child .icon--rating {
   color: #000;
 }
 
 .event__form--rating:not(:hover) label input:checked ~ .icon--rating,
-.event__form--rating:hover label:hover input ~ .icon--rating {
+.user__rating--input:not(:hover) label input:checked ~ .icon--rating,
+.event__form--rating:hover label:hover input ~ .icon--rating,
+.user__rating--input:hover label:hover input ~ .icon--rating {
   color: #2196f3;
 }
 
-.event__form--rating
+.event__form--rating label input:focus:not(:checked) ~ .icon--rating:last-child,
+.user__rating--input
   label
   input:focus:not(:checked)
   ~ .icon--rating:last-child {

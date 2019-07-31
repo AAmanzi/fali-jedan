@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import EventCard from "./EventCard";
-import Navbar from "./Navbar";
-import Loading from "./Loading";
-import FilterBar from "./Filter/FilterBar";
-import { getAvailableEvents, getFilteredEvents } from "../services/event";
-import { getAllSports } from "../services/sport";
-import { eventDto } from "../utils/event";
-import { getDateNow } from "../utils/dateFormatting";
+import EventCard from "../EventCard";
+import Navbar from "../Navbar";
+import Loading from "../Loading";
+import FilterBar from "../Filter/FilterBar";
+import { getAvailableEvents, getFilteredEvents } from "../../services/event";
+import { getAllSports } from "../../services/sport";
+import { eventDto } from "../../utils/event";
+import { getDateNow } from "../../utils/dateFormatting";
+import UserRating from "./UserRating";
 
 class EventFeed extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class EventFeed extends Component {
       allSports: null,
       selectedSports: [],
       timeframeStartDate: "",
-      timeframeEndDate: ""
+      timeframeEndDate: "",
+      usersToRate: null
     };
   }
 
@@ -32,8 +34,16 @@ class EventFeed extends Component {
     });
 
     this.setState({
-      timeframeStartDate: getDateNow()
+      timeframeStartDate: getDateNow(),
+      usersToRate: [
+        { username: "1" },
+        { username: "2" },
+        { username: "3" },
+        { username: "4" }
+      ]
     });
+
+    // TODO: load usersToRate
   };
 
   handleInputChange = event => {
@@ -70,9 +80,14 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
-      console.log(filteredEvents);
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
+    });
+  };
+
+  handleResetUsersToRate = () => {
+    this.setState({
+      usersToRate: null
     });
   };
 
@@ -101,6 +116,15 @@ class EventFeed extends Component {
             <EventCard key={index} event={event} />
           ))}
         </ul>
+
+        {this.state.usersToRate !== null ? (
+          <UserRating
+            users={this.state.usersToRate}
+            onAfterRating={this.handleResetUsersToRate}
+          />
+        ) : (
+          undefined
+        )}
 
         <Navbar />
       </>

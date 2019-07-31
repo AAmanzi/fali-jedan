@@ -1,7 +1,58 @@
 import * as dateFormat from "./dateFormatting";
 
 export const isEventValid = event => {
-  // TODO
+  const {
+    sportId,
+    currentNumberOfPlayers,
+    targetNumberOfPlayers,
+    dateOfEvent,
+    startTime,
+    endTime,
+    locationLatitude,
+    locationLongitude
+  } = event;
+
+  const dateNow = dateFormat.getDateNow();
+  const timeNow = dateFormat.getTime(new Date());
+
+  console.log(event);
+
+  if (sportId === null) {
+    return false;
+  }
+
+  if (!/^\d+$/.test(currentNumberOfPlayers)) {
+    return false;
+  }
+
+  if (!/^\d+$/.test(targetNumberOfPlayers)) {
+    return false;
+  }
+
+  if (currentNumberOfPlayers > targetNumberOfPlayers) {
+    return false;
+  }
+
+  if (dateOfEvent < dateNow) {
+    return false;
+  }
+
+  if (dateOfEvent === dateNow && startTime < timeNow) {
+    return false;
+  }
+
+  if (startTime === "" || endTime === "") {
+    return false;
+  }
+
+  if (startTime >= endTime) {
+    return false;
+  }
+
+  if (locationLatitude === null || locationLongitude === null) {
+    return false;
+  }
+
   return true;
 };
 

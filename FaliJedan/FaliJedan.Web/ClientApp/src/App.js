@@ -5,6 +5,7 @@ import NewEventForm from "./components/EventForm/NewEventForm";
 import "./App.css";
 import { mapUtils } from "./utils/map";
 import LoginScreen from "./components/Login/LoginScreen";
+import NotificationScreen from "./components/Notifications/NotificationScreen";
 
 const ol = mapUtils();
 
@@ -75,6 +76,11 @@ export default class App extends Component {
             render={() => (
               <NewEventForm currentCoordinates={currentCoordinates} />
             )}
+          />
+          <Route
+            exact
+            path="/notifications"
+            render={() => <NotificationScreen />}
           />
           <Route exact path="/login" render={() => <LoginScreen />} />
           <Redirect to="/feed" />

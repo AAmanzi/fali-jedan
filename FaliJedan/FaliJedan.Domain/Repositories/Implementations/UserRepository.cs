@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CashRegister.Data.Helpers;
 using FaliJedan.Data.Entities;
 using FaliJedan.Data.Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
             _context = context;
         }
 
-        public FaliJedanContext _context { get; set; }
+        private FaliJedanContext _context { get; set; }
 
         public bool AddUser(User userToAdd)
         {
@@ -24,6 +25,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
             if (doesUserExist)
                 return false;
 
+            userToAdd.Password = HashHelper.Hash(userToAdd.Password);
             _context.Users.Add(userToAdd);
             _context.SaveChanges();
             return true;

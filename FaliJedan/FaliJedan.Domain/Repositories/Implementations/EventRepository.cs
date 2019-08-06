@@ -17,29 +17,39 @@ namespace FaliJedan.Domain.Repositories.Implementations
             _context = context;
         }
 
-        public FaliJedanContext _context { get; set; }
+        private FaliJedanContext _context { get; set; }
 
-        public bool AddEvent(Event eventToAdd)
+        public Guid? AddEvent(Event eventToAdd)
         {
             if (
                 eventToAdd.CurrentNumberOfPlayers < 1 || 
                 eventToAdd.TargetNumberOfPlayers < 2 ||
-                eventToAdd.TargetNumberOfPlayers > eventToAdd.CurrentNumberOfPlayers ||
-                eventToAdd.DateOfEvent.Date < DateTime.Now.Date ||
-                eventToAdd.StartTime == null || 
-                eventToAdd.StartTime <= eventToAdd.EndTime
+                eventToAdd.TargetNumberOfPlayers <= eventToAdd.CurrentNumberOfPlayers ||
+                eventToAdd.EventStart <= eventToAdd.EventEnd ||
+                eventToAdd.EventStart > DateTime.Now
                 )
-                return false;
+                return null;
 
             var doesEventExist = _context.Events.Any(e => e.Id == eventToAdd.Id);
             if (doesEventExist)
-                return false;
+                return null;
+
+            _context.EventUsers.Add(new EventUser
+            {
+                //User = userToAdd,
+                //UserId = userToAdd.Id,
+                Event = eventToAdd,
+                EventId = eventToAdd.Id,
+                IsApproved = eventToAdd.IsInstantJoin ? true : false,
+                IsCanceled = false,
+                IsHost = false
+            });
 
             eventToAdd.Sport = _context.Sports.Find(eventToAdd.SportId);
             eventToAdd.DateCreated = DateTime.Now;
             _context.Events.Add(eventToAdd);
             _context.SaveChanges();
-            return true;
+            return eventToAdd.Id;
         }
 
         public bool DeleteEventById(Guid id)
@@ -61,9 +71,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 .ToList()
                 .ForEach(
                     e => {
-                        if (((e.DateOfEvent == DateTime.Now.Date &&
-                        e.EndTime == null ? true : (e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay))
-                        || e.DateOfEvent > DateTime.Now.Date) &&
+                        if (DateTime.Compare(e.EventEnd, DateTime.Now) > 0  &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers) {
                         availableEvents.Add(new EventHostDTO(e, _context));            
                     }}
@@ -74,6 +82,19 @@ namespace FaliJedan.Domain.Repositories.Implementations
         public Event GetEventById(Guid id)
         {
             return _context.Events.Find(id);
+        }
+
+        public List<Event> GetEventsByUserId(Guid userId)
+        {
+            return _context.EventUsers.Where(
+                eu => 
+                eu.UserId == userId && 
+                !eu.IsCanceled && 
+                DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0)
+                .Select(eu => eu.Event)
+                .Include(e => e.Sport)
+                .Include(e => e.EventUsers)
+                .ThenInclude(eu => eu.User).ToList();
         }
 
         public List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters)
@@ -87,10 +108,8 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User)
                     .Where(
-                    e => ((e.DateOfEvent == DateTime.Now.Date &&
-                        e.EndTime == null ? true : (e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay))
-                        || e.DateOfEvent > DateTime.Now.Date) && 
-                        e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
+                    e => (DateTime.Compare(e.EventEnd, DateTime.Now) <= 0 &&
+                        e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers))
                     .ToList();
             }
             else
@@ -99,10 +118,8 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     _context.Events
                     .Where(
                         e => 
-                        e.Sport.Id == sport.Id && 
-                        ((e.DateOfEvent == DateTime.Now.Date &&
-                        e.EndTime == null ? true : (e.EndTime.TimeOfDay > DateTime.Now.TimeOfDay))
-                        || e.DateOfEvent > DateTime.Now.Date) &&
+                        e.Sport.Id == sport.Id &&
+                        (DateTime.Compare(e.EventEnd, DateTime.Now) <= 0) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .Include(e => e.Sport)
                     .Include(e => e.EventUsers)
@@ -110,16 +127,16 @@ namespace FaliJedan.Domain.Repositories.Implementations
             }
 
             if (filters.TimeframeStartDate != null) {
-                events = events.Where(e => e.DateOfEvent >= filters.TimeframeStartDate).ToList();
+                events = events.Where(e => e.EventStart >= filters.TimeframeStartDate).ToList();
             }
             if (filters.TimeframeEndDate != null)
             {
-                events = events.Where(e => e.DateOfEvent <= filters.TimeframeEndDate).ToList();
+                events = events.Where(e => e.EventEnd <= filters.TimeframeEndDate).ToList();
             }
 
             if (filters.CurrentLatitude != null && filters.CurrentLongitude != null)
             {
-                events.OrderBy(e => e.DateOfEvent)
+                events.OrderByDescending(e => e.EventStart)
                 .ThenBy(e => Math.Sqrt(
                     Math.Pow(filters.CurrentLatitude.Value - e.LocationLatitude, 2) +
                     Math.Pow(filters.CurrentLongitude.Value - e.LocationLongitude, 2)
@@ -128,7 +145,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
             else
             {
-                events.OrderBy(e => e.DateOfEvent).ThenBy(e => e.StartTime);
+                events.OrderByDescending(e => e.EventStart);
             }
 
             var eventHosts = new List<EventHostDTO>();

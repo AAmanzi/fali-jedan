@@ -111,8 +111,12 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementations\EventRepository.cs" />
+    <Compile Include="Repositories\Implementations\EventUserRepository.cs" />
+    <Compile Include="Repositories\Implementations\SportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventRepository.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IEventUserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

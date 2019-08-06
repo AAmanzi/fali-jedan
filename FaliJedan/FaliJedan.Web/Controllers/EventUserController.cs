@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FaliJedan.Data.Entities.Models;
+using FaliJedan.Domain.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FaliJedan.Web.Controllers
+{
+    [Route("api/eventUsers")]
+    [ApiController]
+    public class EventUserController : ControllerBase
+    {
+        public EventUserController(IEventUserRepository eventUserRepository)
+        {
+            _eventUserRepository = eventUserRepository;
+        }
+
+        private readonly IEventUserRepository _eventUserRepository;
+
+
+        [HttpPost("add")]
+        public IActionResult AddEventUser(EventUser eventUserToAdd)
+        {
+            var wasAddSuccessful = _eventUserRepository.AddEventUser(eventUserToAdd);
+            if (wasAddSuccessful)
+                return Ok();
+            return Forbid();
+        }
+
+        [HttpPost("delete")]
+        public IActionResult DeleteEventUserById(EventUser eventUser)
+        {
+            var wasDeleteSuccessful = _eventUserRepository.DeleteEventUser(eventUser);
+            if (wasDeleteSuccessful)
+                return Ok();
+            return Forbid();
+        }
+
+        [HttpGet("confirm")]
+        public IActionResult ConfirmEventUser(EventUser eventUser)
+        {
+            var wasConfirmSuccesful = _eventUserRepository.ConfirmEventUser(eventUser);
+            if (wasConfirmSuccesful)
+                return Ok();
+            return NotFound();
+        }
+    }
+}

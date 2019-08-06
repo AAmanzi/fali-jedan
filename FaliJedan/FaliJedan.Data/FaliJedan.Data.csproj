@@ -123,11 +123,13 @@
     <Compile Include="Entities\Models\Badge.cs" />
     <Compile Include="Entities\Models\Event.cs" />
     <Compile Include="Entities\Models\EventFilterDTO.cs" />
+    <Compile Include="Entities\Models\EventHostDTO.cs" />
     <Compile Include="Entities\Models\EventUser.cs" />
     <Compile Include="Entities\Models\Sport.cs" />
     <Compile Include="Entities\Models\Subscription.cs" />
     <Compile Include="Entities\Models\User.cs" />
     <Compile Include="Entities\Models\UserBadge.cs" />
+    <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Migrations\20190715172608_InitialMigration.cs" />
     <Compile Include="Migrations\20190715172608_InitialMigration.designer.cs">
       <DependentUpon>20190715172608_InitialMigration.cs</DependentUpon>
@@ -143,6 +145,10 @@
     <Compile Include="Migrations\20190725152432_NamingAndRequiredChanges.cs" />
     <Compile Include="Migrations\20190725152432_NamingAndRequiredChanges.designer.cs">
       <DependentUpon>20190725152432_NamingAndRequiredChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190801225818_CombinedEventDateAndTimes.cs" />
+    <Compile Include="Migrations\20190801225818_CombinedEventDateAndTimes.designer.cs">
+      <DependentUpon>20190801225818_CombinedEventDateAndTimes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

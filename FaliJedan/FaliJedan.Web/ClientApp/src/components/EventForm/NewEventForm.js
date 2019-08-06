@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { newEvent, isEventValid } from "../../utils/event";
+import {
+  newEvent,
+  getEventError,
+  handleEventFormError
+} from "../../utils/event";
 import { addEvent } from "../../services/event";
 import { getAllSports } from "../../services/sport";
 
@@ -88,7 +92,10 @@ class NewEventForm extends Component {
       this.state.locationLongitude
     );
 
-    if (!isEventValid(eventToAdd)) {
+    const eventFormError = getEventError(eventToAdd);
+
+    if (eventFormError !== undefined) {
+      handleEventFormError(eventFormError);
       return undefined;
     }
 

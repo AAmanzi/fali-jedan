@@ -13,3 +13,11 @@ export const FILTER = {
   sport: "sport",
   time: "time"
 };
+
+export const ERROR = {
+  isNull: "isNull",
+  notNumber: "notNumber",
+  numberDifference: "numberDifference",
+  dateLessThanNow: "dateLessThanNow",
+  timeDifference: "timeDifference",
+}

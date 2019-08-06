@@ -1,6 +1,7 @@
 import * as dateFormat from "./dateFormatting";
+import { ERROR } from "../constants";
 
-export const isEventValid = event => {
+export const getEventError = event => {
   const {
     sportId,
     currentNumberOfPlayers,
@@ -15,45 +16,61 @@ export const isEventValid = event => {
   const dateNow = dateFormat.getDateNow();
   const timeNow = dateFormat.getTime(new Date());
 
-  console.log(event);
-
-  if (sportId === null) {
-    return false;
+  if (sportId === null || startTime === "" || endTime === "" || dateOfEvent === "") {
+    return ERROR.isNull;
   }
 
   if (!/^\d+$/.test(currentNumberOfPlayers)) {
-    return false;
+    return ERROR.notNumber;
   }
 
   if (!/^\d+$/.test(targetNumberOfPlayers)) {
-    return false;
+    return ERROR.notNumber;
   }
 
   if (currentNumberOfPlayers > targetNumberOfPlayers) {
-    return false;
+    return ERROR.numberDifference;
   }
 
   if (dateOfEvent < dateNow) {
-    return false;
+    return ERROR.dateLessThanNow;
   }
 
   if (dateOfEvent === dateNow && startTime < timeNow) {
-    return false;
-  }
-
-  if (startTime === "" || endTime === "") {
-    return false;
+    return ERROR.dateLessThanNow;
   }
 
   if (startTime >= endTime) {
-    return false;
+    return ERROR.timeDifference;
   }
 
   if (locationLatitude === null || locationLongitude === null) {
-    return false;
+    return ERROR.isNull;
   }
 
-  return true;
+  return undefined;
+};
+
+export const handleEventFormError = error => {
+  switch (error) {
+    case ERROR.isNull:
+      alert("Some required fields are missing!");
+      break;
+    case ERROR.notNumber:
+      alert("Invalid number of current/target players!");
+      break;
+    case ERROR.numberDifference:
+      alert("There can't be more current than target players!");
+      break;
+    case ERROR.dateLessThanNow:
+      alert("You cannot create an event occurring before now!");
+      break;
+    case ERROR.timeDifference:
+      alert("An event cannot end before it has begun!");
+      break;
+    default:
+      return;
+  }
 };
 
 export const newEvent = (

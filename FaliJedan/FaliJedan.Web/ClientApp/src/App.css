@@ -14,11 +14,24 @@ ul {
   margin: 0;
 }
 
+h2 {
+  margin: 0;
+}
+
+.c-bl {
+  color: #178bf6;
+}
+
+.tt-uc {
+  text-transform: uppercase;
+}
+
 /* EVENT FEED */
 
 .event__list {
   overflow: scroll;
   height: 94vh;
+  background-color: #e5e5e5;
 }
 
 /* EVENT CARD */
@@ -30,6 +43,10 @@ ul {
   width: 100%;
   overflow: hidden;
   flex-wrap: wrap;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin: 6px 0;
+  height: 130px;
 }
 
 .event__card--panel,
@@ -40,6 +57,7 @@ ul {
 }
 
 .event__card--panel {
+  flex-direction: row;
   width: 20%;
 }
 
@@ -97,6 +115,35 @@ ul {
   max-height: 100vh;
   height: initial;
   transition: max-height 1.5s ease-out;
+}
+
+.event__card--instant-join {
+  background-image: url(/assets/instantJoin.svg);
+  background-repeat: no-repeat;
+  width: 0;
+  height: 0;
+  padding: 11.5px;
+}
+
+.event__card--screen_dots {
+  position: absolute;
+  display: flex;
+  bottom: 5px;
+  left: 50%;
+}
+
+.event__card--dot {
+  display: block;
+  padding: 2px;
+  background-color: rgba(99, 103, 124, 0.5);
+  z-index: 3;
+  margin: 0 2px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.event__card--dot-alt {
+  background-color: #178bf6;
 }
 
 /* NAVBAR */
@@ -320,4 +367,10 @@ ul {
   justify-content: center;
   background-color: #ccc;
   border: 1px solid black;
+}
+
+@media screen and (max-width: 1023px) {
+  .event__card--button-slide {
+    display: none;
+  }
 }

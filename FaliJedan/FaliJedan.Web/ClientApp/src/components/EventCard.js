@@ -41,6 +41,7 @@ class EventCard extends Component {
     const { event } = this.props;
     return (
       <li>
+        <span className="event__card--date">{event.dateOfEvent}</span>
         <Swipeable
           onSwipedLeft={() => this.swipe(LEFT)}
           onSwipedRight={() => this.swipe(RIGHT)}
@@ -78,6 +79,19 @@ class EventCard extends Component {
             <p>{event.description}</p>
             <span>{event.targetSkillLevel}</span>
           </div>
+
+          <section className="event__card--screen_dots">
+            <span
+              className={`event__card--dot ${
+                this.state.isMapActive ? "" : "event__card--dot-alt"
+              }`}
+            />
+            <span
+              className={`event__card--dot ${
+                this.state.isMapActive ? "event__card--dot-alt" : ""
+              }`}
+            />
+          </section>
         </Swipeable>
       </li>
     );

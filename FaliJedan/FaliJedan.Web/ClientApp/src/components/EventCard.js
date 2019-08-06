@@ -3,6 +3,7 @@ import LocationDisplay from "./Map/LocationDisplay";
 import EventCardInfo from "./EventCardInfo";
 import { Swipeable } from "react-swipeable";
 import { LEFT, RIGHT } from "../constants";
+import EventCardDetails from "./EventCardDetails";
 
 class EventCard extends Component {
   constructor(props) {
@@ -30,10 +31,15 @@ class EventCard extends Component {
     });
   };
 
-  toggleDetails = event => {
-    this.setState(prevState => {
-      const isDetailsActive = !{ ...prevState }.isDetailsActive;
-      return { isDetailsActive };
+  displayDetails = () => {
+    this.setState({
+      isDetailsActive: true
+    });
+  };
+
+  closeDetails = () => {
+    this.setState({
+      isDetailsActive: false
     });
   };
 
@@ -54,12 +60,12 @@ class EventCard extends Component {
           <EventCardInfo
             event={event}
             toggleMap={this.toggleMap}
-            handleClick={this.toggleDetails}
+            handleClick={this.displayDetails}
           />
 
           <div
             className={`event__card--map ${
-              this.state.isMapActive ? "event__card--map-active" : undefined
+              this.state.isMapActive ? "event__card--map-active" : ""
             }`}
           >
             {this.state.isMapActive ? (
@@ -67,17 +73,6 @@ class EventCard extends Component {
             ) : (
               undefined
             )}
-          </div>
-
-          <div
-            className={`event__card--description ${
-              this.state.isDetailsActive
-                ? "event__card--description-active"
-                : ""
-            }`}
-          >
-            <p>{event.description}</p>
-            <span>{event.targetSkillLevel}</span>
           </div>
 
           <section className="event__card--screen_dots">
@@ -93,6 +88,20 @@ class EventCard extends Component {
             />
           </section>
         </Swipeable>
+        <div
+          className={`modal__cover-right ${
+            this.state.isDetailsActive ? "modal__cover-right--active" : ""
+          }`}
+        >
+          {this.state.isDetailsActive ? (
+            <EventCardDetails
+              event={event}
+              handleClickBack={this.closeDetails}
+            />
+          ) : (
+            undefined
+          )}
+        </div>
       </li>
     );
   }

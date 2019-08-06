@@ -30,6 +30,7 @@ h2 {
 
 .event__list {
   overflow: scroll;
+  overflow-x: hidden;
   height: 94vh;
   background-color: #e5e5e5;
 }
@@ -102,19 +103,10 @@ h2 {
 }
 
 .event__card--description {
-  text-align: center;
-  width: 100%;
-  display: block;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-  max-height: 0;
-  background-color: #ccc;
-}
+  display: none;
+  position: absolute;
 
-.event__card--description-active {
-  max-height: 100vh;
-  height: initial;
-  transition: max-height 1.5s ease-out;
+  background-color: white !important;
 }
 
 .event__card--instant-join {
@@ -367,6 +359,42 @@ h2 {
   justify-content: center;
   background-color: #ccc;
   border: 1px solid black;
+}
+
+.modal__cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #453d3d77;
+}
+
+.modal__cover-right {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+  left: 100%;
+  z-index: 100;
+  transition: right 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    left 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.modal__cover-right--active {
+  right: 0;
+  left: 0;
+  opacity: 1;
+}
+
+.button--back {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 101;
 }
 
 @media screen and (max-width: 1023px) {

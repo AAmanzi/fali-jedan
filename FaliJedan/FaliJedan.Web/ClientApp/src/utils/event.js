@@ -15,15 +15,30 @@ export const newEvent = (
   locationLatitude,
   locationLongitude
 ) => {
+  let eventStart = dateOfEvent + "T" + startTime;
+  let eventEnd = dateOfEvent + "T" + endTime;
+
+  if (dateOfEvent === "") {
+    eventStart = null;
+    eventEnd = null;
+  }
+
+  if (startTime === "") {
+    eventStart = null;
+  }
+
+  if (endTime === "") {
+    eventEnd = null;
+  }
+
   return {
     sportId,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
     targetSkillLevel,
     isInstantJoin,
-    dateOfEvent,
-    startTime,
-    endTime,
+    eventStart,
+    eventEnd,
     locationLatitude,
     locationLongitude
   };

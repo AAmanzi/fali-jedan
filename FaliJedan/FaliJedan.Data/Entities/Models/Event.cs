@@ -19,10 +19,9 @@ namespace FaliJedan.Data.Entities.Models
         [Required]
         public int TargetNumberOfPlayers { get; set; }
         [Required]
-        public DateTime DateOfEvent { get; set; }
+        public DateTime EventStart { get; set; }
         [Required]
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime EventEnd { get; set; }
         [Required]
         public double LocationLongitude { get; set; }
         [Required]

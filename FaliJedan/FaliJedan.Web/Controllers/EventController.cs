@@ -29,9 +29,9 @@ namespace FaliJedan.Web.Controllers
         [HttpPost("add")]
         public IActionResult AddEvent(Event eventToAdd)
         {
-            var wasAddSuccessful = _eventRepository.AddEvent(eventToAdd);
-            if (wasAddSuccessful)
-                return Ok();
+            var eventId = _eventRepository.AddEvent(eventToAdd);
+            if (eventId != null)
+                return Ok(eventId.Value);
             return Forbid();
         }
 

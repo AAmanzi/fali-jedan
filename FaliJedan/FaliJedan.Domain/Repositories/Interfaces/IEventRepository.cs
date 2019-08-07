@@ -11,12 +11,14 @@ namespace FaliJedan.Domain.Repositories.Interfaces
     {
         List<EventHostDTO> GetAvailableEvents();
 
-        bool AddEvent(Event eventToAdd);
+        Guid? AddEvent(Event eventToAdd);
 
         bool DeleteEventById(Guid id);
 
         Event GetEventById(Guid id);
 
         List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters);
+
+        List<Event> GetEventsByUserId(Guid userId);
     }
 }

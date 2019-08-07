@@ -16,7 +16,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
             _context = context;
         }
 
-        public FaliJedanContext _context { get; set; }
+        private FaliJedanContext _context { get; set; }
 
         public List<Sport> GetAllSports()
         {

@@ -6,7 +6,7 @@ export const getAll = controller => {
 };
 
 export const getFiltered = (controller, filters) => {
-  console.log(filters)
+  console.log(filters);
   return axios.post(`${API_ROUTE}/${controller}/filtered`, filters);
 };
 

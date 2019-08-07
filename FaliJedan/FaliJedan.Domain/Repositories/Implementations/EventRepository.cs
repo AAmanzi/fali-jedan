@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -71,7 +72,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 .ToList()
                 .ForEach(
                     e => {
-                        if (DateTime.Compare(e.EventEnd, DateTime.Now) > 0  &&
+                        if (DateTime.Compare(e.EventStart, DateTime.Now) > 0  &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers) {
                         availableEvents.Add(new EventHostDTO(e, _context));            
                     }}
@@ -119,19 +120,11 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .Where(
                         e => 
                         e.Sport.Id == sport.Id &&
-                        (DateTime.Compare(e.EventEnd, DateTime.Now) <= 0) &&
+                        (DateTime.Compare(e.EventStart, DateTime.Now) > 0) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .Include(e => e.Sport)
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User).ToList()));
-            }
-
-            if (filters.TimeframeStartDate != null) {
-                events = events.Where(e => e.EventStart >= filters.TimeframeStartDate).ToList();
-            }
-            if (filters.TimeframeEndDate != null)
-            {
-                events = events.Where(e => e.EventEnd <= filters.TimeframeEndDate).ToList();
             }
 
             if (filters.CurrentLatitude != null && filters.CurrentLongitude != null)
@@ -151,7 +144,25 @@ namespace FaliJedan.Domain.Repositories.Implementations
             var eventHosts = new List<EventHostDTO>();
 
             events.ForEach(e => {
-                eventHosts.Add(new EventHostDTO(e, _context));
+                if (filters.TimeframeEndDate != null)
+                {
+                    if(
+                        e.EventStart > filters.TimeframeStartDate &&
+                        e.EventEnd < filters.TimeframeEndDate
+                    )
+                    {
+                        eventHosts.Add(new EventHostDTO(e, _context));
+                    }
+                }
+                else
+                {
+                    if(
+                        e.EventStart > filters.TimeframeStartDate
+                    )
+                    {
+                        eventHosts.Add(new EventHostDTO(e, _context));
+                    }
+                }
             });
 
             return eventHosts;

@@ -85,6 +85,15 @@ class EventFeed extends Component {
     });
   };
 
+  resetFilters = () => {
+    getAvailableEvents().then(availableEvents => {
+      const eventList = availableEvents.map(element => eventDto(element));
+      this.setState({ eventList });
+    });
+
+    this.closeFilterBar();
+  };
+
   applyFilters = () => {
     getFilteredEvents({
       sports: this.state.selectedSports,
@@ -93,6 +102,7 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
+      console.log(filteredEvents);
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
     });
@@ -125,7 +135,7 @@ class EventFeed extends Component {
             handleTimeChange={this.handleInputChange}
             handleAddSport={this.addSport}
             applyFilters={this.applyFilters}
-            handleReset={this.closeFilterBar}
+            handleReset={this.resetFilters}
           />
         ) : (
           undefined

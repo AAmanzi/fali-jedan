@@ -125,7 +125,13 @@ class NewEventForm extends Component {
   };
 
   render() {
-    const { sport, sportList, isPostSuccessful, redirect } = this.state;
+    const {
+      sport,
+      sportList,
+      isPostSuccessful,
+      redirect,
+      toggleSportList
+    } = this.state;
     if (sportList === null) {
       return <Loading />;
     }
@@ -140,10 +146,10 @@ class NewEventForm extends Component {
               htmlFor="toggleSportList"
               className="event__form--label-sport"
             >
-              {this.state.sport === "" ? "Odaberi sport" : this.state.sport}
+              {sport === "" ? "Odaberi sport" : sport}
             </label>
             <input
-              checked={this.state.toggleSportList}
+              checked={toggleSportList}
               type="checkbox"
               className="event__form--input-sport"
               id="toggleSportList"

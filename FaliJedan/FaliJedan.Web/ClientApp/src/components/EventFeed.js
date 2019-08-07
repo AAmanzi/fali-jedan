@@ -31,7 +31,8 @@ class EventFeed extends Component {
           targetPlayers: 6,
           coordinates: [1831660.5088, 5389880.6125],
           description: "lorem ipsum...",
-          targetSkillLevel: 3
+          targetSkillLevel: 3,
+          isInstantJoin: true
         },
         {
           sport: "default",
@@ -70,7 +71,8 @@ class EventFeed extends Component {
           targetPlayers: 6,
           coordinates: [1831660.5088, 5389880.6125],
           description: "lorem ipsum...",
-          targetSkillLevel: 3
+          targetSkillLevel: 3,
+          isInstantJoin: true
         },
         {
           sport: "default",
@@ -83,7 +85,8 @@ class EventFeed extends Component {
           targetPlayers: 6,
           coordinates: [1831660.5088, 5389880.6125],
           description: "lorem ipsum...",
-          targetSkillLevel: 3
+          targetSkillLevel: 3,
+          isInstantJoin: true
         },
         {
           sport: "default",

@@ -72,7 +72,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 .ToList()
                 .ForEach(
                     e => {
-                        if (DateTime.Compare(e.EventStart, DateTime.Now) > 0  &&
+                        if (DateTime.Compare(e.EventEnd, DateTime.Now) > 0  &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers) {
                         availableEvents.Add(new EventHostDTO(e, _context));            
                     }}
@@ -109,7 +109,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User)
                     .Where(
-                    e => (DateTime.Compare(e.EventStart, DateTime.Now) > 0 &&
+                    e => (DateTime.Compare(e.EventEnd, DateTime.Now) > 0 &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers))
                     .ToList();
             }
@@ -120,7 +120,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .Where(
                         e => 
                         e.Sport.Id == sport.Id &&
-                        (DateTime.Compare(e.EventStart, DateTime.Now) > 0) &&
+                        (DateTime.Compare(e.EventEnd, DateTime.Now) > 0) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .Include(e => e.Sport)
                     .Include(e => e.EventUsers)

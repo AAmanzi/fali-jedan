@@ -15,11 +15,7 @@ export const getEventError = event => {
   const dateNow = dateFormat.getDateNow();
   const timeNow = dateFormat.getTime(new Date());
 
-  if (
-    sportId === null ||
-    eventStart === null ||
-    eventEnd === null
-  ) {
+  if (sportId === null || eventStart === null || eventEnd === null) {
     return ERROR.isNull;
   }
 
@@ -128,6 +124,6 @@ export const eventDto = dto => {
     targetPlayers: dto.event.targetNumberOfPlayers,
     coordinates: [dto.event.locationLatitude, dto.event.locationLongitude],
     description: dto.event.description,
-    targetSkillLevel: dto.event.targetSkillLevel
+    targetSkillLevel: dto.event.targetSkillLevel,
   };
 };

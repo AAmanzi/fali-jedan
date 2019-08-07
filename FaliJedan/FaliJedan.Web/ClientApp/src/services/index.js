@@ -32,9 +32,15 @@ export const post = (controller, data) => {
 };
 
 export const commonGet = (controller, action, data) => {
-  return axios.post(`${API_ROUTE}/${controller}/${action}`, {
+  return axios.get(`${API_ROUTE}/${controller}/${action}`, {
     params: {
-      data
+      ...data
     }
+  });
+};
+
+export const commonPost = (controller, action, data) => {
+  return axios.post(`${API_ROUTE}/${controller}/${action}`, {
+    ...data
   });
 };

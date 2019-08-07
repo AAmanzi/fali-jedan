@@ -6,7 +6,7 @@ import FilterBar from "../Filter/FilterBar";
 import {
   getAvailableEvents,
   getFilteredEvents,
-  getUsersAndEventsToRate
+  //getUsersAndEventsToRate
 } from "../../services/event";
 import { getAllSports } from "../../services/sport";
 import { eventDto } from "../../utils/event";
@@ -48,9 +48,23 @@ class EventFeed extends Component {
       ]
     });
 
-    getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
-      events => console.log(events)
-    );
+    // ENABLE ONCE USERS ARE SET UP
+
+    // getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
+    //   events => {
+    //     const usersToRate = events.map(event =>
+    //       event.eventUsers.map(eventUser => {
+    //         return {
+    //           ...eventUser.user
+    //         };
+    //       })
+    //     );
+
+    //     this.setState({
+    //       usersToRate
+    //     });
+    //   }
+    // );
   };
 
   handleInputChange = event => {

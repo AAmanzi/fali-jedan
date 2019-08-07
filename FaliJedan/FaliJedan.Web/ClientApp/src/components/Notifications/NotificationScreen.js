@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EventCard from "../EventCard";
 import Loading from "../Loading";
-import { getAvailableEvents } from "../../services/event";
+import { getAvailableEvents, getUserNotifications } from "../../services/event";
 import { eventDto } from "../../utils/event";
 import EventUsers from "./EventUsers";
 import Navbar from "../Navbar";
@@ -28,6 +28,21 @@ class NotificationScreen extends Component {
 
       this.setState({ eventUsers });
     });
+    
+    // ENABLE ONCE USERS ARE SET UP
+
+    // getUserNotifications("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
+    //   userEvents => {
+    //     const eventUsers = userEvents.map(event => {
+    //       return {
+    //         event: eventDto({ event }),
+    //         users: event.userEvents.map(userEvent => userEvent.user)
+    //       };
+    //     });
+
+    //     this.setState({ eventUsers });
+    //   }
+    // );
   };
 
   render() {

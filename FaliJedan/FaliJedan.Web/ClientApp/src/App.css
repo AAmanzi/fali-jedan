@@ -25,6 +25,10 @@ h2 {
 .tt-uc {
   text-transform: uppercase;
 }
+  
+header {
+  display: flex;
+}
 
 /* EVENT FEED */
 
@@ -105,7 +109,6 @@ h2 {
 .event__card--description {
   display: none;
   position: absolute;
-
   background-color: white !important;
 }
 
@@ -309,6 +312,7 @@ h2 {
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  border-radius: 18px;
 }
 
 .event__form--switch--slider:before {
@@ -321,6 +325,7 @@ h2 {
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  border-radius: 50%;
 }
 
 .event__form--switch input:checked + .event__form--switch--slider {
@@ -351,6 +356,7 @@ h2 {
   display: flex;
   width: 100%;
   justify-content: space-around;
+  background-color: blue;
 }
 
 .filter__list__item {
@@ -401,4 +407,20 @@ h2 {
   .event__card--button-slide {
     display: none;
   }
+}
+
+.modal__content {
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  background-color: #fff;
+}
+
+.modal__content-full {
+  margin: 0;
+  width: 100%;
+  background-color: #2196f3;
 }

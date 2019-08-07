@@ -28,7 +28,7 @@ namespace FaliJedan.Data.Entities.Models
         [Required]
         public bool IsSuperUser { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public float Rating { get; set; }
+        public int TotalRating { get; set; }
         public int NumberOfRatings { get; set; }
         public int UsersRatedCount { get; set; }
         public int AttendedEventCount { get; set; }

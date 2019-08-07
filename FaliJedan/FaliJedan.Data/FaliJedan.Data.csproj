@@ -125,10 +125,12 @@
     <Compile Include="Entities\Models\EventFilterDTO.cs" />
     <Compile Include="Entities\Models\EventHostDTO.cs" />
     <Compile Include="Entities\Models\EventUser.cs" />
+    <Compile Include="Entities\Models\ReviewDTO.cs" />
     <Compile Include="Entities\Models\Sport.cs" />
     <Compile Include="Entities\Models\Subscription.cs" />
     <Compile Include="Entities\Models\User.cs" />
     <Compile Include="Entities\Models\UserBadge.cs" />
+    <Compile Include="Entities\Models\UserRatingDTO.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Migrations\20190715172608_InitialMigration.cs" />
     <Compile Include="Migrations\20190715172608_InitialMigration.designer.cs">

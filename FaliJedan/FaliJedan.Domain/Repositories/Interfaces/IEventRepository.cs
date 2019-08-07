@@ -19,6 +19,6 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters);
 
-        List<Event> GetEventsByUserId(Guid userId);
+        List<Event> GetUnreviewedEventsByUserId(Guid userId);
     }
 }

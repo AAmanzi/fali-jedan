@@ -14,5 +14,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
         bool DeleteEventUser(EventUser eventUser);
 
         bool ConfirmEventUser(EventUser eventUser);
+
+        bool ReviewEventUser(ReviewDTO review);
     }
 }

@@ -20,5 +20,6 @@ namespace FaliJedan.Data.Entities.Models
         public bool IsApproved { get; set; }
         [Required]
         public bool IsCanceled { get; set; }
+        public bool IsReviewed { get; set; }
     }
 }

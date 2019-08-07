@@ -2,8 +2,7 @@ import React from "react";
 
 const EventCardInfo = props => {
   const { event } = props;
-  console.log(event);
-
+  
   const redirectToProfile = event => {
     event.stopPropagation();
 

@@ -31,17 +31,17 @@ export const getDate = dateString => {
 
 export const getTime = dateString => {
   const date = new Date(dateString);
-  
+
   let hours = date.getHours();
   let minutes = date.getMinutes();
 
-  if(hours < 10){
+  if (hours < 10) {
     hours = "0" + hours;
   }
 
-  if(minutes < 10){
+  if (minutes < 10) {
     minutes = "0" + minutes;
   }
 
-  return hours + ":" + minutes
-}
+  return hours + ":" + minutes;
+};

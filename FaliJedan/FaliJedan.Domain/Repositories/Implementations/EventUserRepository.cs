@@ -67,5 +67,24 @@ namespace FaliJedan.Domain.Repositories.Implementations
             _context.SaveChanges();
             return true;
         }
+
+        public bool ReviewEventUser(ReviewDTO review)
+        {
+            if (!_context.EventUsers.Any(eu => eu.UserId == review.EventUser.UserId && eu.EventId == review.EventUser.EventId))
+                return false;
+
+            review.EventUser.IsReviewed = true;
+            review.UserRatings.ForEach(ur => {
+                if(review.EventUser.Event.EventUsers.Any(eu => eu.UserId == ur.UserId) && 
+                    ur.Rating > 0 && 
+                    ur.Rating < 6)
+                {
+                        _context.Users.Find(ur.UserId).TotalRating += ur.Rating;
+                        _context.Users.Find(ur.UserId).NumberOfRatings++;
+                }
+            });
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

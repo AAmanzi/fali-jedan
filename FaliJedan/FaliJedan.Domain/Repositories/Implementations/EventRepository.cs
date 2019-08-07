@@ -84,17 +84,33 @@ namespace FaliJedan.Domain.Repositories.Implementations
             return _context.Events.Find(id);
         }
 
-        public List<Event> GetEventsByUserId(Guid userId)
+        public List<Event> GetUnreviewedEventsByUserId(Guid userId)
         {
             return _context.EventUsers.Where(
                 eu => 
                 eu.UserId == userId && 
                 !eu.IsCanceled && 
+                !eu.IsReviewed &&
                 DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0)
                 .Select(eu => eu.Event)
                 .Include(e => e.Sport)
                 .Include(e => e.EventUsers)
                 .ThenInclude(eu => eu.User).ToList();
+        }
+
+        public List<Event> GetEventsByUserId(Guid userId)
+        {
+            return _context.EventUsers.Where(
+                eu =>
+                eu.UserId == userId &&
+                !eu.IsCanceled &&
+                DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0)
+                .Select(eu => eu.Event)
+                .Include(e => e.Sport)
+                .Include(e => e.EventUsers)
+                .ThenInclude(eu => eu.User)
+                .OrderByDescending(e => e.EventUsers.First(eu => eu.IsHost).UserId == userId)
+                .ToList();
         }
 
         public List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters)

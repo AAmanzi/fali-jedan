@@ -39,11 +39,20 @@ namespace FaliJedan.Web.Controllers
             return Forbid();
         }
 
-        [HttpGet("confirm")]
+        [HttpPost("confirm")]
         public IActionResult ConfirmEventUser(EventUser eventUser)
         {
             var wasConfirmSuccesful = _eventUserRepository.ConfirmEventUser(eventUser);
             if (wasConfirmSuccesful)
+                return Ok();
+            return NotFound();
+        }
+
+        [HttpPost("review")]
+        public IActionResult ReviewEventUser(ReviewDTO review)
+        {
+            var wasReviewSuccesful = _eventUserRepository.ReviewEventUser(review);
+            if (wasReviewSuccesful)
                 return Ok();
             return NotFound();
         }

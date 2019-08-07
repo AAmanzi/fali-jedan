@@ -16,33 +16,20 @@ class NotificationScreen extends Component {
   }
 
   componentDidMount = () => {
-    // TODO eventUsers
+    // TODO: userId
 
-    getAvailableEvents().then(availableEvents => {
-      const eventUsers = availableEvents.map(element => {
-        return {
-          event: eventDto(element),
-          users: [{ firstName: "1" }, { firstName: "2" }, { firstName: "3" }]
-        };
-      });
+    getUserNotifications("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
+      userEvents => {
+        const eventUsers = userEvents.map(event => {
+          return {
+            event: eventDto({ event }),
+            users: event.userEvents.map(userEvent => userEvent.user)
+          };
+        });
 
-      this.setState({ eventUsers });
-    });
-    
-    // ENABLE ONCE USERS ARE SET UP
-
-    // getUserNotifications("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
-    //   userEvents => {
-    //     const eventUsers = userEvents.map(event => {
-    //       return {
-    //         event: eventDto({ event }),
-    //         users: event.userEvents.map(userEvent => userEvent.user)
-    //       };
-    //     });
-
-    //     this.setState({ eventUsers });
-    //   }
-    // );
+        this.setState({ eventUsers });
+      }
+    );
   };
 
   render() {

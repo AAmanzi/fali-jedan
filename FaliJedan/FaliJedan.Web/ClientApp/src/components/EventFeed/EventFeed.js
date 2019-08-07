@@ -43,7 +43,7 @@ class EventFeed extends Component {
       timeframeStartDate: getDateNow()
     });
 
-    // ENABLE ONCE USERS ARE SET UP
+    // TODO: userId
 
     getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
       event => {

@@ -40,9 +40,7 @@ class UserRating extends Component {
       })
     };
 
-    reviewUsers(review)
-      .then()
-      .catch(exception => console.log(exception));
+    reviewUsers(review);
 
     this.props.onAfterRating();
   };

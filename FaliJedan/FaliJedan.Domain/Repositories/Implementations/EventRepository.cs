@@ -42,7 +42,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 EventId = eventToAdd.Id,
                 IsApproved = eventToAdd.IsInstantJoin ? true : false,
                 IsCanceled = false,
-                IsHost = false
+                IsHost = true
             });
 
             eventToAdd.Sport = _context.Sports.Find(eventToAdd.SportId);

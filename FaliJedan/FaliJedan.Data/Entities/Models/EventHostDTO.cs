@@ -16,7 +16,10 @@ namespace FaliJedan.Data.Entities.Models
         {
             Event = e;
             var eventHost = context.EventUsers.ToList().FirstOrDefault(eu => eu.EventId == Event.Id && eu.IsHost);
-            Host = context.Users.FirstOrDefault(u => u.Id == eventHost.UserId);
+            if (eventHost != null)
+            {
+                Host = context.Users.FirstOrDefault(u => u.Id == eventHost.UserId);
+            }
         }
     }
 }

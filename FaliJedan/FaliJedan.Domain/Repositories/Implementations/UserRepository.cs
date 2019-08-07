@@ -24,7 +24,13 @@ namespace FaliJedan.Domain.Repositories.Interfaces
             var doesUserExist = _context.Users.Any(u => u.Id == userToAdd.Id);
             if (doesUserExist)
                 return false;
-
+            if (userToAdd.Username.Length <= 3 || 
+                userToAdd.Password.Length <= 5 || 
+                string.IsNullOrWhiteSpace(userToAdd.Email) || 
+                string.IsNullOrWhiteSpace(userToAdd.FirstName) || 
+                string.IsNullOrWhiteSpace(userToAdd.LastName) || 
+                userToAdd.DateOfBirth == null)
+                return false;
             userToAdd.Password = HashHelper.Hash(userToAdd.Password);
             _context.Users.Add(userToAdd);
             _context.SaveChanges();

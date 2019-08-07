@@ -56,13 +56,15 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         public bool ConfirmEventUser(EventUser eventUser)
         {
-            var userToAdd = _context.Users.FirstOrDefault(u => u.Id == eventUser.UserId);
-            var eventToAdd = _context.Events.FirstOrDefault(e => e.Id == eventUser.EventId);
-            if (eventToAdd == null || userToAdd == null)
+            var eventUserToConfirm = _context.EventUsers.FirstOrDefault(eu => eu.UserId == eventUser.UserId && eu.EventId == eventUser.EventId);
+            if (eventUserToConfirm == null)
+                return false;
+            if (eventUserToConfirm.Event.CurrentNumberOfPlayers >= eventUserToConfirm.Event.TargetNumberOfPlayers)
                 return false;
 
-            eventToAdd.CurrentNumberOfPlayers++;
+            eventUserToConfirm.Event.CurrentNumberOfPlayers++;
             eventUser.IsApproved = true;
+            _context.SaveChanges();
             return true;
         }
     }

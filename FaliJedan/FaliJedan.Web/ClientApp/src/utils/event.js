@@ -2,7 +2,6 @@ import * as dateFormat from "./dateFormatting";
 import { ERROR } from "../constants";
 
 export const getEventError = event => {
-  console.log(event)
   const {
     sportId,
     currentNumberOfPlayers,

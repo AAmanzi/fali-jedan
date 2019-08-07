@@ -152,6 +152,10 @@
     <Compile Include="Migrations\20190801225818_CombinedEventDateAndTimes.designer.cs">
       <DependentUpon>20190801225818_CombinedEventDateAndTimes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190807210113_ChangedAttributeNames.cs" />
+    <Compile Include="Migrations\20190807210113_ChangedAttributeNames.designer.cs">
+      <DependentUpon>20190807210113_ChangedAttributeNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

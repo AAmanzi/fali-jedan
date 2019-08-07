@@ -3,7 +3,11 @@ import EventCard from "../EventCard";
 import Navbar from "../Navbar";
 import Loading from "../Loading";
 import FilterBar from "../Filter/FilterBar";
-import { getAvailableEvents, getFilteredEvents } from "../../services/event";
+import {
+  getAvailableEvents,
+  getFilteredEvents,
+  getUsersAndEventsToRate
+} from "../../services/event";
 import { getAllSports } from "../../services/sport";
 import { eventDto } from "../../utils/event";
 import { getDateNow } from "../../utils/dateFormatting";
@@ -44,7 +48,9 @@ class EventFeed extends Component {
       ]
     });
 
-    // TODO: load usersToRate
+    getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
+      events => console.log(events)
+    );
   };
 
   handleInputChange = event => {

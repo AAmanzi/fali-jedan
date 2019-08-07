@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as api from "./index";
 import { CONTROLLER } from "../constants";
 
@@ -20,5 +21,11 @@ export const getAvailableEvents = async () => {
 export const getFilteredEvents = async filters => {
   return api
     .getFiltered(CONTROLLER.event, filters)
+    .then(response => response.data);
+};
+
+export const getUsersAndEventsToRate = async userId => {
+  return api
+    .commonGet(CONTROLLER.event, "get-unreviewed-by-user-id", userId)
     .then(response => response.data);
 };

@@ -12,7 +12,8 @@ class EventFeed extends Component {
       eventList: null,
       selectedSports: [],
       timeframeStartDate: null,
-      timeframeEndDate: null
+      timeframeEndDate: null,
+      isFilterBarDisplayed: false
     };
   }
 
@@ -125,9 +126,22 @@ class EventFeed extends Component {
     });
   };
 
+  displayFilterBar = () => {
+    this.setState({
+      isFilterBarDisplayed: true
+    });
+  };
+
+  closeFilterBar = () => {
+    this.setState({
+      isFilterBarDisplayed: false
+    });
+  };
   applyFilters = () => {
     // TODO: get filtered events
     console.log("filter events");
+
+    this.closeFilterBar();
   };
 
   render() {
@@ -137,15 +151,24 @@ class EventFeed extends Component {
 
     return (
       <>
-        <FilterBar
-          coordinates={this.props.currentCoordinates}
-          selectedSports={this.state.selectedSports}
-          handleSetLocation={this.props.handleLocationFilterChange}
-          handleResetLocation={this.props.handleLocationFilterReset}
-          handleSetTimeframe={this.setTimeframe}
-          handleAddSport={this.addSport}
-          applyFilters={this.applyFilters}
-        />
+        {this.state.isFilterBarDisplayed === true ? (
+          <FilterBar
+            coordinates={this.props.currentCoordinates}
+            selectedSports={this.state.selectedSports}
+            handleSetLocation={this.props.handleLocationFilterChange}
+            handleResetLocation={this.props.handleLocationFilterReset}
+            handleSetTimeframe={this.setTimeframe}
+            handleAddSport={this.addSport}
+            applyFilters={this.applyFilters}
+          />
+        ) : (
+          undefined
+        )}
+
+        <header>
+          <span>Event lista</span>
+          <button onClick={this.displayFilterBar}>Filter</button>
+        </header>
 
         <ul className="event__list">
           {this.state.eventList.map((event, index) => (

@@ -21,6 +21,7 @@ class NewEventForm extends Component {
       dateOfEvent: "",
       startTime: "",
       endTime: "",
+      toggleSportList: true,
       locationLatitude: null,
       locationLongitude: null
     };
@@ -35,6 +36,8 @@ class NewEventForm extends Component {
     sportListInput.checked = false;
 
     this.handleInputChange(event);
+
+    this.setState({ toggleSportList: false });
   };
 
   handleInputChange = event => {
@@ -91,12 +94,15 @@ class NewEventForm extends Component {
               htmlFor="toggleSportList"
               className="event__form--label-sport"
             >
-              {this.state.sport === "" ? "Sport" : this.state.sport}
+              {this.state.sport === "" ? "Odaberi sport" : this.state.sport}
             </label>
             <input
+              checked={this.state.toggleSportList}
               type="checkbox"
               className="event__form--input-sport"
               id="toggleSportList"
+              name="toggleSportList"
+              onChange={this.handleInputChange}
             />
             <ul className="event__form--list-sport">
               {this.state.sportList.map((sport, index) => (

@@ -9,7 +9,7 @@ class FilterBar extends Component {
     super(props);
 
     this.state = {
-      selectedFilter: null
+      selectedFilter: FILTER.sport
     };
   }
 
@@ -19,73 +19,76 @@ class FilterBar extends Component {
     this.setState({
       selectedFilter: clickedFilter
     });
-
-    if (FILTER.hasOwnProperty(this.state.selectedFilter)) {
-      this.resetSelectedFilter();
-    }
   };
 
   handleSetLocation = coordinates => {
     this.props.handleSetLocation(coordinates);
-    this.resetSelectedFilter();
   };
 
   handleResetLocation = () => {
     this.props.handleResetLocation();
-    this.resetSelectedFilter();
   };
 
   handleSetTimeframe = (dateFrom, dateTo) => {
     this.props.handleSetTimeframe(dateFrom, dateTo);
-    this.resetSelectedFilter();
-  };
-
-  resetSelectedFilter = () => {
-    this.setState({
-      selectedFilter: null
-    });
-
-    this.props.applyFilters();
   };
 
   render() {
     return (
-      <>
-        <ul className="filter__list">
-          <li className="filter__list__item" onClick={this.handleFilterClick}>
-            <span id={FILTER.location}>Location</span>
-          </li>
-          <li className="filter__list__item" onClick={this.handleFilterClick}>
-            <span id={FILTER.sport}>Sport</span>
-          </li>
-          <li className="filter__list__item" onClick={this.handleFilterClick}>
-            <span id={FILTER.time}>Time</span>
-          </li>
-        </ul>
+      <div className="modal__cover">
+        <section className="modal__content modal__content-full">
+          <header>
+            <span>Filter</span>
+            <button onClick={this.props.applyFilters}>Apply</button>
+          </header>
+          <ul className="filter__list">
+            <li
+              id={FILTER.sport}
+              className="filter__list__item"
+              onClick={this.handleFilterClick}
+            >
+              <span id={FILTER.sport}>Sport</span>
+            </li>
+            <li
+              id={FILTER.location}
+              className="filter__list__item"
+              onClick={this.handleFilterClick}
+            >
+              <span id={FILTER.location}>Location</span>
+            </li>
+            <li
+              id={FILTER.time}
+              className="filter__list__item"
+              onClick={this.handleFilterClick}
+            >
+              <span id={FILTER.time}>Time</span>
+            </li>
+          </ul>
 
-        {this.state.selectedFilter === FILTER.location ? (
-          <FilterLocation
-            coordinates={this.props.coordinates}
-            handleSetLocation={this.handleSetLocation}
-            handleResetLocation={this.handleResetLocation}
-          />
-        ) : (
-          undefined
-        )}
-        {this.state.selectedFilter === FILTER.sport ? (
-          <FilterSport
-            selectedSports={this.props.selectedSports}
-            handleApply={this.props.handleAddSport}
-          />
-        ) : (
-          undefined
-        )}
-        {this.state.selectedFilter === FILTER.time ? (
-          <FilterTime handleApply={this.handleSetTimeframe} />
-        ) : (
-          undefined
-        )}
-      </>
+          {this.state.selectedFilter === FILTER.location ? (
+            <FilterLocation
+              coordinates={this.props.coordinates}
+              handleSetLocation={this.handleSetLocation}
+              handleResetLocation={this.handleResetLocation}
+            />
+          ) : (
+            undefined
+          )}
+          {this.state.selectedFilter === FILTER.sport ? (
+            <FilterSport
+              selectedSports={this.props.selectedSports}
+              handleApply={this.props.handleAddSport}
+            />
+          ) : (
+            undefined
+          )}
+          {this.state.selectedFilter === FILTER.time ? (
+            <FilterTime handleApply={this.handleSetTimeframe} />
+          ) : (
+            undefined
+          )}
+        </section>
+      </div>
     );
   }
 }

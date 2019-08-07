@@ -26,8 +26,8 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 eventToAdd.CurrentNumberOfPlayers < 1 || 
                 eventToAdd.TargetNumberOfPlayers < 2 ||
                 eventToAdd.TargetNumberOfPlayers <= eventToAdd.CurrentNumberOfPlayers ||
-                eventToAdd.EventStart <= eventToAdd.EventEnd ||
-                eventToAdd.EventStart > DateTime.Now
+                eventToAdd.EventStart >= eventToAdd.EventEnd ||
+                eventToAdd.EventStart < DateTime.Now
                 )
                 return null;
 
@@ -35,16 +35,16 @@ namespace FaliJedan.Domain.Repositories.Implementations
             if (doesEventExist)
                 return null;
 
-            _context.EventUsers.Add(new EventUser
-            {
-                //User = userToAdd,
-                //UserId = userToAdd.Id,
-                Event = eventToAdd,
-                EventId = eventToAdd.Id,
-                IsApproved = eventToAdd.IsInstantJoin ? true : false,
-                IsCanceled = false,
-                IsHost = true
-            });
+            //_context.EventUsers.Add(new EventUser
+            //{
+            //    User = userToAdd,
+            //    UserId = userToAdd.Id,
+            //    Event = eventToAdd,
+            //    EventId = eventToAdd.Id,
+            //    IsApproved = eventToAdd.IsInstantJoin ? true : false,
+            //    IsCanceled = false,
+            //    IsHost = true
+            //});
 
             eventToAdd.Sport = _context.Sports.Find(eventToAdd.SportId);
             eventToAdd.DateCreated = DateTime.Now;
@@ -109,7 +109,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User)
                     .Where(
-                    e => (DateTime.Compare(e.EventEnd, DateTime.Now) <= 0 &&
+                    e => (DateTime.Compare(e.EventStart, DateTime.Now) > 0 &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers))
                     .ToList();
             }

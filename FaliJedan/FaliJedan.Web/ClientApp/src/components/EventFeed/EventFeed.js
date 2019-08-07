@@ -91,6 +91,12 @@ class EventFeed extends Component {
       this.setState({ eventList });
     });
 
+    this.setState({
+      selectedSports: [],
+      timeframeStartDate: getDateNow(),
+      timeframeEndDate: ""
+    });
+
     this.closeFilterBar();
   };
 
@@ -102,7 +108,6 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
-      console.log(filteredEvents);
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
     });

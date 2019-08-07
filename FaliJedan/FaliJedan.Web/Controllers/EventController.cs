@@ -60,5 +60,23 @@ namespace FaliJedan.Web.Controllers
             
             return Ok(filteredEvents);
         }
+
+        [HttpGet("get-unreviewed-by-user-id")]
+        public IActionResult GetUnreviewedEventsByUserId(Guid id)
+        {
+            var eventsByUserId = _eventRepository.GetUnreviewedEventsByUserId(id);
+            if (eventsByUserId != null)
+                return Ok(eventsByUserId);
+            return NotFound();
+        }
+
+        [HttpGet("get-by-user-id")]
+        public IActionResult GetEventsByUserId(Guid id)
+        {
+            var eventsByUserId = _eventRepository.GetEventsByUserId(id);
+            if (eventsByUserId != null)
+                return Ok(eventsByUserId);
+            return NotFound();
+        }
     }
 }

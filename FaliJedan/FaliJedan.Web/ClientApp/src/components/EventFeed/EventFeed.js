@@ -6,7 +6,7 @@ import FilterBar from "../Filter/FilterBar";
 import {
   getAvailableEvents,
   getFilteredEvents,
-  //getUsersAndEventsToRate
+  getUsersAndEventsToRate
 } from "../../services/event";
 import { getAllSports } from "../../services/sport";
 import { eventDto } from "../../utils/event";
@@ -24,6 +24,7 @@ class EventFeed extends Component {
       timeframeStartDate: "",
       timeframeEndDate: "",
       usersToRate: null,
+      eventUserCurrentlyRating: null,
       isFilterBarDisplayed: false
     };
   }
@@ -39,32 +40,30 @@ class EventFeed extends Component {
     });
 
     this.setState({
-      timeframeStartDate: getDateNow(),
-      usersToRate: [
-        { username: "1" },
-        { username: "2" },
-        { username: "3" },
-        { username: "4" }
-      ]
+      timeframeStartDate: getDateNow()
     });
 
     // ENABLE ONCE USERS ARE SET UP
 
-    // getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
-    //   events => {
-    //     const usersToRate = events.map(event =>
-    //       event.eventUsers.map(eventUser => {
-    //         return {
-    //           ...eventUser.user
-    //         };
-    //       })
-    //     );
-
-    //     this.setState({
-    //       usersToRate
-    //     });
-    //   }
-    // );
+    getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
+      event => {
+        if (event !== null) {
+          this.setState({
+            eventUserCurrentlyRating: event.eventUsers.filter(
+              eventUser =>
+                eventUser.user.id === "f74e9c61-8bf5-4ef4-895e-9c636645a753"
+            ),
+            usersToRate: event.eventUsers.map(eventUser => {
+              if (
+                eventUser.user.id !== "f74e9c61-8bf5-4ef4-895e-9c636645a753"
+              ) {
+                return eventUser.user;
+              }
+            })
+          });
+        }
+      }
+    );
   };
 
   handleInputChange = event => {
@@ -180,6 +179,7 @@ class EventFeed extends Component {
         {this.state.usersToRate !== null ? (
           <UserRating
             users={this.state.usersToRate}
+            eventUserCurrentlyRating={this.state.eventUserCurrentlyRating}
             onAfterRating={this.handleResetUsersToRate}
           />
         ) : (

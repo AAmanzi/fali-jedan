@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RatingInput from "./RatingInput";
 import Loading from "../Loading";
+import { reviewUsers } from "../../services/event";
 
 class UserRating extends Component {
   constructor(props) {
@@ -32,7 +33,16 @@ class UserRating extends Component {
   };
 
   handleApplyRatings = () => {
-    // TODO
+    const review = {
+      eventUser: this.props.eventUserCurrentlyRating,
+      userRatings: this.state.userRatings.map(userRating => {
+        return { userId: userRating.user.id, rating: userRating.rating };
+      })
+    };
+
+    reviewUsers(review)
+      .then()
+      .catch(exception => console.log(exception));
 
     this.props.onAfterRating();
   };
@@ -47,7 +57,7 @@ class UserRating extends Component {
           {this.state.userRatings.map((userRating, index) => (
             <RatingInput
               key={index}
-              username={userRating.user.username}
+              username={userRating.user.firstName}
               userRatingIndex={index}
               handleChange={this.handleRatingChange}
             />

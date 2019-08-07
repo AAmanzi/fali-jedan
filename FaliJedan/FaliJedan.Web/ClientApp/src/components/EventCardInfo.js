@@ -1,8 +1,8 @@
 import React from "react";
-import SportIcon from "./SportIcon";
 
 const EventCardInfo = props => {
   const { event } = props;
+  console.log(event);
 
   const redirectToProfile = event => {
     event.stopPropagation();
@@ -13,21 +13,26 @@ const EventCardInfo = props => {
 
   return (
     <>
-      <div className="event__card--panel">
-        <SportIcon className="icon--sport" sport={event.sport.name} />
-        <button className="event__card--button">Join</button>
-      </div>
-      <div className="event__card--content" onClick={e => props.handleClick(e)}>
-        <div className="event__card--content--header">
-          <h1 className="event__card--host-name" onClick={redirectToProfile}>
-            {event.host}
-          </h1>
-          <span className="event__card--date">{event.dateOfEvent}</span>
-        </div>
-        <span className="event__card--location">{event.location}</span>
-        <span className="event__card--time">{`${event.startTime}-${
+      <div className="event__card--content" onClick={props.handleClick}>
+        <h2 className="c-bl tt-uc">{event.sport.name}</h2>
+        <h2 className="event__card--host-name" onClick={redirectToProfile}>
+          {event.host}
+        </h2>
+        <span className="event__card--location">{event.name}</span>
+        <section>
+          <label>Razina igre</label>
+          <span>{event.targetSkillLevel}</span>
+        </section>
+        <span className="event__card--time">{`${event.startTime} - ${
           event.endTime
         }`}</span>
+      </div>
+      <div className="event__card--panel">
+        {event.isInstantJoin ? (
+          <span className="event__card--instant-join" />
+        ) : (
+          undefined
+        )}
         <span className="event__card--players">{`${event.currentPlayers}/${
           event.targetPlayers
         }`}</span>

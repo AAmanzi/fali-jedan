@@ -19,7 +19,8 @@ class EventFeed extends Component {
       selectedSports: [],
       timeframeStartDate: "",
       timeframeEndDate: "",
-      usersToRate: null
+      usersToRate: null,
+      isFilterBarDisplayed: false
     };
   }
 
@@ -72,6 +73,18 @@ class EventFeed extends Component {
     });
   };
 
+  displayFilterBar = () => {
+    this.setState({
+      isFilterBarDisplayed: true
+    });
+  };
+
+  closeFilterBar = () => {
+    this.setState({
+      isFilterBarDisplayed: false
+    });
+  };
+
   applyFilters = () => {
     getFilteredEvents({
       sports: this.state.selectedSports,
@@ -83,6 +96,8 @@ class EventFeed extends Component {
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
     });
+
+    this.closeFilterBar();
   };
 
   handleResetUsersToRate = () => {
@@ -98,18 +113,28 @@ class EventFeed extends Component {
 
     return (
       <>
-        <FilterBar
-          allSports={this.state.allSports}
-          coordinates={this.props.currentCoordinates}
-          selectedSports={this.state.selectedSports}
-          timeframeStartDate={this.state.timeframeStartDate}
-          timeframeEndDate={this.state.timeframeEndDate}
-          handleSetLocation={this.props.handleLocationFilterChange}
-          handleResetLocation={this.props.handleLocationFilterReset}
-          handleTimeChange={this.handleInputChange}
-          handleAddSport={this.addSport}
-          applyFilters={this.applyFilters}
-        />
+        {this.state.isFilterBarDisplayed === true ? (
+          <FilterBar
+            allSports={this.state.allSports}
+            coordinates={this.props.currentCoordinates}
+            selectedSports={this.state.selectedSports}
+            timeframeStartDate={this.state.timeframeStartDate}
+            timeframeEndDate={this.state.timeframeEndDate}
+            handleSetLocation={this.props.handleLocationFilterChange}
+            handleResetLocation={this.props.handleLocationFilterReset}
+            handleTimeChange={this.handleInputChange}
+            handleAddSport={this.addSport}
+            applyFilters={this.applyFilters}
+            handleReset={this.closeFilterBar}
+          />
+        ) : (
+          undefined
+        )}
+
+        <header>
+          <span>Event lista</span>
+          <button onClick={this.displayFilterBar}>Filter</button>
+        </header>
 
         <ul className="event__list">
           {this.state.eventList.map((event, index) => (

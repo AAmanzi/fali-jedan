@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import EventFeed from "./components/EventFeed";
+import EventFeed from "./components/EventFeed/EventFeed";
 import NewEventForm from "./components/EventForm/NewEventForm";
 import "./App.css";
 import { mapUtils } from "./utils/map";
+import LoginScreen from "./components/Login/LoginScreen";
+import NotificationScreen from "./components/Notifications/NotificationScreen";
 
 const ol = mapUtils();
 
@@ -35,6 +37,9 @@ export default class App extends Component {
   };
 
   resetLocation = () => {
+    if (this.state.geolocation.position_ === null) {
+      return;
+    }
     const convertedCoordinates = ol.convertToWebMercator(
       parseFloat(this.state.geolocation.position_[0]),
       parseFloat(this.state.geolocation.position_[1])
@@ -72,7 +77,12 @@ export default class App extends Component {
               <NewEventForm currentCoordinates={currentCoordinates} />
             )}
           />
-
+          <Route
+            exact
+            path="/notifications"
+            render={() => <NotificationScreen />}
+          />
+          <Route exact path="/login" render={() => <LoginScreen />} />
           <Redirect to="/feed" />
         </Switch>
       </BrowserRouter>

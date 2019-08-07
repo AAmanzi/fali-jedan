@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { newEvent, isEventValid } from "../../utils/event";
+import { Redirect } from "react-router-dom";
+import {
+  newEvent,
+  getEventError,
+  handleEventFormError
+} from "../../utils/event";
 import { addEvent } from "../../services/event";
+import { getAllSports } from "../../services/sport";
 
 import Loading from "../Loading";
 import Navbar from "../Navbar";
 import LocationPicker from "../Map/LocationPicker";
 import SportIcon from "../SportIcon";
+import PostMessage from "./PostMessage";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -13,7 +20,8 @@ class NewEventForm extends Component {
 
     this.state = {
       sportList: null,
-      sport: "",
+      sport: undefined,
+      sportId: null,
       currentNumberOfPlayers: "",
       targetNumberOfPlayers: "",
       targetSkillLevel: 0,
@@ -23,20 +31,33 @@ class NewEventForm extends Component {
       endTime: "",
       toggleSportList: true,
       locationLatitude: null,
-      locationLongitude: null
+      locationLongitude: null,
+
+      isPostSuccessful: null,
+      redirect: false
     };
   }
 
   componentDidMount = () => {
-    this.setState({ sportList: ["default", "default", "default", "default"] });
+    getAllSports().then(sportList => {
+      this.setState({ sportList });
+    });
   };
 
   handleSportChange = event => {
     const sportListInput = document.eventForm.toggleSportList;
     sportListInput.checked = false;
 
-    this.handleInputChange(event);
+    const selectedId = parseInt(event.target.value);
 
+    const sport = this.state.sportList.find(sp => {
+      return sp.id === selectedId;
+    });
+    this.setState({
+      sport
+    });
+
+    this.handleInputChange(event);
     this.setState({ toggleSportList: false });
   };
 
@@ -61,7 +82,7 @@ class NewEventForm extends Component {
 
   handleSubmit = () => {
     const eventToAdd = newEvent(
-      1,
+      this.state.sportId,
       this.state.currentNumberOfPlayers,
       this.state.targetNumberOfPlayers,
       this.state.targetSkillLevel,
@@ -73,18 +94,43 @@ class NewEventForm extends Component {
       this.state.locationLongitude
     );
 
-    if (!isEventValid(eventToAdd)) {
+    const eventFormError = getEventError(eventToAdd);
+
+    if (eventFormError !== undefined) {
+      handleEventFormError(eventFormError);
       return undefined;
     }
 
     addEvent(eventToAdd)
-      .then(response => response)
-      .catch(exception => exception);
+      .then(response => {
+        this.displaySuccess();
+        return response;
+      })
+      .catch(exception => {
+        this.displayError();
+        return exception;
+      });
+  };
+
+  displaySuccess = () => {
+    this.setState({ isPostSuccessful: true });
+  };
+
+  displayError = () => {
+    this.setState({ isPostSuccessful: false });
+  };
+
+  redirectToFeed = () => {
+    this.setState({ redirect: true });
   };
 
   render() {
-    if (this.state.sportList === null) {
+    const { sport, sportList, isPostSuccessful, redirect } = this.state;
+    if (sportList === null) {
       return <Loading />;
+    }
+    if (redirect) {
+      return <Redirect to="/feed" />;
     }
     return (
       <>
@@ -105,17 +151,17 @@ class NewEventForm extends Component {
               onChange={this.handleInputChange}
             />
             <ul className="event__form--list-sport">
-              {this.state.sportList.map((sport, index) => (
+              {sportList.map((sport, index) => (
                 <li key={index}>
                   <label>
                     <input
                       type="radio"
-                      name="sport"
+                      name="sportId"
                       id="sportRadio"
-                      value={sport}
+                      value={sport.id}
                       onChange={this.handleSportChange}
                     />
-                    <SportIcon className="icon--sport" sport={sport} />
+                    <SportIcon className="icon--sport" sport={sport.name} />
                   </label>
                 </li>
               ))}
@@ -217,6 +263,15 @@ class NewEventForm extends Component {
           <button onClick={this.handleSubmit}>Submit</button>
         </div>
         <Navbar />
+
+        {isPostSuccessful !== null ? (
+          <PostMessage
+            isPostSuccessful={isPostSuccessful}
+            onClose={this.redirectToFeed}
+          />
+        ) : (
+          undefined
+        )}
       </>
     );
   }

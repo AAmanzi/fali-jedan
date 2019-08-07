@@ -12,9 +12,9 @@ const EventCardDetails = props => {
       <LocationDisplay coordinates={event.coordinates} />
       <section className="event__card__details--content">
         <div className="event__card__details--content__main--container">
-          <SportIcon sport={event.sport} className="icon--sport" />
+          <SportIcon sport={event.sport.name} className="icon--sport" />
           <div className="event__card__details--content__main">
-            <h2 className="c-bl tt-uc">{event.sport}</h2>
+            <h2 className="c-bl tt-uc">{event.sport.name}</h2>
             <h2 className="event__card--host-name">{event.host}</h2>
             <span className="event__card--location">{event.name}</span>
           </div>
@@ -33,13 +33,10 @@ const EventCardDetails = props => {
             {/* image */}
             <div>
               <h2 className="c-bl tt-uc">broj sudionika</h2>
-              <span>{`${event.currentNumberOfPlayers}/${
-                event.targetNumberOfPlayers
-              }`}</span>
+              <span>{`${event.currentPlayers}/${event.targetPlayers}`}</span>
             </div>
             <span>
-              {`${event.targetNumberOfPlayers -
-                event.currentNumberOfPlayers} igrača`}
+              {`${event.targetPlayers - event.currentPlayers} igrača`}
             </span>
           </li>
           <li className="event__card__details--info-item">

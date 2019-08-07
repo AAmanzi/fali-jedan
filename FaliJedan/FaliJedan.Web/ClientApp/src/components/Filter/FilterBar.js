@@ -12,7 +12,6 @@ class FilterBar extends Component {
       selectedFilter: FILTER.sport
     };
   }
-
   handleFilterClick = event => {
     const clickedFilter = event.target.id;
 
@@ -38,6 +37,7 @@ class FilterBar extends Component {
       <div className="modal__cover">
         <section className="modal__content modal__content-full">
           <header>
+            <button onClick={this.props.handleReset}>Reset</button>
             <span>Filter</span>
             <button onClick={this.props.applyFilters}>Apply</button>
           </header>
@@ -76,6 +76,7 @@ class FilterBar extends Component {
           )}
           {this.state.selectedFilter === FILTER.sport ? (
             <FilterSport
+              allSports={this.props.allSports}
               selectedSports={this.props.selectedSports}
               handleApply={this.props.handleAddSport}
             />
@@ -83,7 +84,12 @@ class FilterBar extends Component {
             undefined
           )}
           {this.state.selectedFilter === FILTER.time ? (
-            <FilterTime handleApply={this.handleSetTimeframe} />
+            <FilterTime
+              handleApply={this.handleSetTimeframe}
+              dateFrom={this.props.timeframeStartDate}
+              dateTo={this.props.timeframeEndDate}
+              handleInputChange={this.props.handleTimeChange}
+            />
           ) : (
             undefined
           )}

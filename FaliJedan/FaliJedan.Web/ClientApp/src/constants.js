@@ -4,7 +4,8 @@ export const RIGHT = "right";
 export const API_ROUTE = "/api";
 
 export const CONTROLLER = {
-  event: "events"
+  event: "events",
+  sport: "sports"
 };
 
 export const FILTER = {
@@ -12,3 +13,11 @@ export const FILTER = {
   sport: "sport",
   time: "time"
 };
+
+export const ERROR = {
+  isNull: "isNull",
+  notNumber: "notNumber",
+  numberDifference: "numberDifference",
+  dateLessThanNow: "dateLessThanNow",
+  timeDifference: "timeDifference",
+}

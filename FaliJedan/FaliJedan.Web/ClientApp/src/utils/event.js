@@ -2,7 +2,6 @@ import * as dateFormat from "./dateFormatting";
 import { ERROR } from "../constants";
 
 export const getEventError = event => {
-  console.log(event);
   const {
     sportId,
     currentNumberOfPlayers,
@@ -130,6 +129,6 @@ export const eventDto = dto => {
     targetPlayers: dto.event.targetNumberOfPlayers,
     coordinates: [dto.event.locationLatitude, dto.event.locationLongitude],
     description: dto.event.description,
-    targetSkillLevel: dto.event.targetSkillLevel
+    targetSkillLevel: dto.event.targetSkillLevel,
   };
 };

@@ -475,7 +475,6 @@ a {
 }
 
 .form-login {
-  background-color: #178bf6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -511,10 +510,14 @@ a {
 
 .login__screen--container {
   background-color: #178bf6;
+  background-image: url(/assets/tennis-player.jpg);
+  background-repeat: no-repeat;
+  background-position: 52%;
   position: relative;
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+  background-size: cover;
 }
 
 .form-container {
@@ -522,6 +525,7 @@ a {
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
+  background-color: rgba(23, 139, 246, 0.56);
 }
 
 .log-in-container {
@@ -532,7 +536,6 @@ a {
   left: 0;
   width: 100%;
   z-index: 2;
-  opacity: 1;
 }
 
 .text__login {
@@ -544,7 +547,6 @@ a {
 
 .login__screen--container.right-panel-active .log-in-container {
   transform: translateX(-100%);
-  opacity: 0;
 }
 
 .form-signup__inline {

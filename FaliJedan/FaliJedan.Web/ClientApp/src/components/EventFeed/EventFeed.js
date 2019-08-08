@@ -48,6 +48,7 @@ class EventFeed extends Component {
     getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
       event => {
         if (event !== null) {
+          // TODO: map return value line 57
           this.setState({
             eventUserCurrentlyRating: event.eventUsers.filter(
               eventUser =>

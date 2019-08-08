@@ -6,6 +6,7 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  color: #63677c;
 }
 
 ul {
@@ -25,7 +26,7 @@ h2 {
 .tt-uc {
   text-transform: uppercase;
 }
-  
+
 header {
   display: flex;
 }
@@ -113,7 +114,7 @@ header {
 }
 
 .event__card--instant-join {
-  background-image: url(/assets/instantJoin.svg);
+  background-image: url(/assets/common/instantJoin.svg);
   background-repeat: no-repeat;
   width: 0;
   height: 0;
@@ -143,6 +144,10 @@ header {
 
 /* NAVBAR */
 
+.navbar__item-active {
+  fill: #178bf6;
+}
+
 .navbar__list {
   position: absolute;
   bottom: 0;
@@ -151,16 +156,54 @@ header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  border-radius: 10px 10px 0px 0px;
+  padding-top: 6px;
+  box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.16);
+  z-index: 9999;
+}
+
+.navbar__item__container {
+  text-decoration: none;
+  color: #63677c;
+  background-color: #ffffff;
+  width: 20%;
+  text-align: center;
+  margin: 0;
 }
 
 .navbar__item {
-  text-decoration: none;
-  color: black;
-  background-color: #ccc;
-  border: 1px solid black;
-  width: 25%;
-  text-align: center;
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__item img,
+.navbar__item span {
+  margin: 4px;
+}
+
+.navbar__item--create {
+  position: absolute;
+  width: 59px;
+  height: 59px;
+  left: calc(50% - 59px / 2);
+  bottom: 17px;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__item--create-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #178bf6;
+  border-radius: 50%;
+  padding: 12.5px;
 }
 
 /* NEW EVENT FORM */

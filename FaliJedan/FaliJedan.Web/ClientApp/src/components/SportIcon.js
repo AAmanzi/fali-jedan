@@ -4,7 +4,7 @@ const SportIcon = props => {
   return (
     <img
       className={props.className}
-      src={`/assets/sports/${props.sport}.jpg`}
+      src={`/assets/sports/${props.sport}.svg`}
       alt={props.sport}
       onClick={props.onClick}
     />

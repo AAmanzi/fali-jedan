@@ -22,8 +22,16 @@ h2 {
   color: #178bf6;
 }
 
+.c-az {
+  color: #37b3ed;
+}
+
 .tt-uc {
   text-transform: uppercase;
+}
+
+.fw-b {
+  font-weight: bold;
 }
 
 .line {

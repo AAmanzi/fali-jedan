@@ -2,7 +2,7 @@ import React from "react";
 import SportIcon from "../SportIcon";
 
 const FilterSport = props => {
-  const { allSports } = props;
+  const { allSports, selectedSports } = props;
 
   return (
     <section className="filter__sport">
@@ -13,10 +13,11 @@ const FilterSport = props => {
               type="checkbox"
               name="sport"
               id={`sport_${index}`}
-              checked={props.selectedSports.includes(sport)}
-              onChange={() => props.handleApply(sport)}
+              checked={selectedSports.includes(sport)}
+              onChange={() => {}}
             />
-            <li>
+            <li onClick={() => props.handleApply(sport)}>
+              <img src="assets/checkmark-icon.svg" alt="Označen" />
               <label htmlFor={`sport_${index}`}>
                 <SportIcon
                   className="icon--sport icon--sport-checkbox"

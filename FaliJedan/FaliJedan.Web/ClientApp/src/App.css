@@ -463,8 +463,20 @@ header .spacing {
   overflow: scroll;
 }
 
+.filter__sport__list input:checked + li {
+  background-color: #37b3ed;
+}
+
+.filter__sport__list input:checked + li span {
+  color: #ffffff;
+}
+
+.filter__sport__list input:checked + li img {
+  filter: brightness(0) invert(1);
+}
+
 .filter__sport__list li {
-  background: #ffffff;
+  background-color: #ffffff;
   box-shadow: 0px 0px 12px rgba(12, 72, 128, 0.6);
   border-radius: 10px;
   margin: 12.5px 35px;
@@ -476,16 +488,17 @@ header .spacing {
   align-items: center;
 }
 
-.filter__sport__list li:nth-child(1),
-.filter__sport__list li:nth-child(2) {
+.filter__sport__list li:nth-child(2),
+.filter__sport__list li:nth-child(4) {
   margin-top: 35px;
 }
 
-.filter__sport__list li:nth-child(odd) {
+.filter__sport__list li:nth-child(2n) {
   margin-right: 17.5px;
 }
 
-.filter__sport__list li:nth-child(even) {
+.filter__sport__list li:nth-child(4n) {
+  margin-right: 0;
   margin-left: 17.5px;
 }
 

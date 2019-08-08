@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EventCard from "../EventCard";
 import Loading from "../Loading";
-import { getAvailableEvents, getUserNotifications } from "../../services/event";
+import { getUserNotifications } from "../../services/event";
 import { eventDto } from "../../utils/event";
 import EventUsers from "./EventUsers";
 import Navbar from "../Navbar";

@@ -74,6 +74,7 @@ export const handleEventFormError = error => {
 
 export const newEvent = (
   sportId,
+  eventName,
   currentNumberOfPlayers,
   targetNumberOfPlayers,
   targetSkillLevel,
@@ -82,7 +83,8 @@ export const newEvent = (
   startTime,
   endTime,
   locationLatitude,
-  locationLongitude
+  locationLongitude,
+  description
 ) => {
   let eventStart = dateOfEvent + "T" + startTime;
   let eventEnd = dateOfEvent + "T" + endTime;
@@ -102,6 +104,7 @@ export const newEvent = (
 
   return {
     sportId,
+    name: eventName,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
     targetSkillLevel,
@@ -109,13 +112,15 @@ export const newEvent = (
     eventStart,
     eventEnd,
     locationLatitude,
-    locationLongitude
+    locationLongitude,
+    description
   };
 };
 
 export const eventDto = dto => {
   return {
     sport: dto.event.sport,
+    name: dto.event.name,
     host: dto.host,
     dateOfEvent: dateFormat.getDate(dto.event.eventStart),
     startTime: dateFormat.getTime(dto.event.eventStart),

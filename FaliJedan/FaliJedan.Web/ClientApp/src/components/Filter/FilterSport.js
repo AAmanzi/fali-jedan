@@ -21,6 +21,7 @@ const FilterSport = props => {
                 sport={sport.name}
               />
             </label>
+            <span className="c-bl tt-uc">{sport.name}</span>
           </li>
         ))}
       </ul>

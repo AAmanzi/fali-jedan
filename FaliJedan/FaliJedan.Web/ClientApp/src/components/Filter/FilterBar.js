@@ -37,9 +37,19 @@ class FilterBar extends Component {
       <div className="modal__cover">
         <section className="modal__content modal__content-full">
           <header>
-            <button onClick={this.props.handleReset}>Reset</button>
-            <span>Filter</span>
-            <button onClick={this.props.applyFilters}>Apply</button>
+            <img
+              onClick={this.props.handleReset}
+              src="/assets/refresh-icon.svg"
+              alt="Vrati na početno"
+            />
+            <span className="header__title" onClick={this.props.handleClose}>
+              Filter
+            </span>
+            <img
+              onClick={this.props.applyFilters}
+              src="/assets/checkmark-icon.svg"
+              alt="Primijeni promjene"
+            />
           </header>
           <ul className="filter__list">
             <li
@@ -93,6 +103,7 @@ class FilterBar extends Component {
           ) : (
             undefined
           )}
+          <span className="line" />
         </section>
       </div>
     );

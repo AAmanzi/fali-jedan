@@ -25,9 +25,38 @@ h2 {
 .tt-uc {
   text-transform: uppercase;
 }
-  
+
+.line {
+  border: 2px solid #ffffff;
+  width: 75px;
+  border-radius: 10px;
+  margin: 10.5px 0 12px 0;
+}
+
+/* HEADER */
+
 header {
   display: flex;
+  color: #ffffff;
+  background-color: #178bf6;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  width: 100%;
+}
+
+header * {
+  margin: 0 18px;
+}
+
+header .spacing {
+  width: 20px;
+}
+
+.header__title {
+  font-size: 24px;
+  line-height: 33px;
 }
 
 /* EVENT FEED */
@@ -37,6 +66,12 @@ header {
   overflow-x: hidden;
   height: 94vh;
   background-color: #e5e5e5;
+}
+
+.event__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* EVENT CARD */
@@ -273,7 +308,8 @@ header {
 
 .event__form--rating label input,
 .user__rating--input label input,
-.event__form--list-sport li input {
+.event__form--list-sport li input,
+.filter__sport__list input {
   position: absolute;
   top: 0;
   left: 0;
@@ -371,7 +407,7 @@ header {
   display: none;
 }
 
-/* fiter bar */
+/* FILTER BAR */
 
 .filter__list {
   display: flex;
@@ -389,6 +425,43 @@ header {
   cursor: pointer;
 }
 
+.filter__sport {
+  overflow: scroll;
+  height: 80%;
+}
+
+.filter__sport__list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.filter__sport__list li {
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(12, 72, 128, 0.6);
+  border-radius: 10px;
+  margin: 12.5px 35px;
+  width: calc(50% - 52.5px);
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter__sport__list li:nth-child(1),
+.filter__sport__list li:nth-child(2) {
+  margin-top: 35px;
+}
+
+.filter__sport__list li:nth-child(odd) {
+  margin-right: 17.5px;
+}
+
+.filter__sport__list li:nth-child(even) {
+  margin-left: 17.5px;
+}
+
 /* modal */
 
 .modal__cover {
@@ -397,7 +470,7 @@ header {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 3;
+  z-index: 100;
   background-color: #453d3d77;
 }
 
@@ -409,6 +482,34 @@ header {
   align-items: center;
   width: 40%;
   background-color: #fff;
+}
+
+.modal__content-full {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 95%;
+  background-color: #178bf6;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.modal__cover-right {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+  left: 100%;
+  z-index: 100;
+  transition: right 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    left 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.modal__cover-right--active {
+  right: 0;
+  left: 0;
+  opacity: 1;
 }
 
 /* Login screen */
@@ -608,35 +709,6 @@ a {
   width: 40px;
 }
 
-.modal__cover {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
-  background-color: #453d3d77;
-}
-
-.modal__cover-right {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  bottom: 0;
-  right: -100%;
-  left: 100%;
-  z-index: 100;
-  transition: right 0.2s ease-in-out, opacity 0.2s ease-in-out,
-    left 0.2s ease-in-out;
-  background-color: #ffffff;
-}
-
-.modal__cover-right--active {
-  right: 0;
-  left: 0;
-  opacity: 1;
-}
-
 .button--back {
   position: absolute;
   top: 5px;
@@ -648,20 +720,4 @@ a {
   .event__card--button-slide {
     display: none;
   }
-}
-
-.modal__content {
-  margin: auto;
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 40%;
-  background-color: #fff;
-}
-
-.modal__content-full {
-  margin: 0;
-  width: 100%;
-  background-color: #2196f3;
 }

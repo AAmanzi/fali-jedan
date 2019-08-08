@@ -54,21 +54,27 @@ class FilterBar extends Component {
           <ul className="filter__list">
             <li
               id={FILTER.sport}
-              className="filter__list__item"
+              className={`filter__list__item button ${
+                this.state.selectedFilter === FILTER.sport ? "" : "ghost"
+              }`}
               onClick={this.handleFilterClick}
             >
               <span id={FILTER.sport}>Sport</span>
             </li>
             <li
               id={FILTER.location}
-              className="filter__list__item"
+              className={`filter__list__item button ${
+                this.state.selectedFilter === FILTER.location ? "" : "ghost"
+              }`}
               onClick={this.handleFilterClick}
             >
               <span id={FILTER.location}>Location</span>
             </li>
             <li
               id={FILTER.time}
-              className="filter__list__item"
+              className={`filter__list__item button ${
+                this.state.selectedFilter === FILTER.time ? "" : "ghost"
+              }`}
               onClick={this.handleFilterClick}
             >
               <span id={FILTER.time}>Time</span>

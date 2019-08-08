@@ -417,11 +417,17 @@ header .spacing {
 
 /* FILTER BAR */
 
+/* TODO: width less than 100% */
+/* 
+  button colors will get set after merging with 
+  aamanzi_ui_login-screen branch
+*/
+
 .filter__list {
   display: flex;
   width: 100%;
   justify-content: space-around;
-  background-color: blue;
+  margin: 0 10px;
 }
 
 .filter__list__item {
@@ -431,6 +437,15 @@ header .spacing {
   background-color: #ccc;
   border: 1px solid black;
   cursor: pointer;
+  border-radius: 0 !important;
+}
+
+.filter__list__item:nth-child(1) {
+  border-radius: 10px 0 0 10px !important;
+}
+
+.filter__list__item:nth-child(3) {
+  border-radius: 0 10px 10px 0 !important;
 }
 
 .filter__sport {
@@ -550,7 +565,7 @@ a {
   margin: 15px 0;
 }
 
-.button-login {
+.button {
   border-radius: 20px;
   border: 1px solid #ff4b2b;
   background-color: #ff4b2b;
@@ -563,15 +578,15 @@ a {
   transition: transform 80ms ease-in;
 }
 
-.button-login:active {
+.button:active {
   transform: scale(0.95);
 }
 
-.button-login:focus {
+.button:focus {
   outline: none;
 }
 
-.button-login.ghost {
+.button.ghost {
   background-color: transparent;
   border-color: #ffffff;
 }

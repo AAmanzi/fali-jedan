@@ -30,65 +30,60 @@ class Signup extends Component {
   render() {
     return (
       <div className="form-container sign-up-container">
+        <div onClick={this.props.handlePanelSwitch} className="sign-up__back">
+          <img src="/assets/back.svg" alt="Natrag" />
+          <span className="text__login">Natrag</span>
+        </div>
         <form className="form-login">
-          <h1>Create Account</h1>
-          <div className="social-container">
-            <a href="/" className="social">
-              <i className="fab fa-facebook-f" />
-            </a>
-            <a href="/" className="social">
-              <i className="fab fa-google-plus-g" />
-            </a>
-            <a href="/" className="social">
-              <i className="fab fa-linkedin-in" />
-            </a>
+          <div className="form-signup__inline">
+            <input
+              className="input-login"
+              type="text"
+              name="firstName"
+              placeholder="Ime"
+              onChange={this.handleInputChange}
+            />
+            <input
+              className="input-login"
+              type="text"
+              name="lastName"
+              placeholder="Prezime"
+              onChange={this.handleInputChange}
+            />
           </div>
-          <span>or use your email for registration</span>
           <input
             className="input-login"
             type="text"
             name="username"
-            placeholder="Username"
-            onChange={this.handleInputChange}
-          />
-          <input
-            className="input-login"
-            type="text"
-            name="firstName"
-            placeholder="First name"
-            onChange={this.handleInputChange}
-          />
-          <input
-            className="input-login"
-            type="text"
-            name="lastName"
-            placeholder="Last name"
+            placeholder="Korisničko ime"
             onChange={this.handleInputChange}
           />
           <input
             className="input-login"
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="E-mail"
             onChange={this.handleInputChange}
           />
           <input
             className="input-login"
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Lozinka"
             onChange={this.handleInputChange}
           />
           <input
             className="input-login"
             type="password"
             name="repeatPassword"
-            placeholder="Repeat password"
+            placeholder="Ponovi lozinku"
           />
         </form>
-        <button className="button-login" onClick={this.handleSignup}>
-          Sign Up
-        </button>
+        <div className="button__login--container">
+          <button className="button__login" onClick={this.handleSignup}>
+            Sign Up
+          </button>
+        </div>
       </div>
     );
   }

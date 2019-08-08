@@ -5,7 +5,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: "",
+      email: "",
       password: ""
     };
   }
@@ -27,38 +27,35 @@ class Login extends Component {
     return (
       <div className="form-container log-in-container">
         <form className="form-login">
-          <h1>Log in</h1>
-          <div className="social-container">
-            <a href="/" className="social">
-              <i className="fab fa-facebook-f" />
-            </a>
-            <a href="/" className="social">
-              <i className="fab fa-google-plus-g" />
-            </a>
-            <a href="/" className="social">
-              <i className="fab fa-linkedin-in" />
-            </a>
-          </div>
-          <span>or use your account</span>
           <input
             className="input-login"
-            type="text"
-            name="username"
-            placeholder="Username"
+            type="email"
+            name="email"
+            placeholder="E-mail"
             onChange={this.handleInputChange}
           />
           <input
             className="input-login"
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Lozinka"
             onChange={this.handleInputChange}
           />
-          <a href="/">Forgot your password?</a>
         </form>
-        <button className="button-login" onClick={this.handleLogin}>
-          Log In
-        </button>
+        <div className="button__login--container">
+          <button
+            className="button__login ghost"
+            onClick={this.props.handlePanelSwitch}
+          >
+            Registracija
+          </button>
+          <button className="button__login" onClick={this.handleLogin}>
+            Prijava
+          </button>
+        </div>
+        <span className="text__login">
+          Novi korisnik
+        </span>
       </div>
     );
   }

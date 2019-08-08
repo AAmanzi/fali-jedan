@@ -134,7 +134,6 @@ class NewEventForm extends Component {
       toggleSportList
     } = this.state;
 
-    console.log(this.state);
     if (sportList === null) {
       return <Loading />;
     }

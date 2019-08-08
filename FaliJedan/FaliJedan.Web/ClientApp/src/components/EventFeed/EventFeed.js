@@ -3,7 +3,11 @@ import EventCard from "../EventCard";
 import Navbar from "../Navbar";
 import Loading from "../Loading";
 import FilterBar from "../Filter/FilterBar";
-import { getAvailableEvents, getFilteredEvents } from "../../services/event";
+import {
+  getAvailableEvents,
+  getFilteredEvents,
+  getUsersAndEventsToRate
+} from "../../services/event";
 import { getAllSports } from "../../services/sport";
 import { eventDto } from "../../utils/event";
 import { getDateNow } from "../../utils/dateFormatting";
@@ -20,6 +24,7 @@ class EventFeed extends Component {
       timeframeStartDate: "",
       timeframeEndDate: "",
       usersToRate: null,
+      eventUserCurrentlyRating: null,
       isFilterBarDisplayed: false
     };
   }
@@ -35,16 +40,30 @@ class EventFeed extends Component {
     });
 
     this.setState({
-      timeframeStartDate: getDateNow(),
-      usersToRate: [
-        { username: "1" },
-        { username: "2" },
-        { username: "3" },
-        { username: "4" }
-      ]
+      timeframeStartDate: getDateNow()
     });
 
-    // TODO: load usersToRate
+    // TODO: userId
+
+    getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
+      event => {
+        if (event !== null) {
+          this.setState({
+            eventUserCurrentlyRating: event.eventUsers.filter(
+              eventUser =>
+                eventUser.user.id === "f74e9c61-8bf5-4ef4-895e-9c636645a753"
+            ),
+            usersToRate: event.eventUsers.map(eventUser => {
+              if (
+                eventUser.user.id !== "f74e9c61-8bf5-4ef4-895e-9c636645a753"
+              ) {
+                return eventUser.user;
+              }
+            })
+          });
+        }
+      }
+    );
   };
 
   handleInputChange = event => {
@@ -160,6 +179,7 @@ class EventFeed extends Component {
         {this.state.usersToRate !== null ? (
           <UserRating
             users={this.state.usersToRate}
+            eventUserCurrentlyRating={this.state.eventUserCurrentlyRating}
             onAfterRating={this.handleResetUsersToRate}
           />
         ) : (

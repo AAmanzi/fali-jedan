@@ -153,6 +153,10 @@ header .spacing {
   border-radius: 10px;
 }
 
+.ol-overlaycontainer {
+  display: none;
+}
+
 .event__card--description {
   display: none;
   position: absolute;
@@ -515,6 +519,32 @@ header .spacing {
 .filter__sport__list li:nth-child(4n) {
   margin-right: 0;
   margin-left: 17.5px;
+}
+
+.filter__location__dropdown {
+  position: relative;
+  height: 80%;
+  margin: 35px 10px 12.5px 10px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.filter__location__dropdown .map__container {
+  position: relative;
+}
+
+.filter__location__dropdown .map__container div {
+  height: 424px !important;
+  border-radius: 10px;
+  margin-top: -10px;
+}
+
+.button-location {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 /* modal */

@@ -34,6 +34,10 @@ h2 {
   font-weight: bold;
 }
 
+.b-bl {
+  border: 2px solid #178bf6;
+}
+
 .line {
   border: 2px solid #ffffff;
   width: 75px;
@@ -95,6 +99,7 @@ header .spacing {
   background-color: #ffffff;
   margin: 6px 0;
   height: 130px;
+  transition: border 0.3s ease-in-out;
 }
 
 .event__card--panel,
@@ -145,8 +150,7 @@ header .spacing {
 }
 
 .map__container {
-  width: 80%;
-  height: 80%;
+  border-radius: 10px;
 }
 
 .event__card--description {

@@ -84,7 +84,8 @@ export const newEvent = (
   startTime,
   endTime,
   locationLatitude,
-  locationLongitude
+  locationLongitude,
+  description
 ) => {
   let eventStart = dateOfEvent + "T" + startTime;
   let eventEnd = dateOfEvent + "T" + endTime;
@@ -112,7 +113,8 @@ export const newEvent = (
     eventStart,
     eventEnd,
     locationLatitude,
-    locationLongitude
+    locationLongitude,
+    description
   };
 };
 

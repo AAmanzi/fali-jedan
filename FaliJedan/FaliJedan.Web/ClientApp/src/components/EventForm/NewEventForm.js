@@ -34,6 +34,7 @@ class NewEventForm extends Component {
       toggleSportList: true,
       locationLatitude: null,
       locationLongitude: null,
+      description: "",
 
       isPostSuccessful: null,
       redirect: false
@@ -106,7 +107,8 @@ class NewEventForm extends Component {
       this.state.startTime,
       this.state.endTime,
       this.state.locationLatitude,
-      this.state.locationLongitude
+      this.state.locationLongitude,
+      this.state.description
     );
 
     const eventFormError = getEventError(eventToAdd);
@@ -148,8 +150,7 @@ class NewEventForm extends Component {
       redirect,
       toggleSportList
     } = this.state;
-
-    console.log(this.state);
+    
     if (sportList === null) {
       return <Loading />;
     }
@@ -202,12 +203,6 @@ class NewEventForm extends Component {
 
             <label>
               Broj trenutnih igrača
-              {/* <input
-                name="currentNumberOfPlayers"
-                type="number"
-                value={this.state.currentNumberOfPlayers}
-                onChange={this.handleInputChange}
-              /> */}
               <NumberInput
                 value={this.state.currentNumberOfPlayers}
                 handleChange={this.handleCurrentNumberChange}
@@ -215,12 +210,6 @@ class NewEventForm extends Component {
             </label>
             <label>
               Broj traženih igrača
-              {/* <input
-                name="targetNumberOfPlayers"
-                type="number"
-                value={this.state.targetNumberOfPlayers}
-                onChange={this.handleInputChange}
-              /> */}
               <NumberInput
                 value={this.state.targetNumberOfPlayers}
                 handleChange={this.handleTargetNumberChange}
@@ -258,6 +247,16 @@ class NewEventForm extends Component {
               coordinates={this.props.currentCoordinates}
               handleClick={this.handleCoordinateChange}
             />
+
+            <label>
+              Opis eventa
+              <input
+                name="description"
+                type="text"
+                value={this.state.description}
+                onChange={this.handleInputChange}
+              />
+            </label>
 
             <label>Instant join</label>
             <label className="event__form--switch">

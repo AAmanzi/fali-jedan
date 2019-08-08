@@ -13,6 +13,7 @@ import Navbar from "../Navbar";
 import LocationPicker from "../Map/LocationPicker";
 import SportIcon from "../SportIcon";
 import PostMessage from "./PostMessage";
+import NumberInput from "./NumberInput";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -22,8 +23,9 @@ class NewEventForm extends Component {
       sportList: null,
       sport: undefined,
       sportId: null,
-      currentNumberOfPlayers: "",
-      targetNumberOfPlayers: "",
+      eventName: "",
+      currentNumberOfPlayers: 0,
+      targetNumberOfPlayers: 0,
       targetSkillLevel: 0,
       isInstantJoin: true,
       dateOfEvent: "",
@@ -73,6 +75,18 @@ class NewEventForm extends Component {
     });
   };
 
+  handleCurrentNumberChange = value => {
+    this.setState({
+      currentNumberOfPlayers: value
+    });
+  };
+
+  handleTargetNumberChange = value => {
+    this.setState({
+      targetNumberOfPlayers: value
+    });
+  };
+
   handleCoordinateChange = coordinates => {
     this.setState({
       locationLatitude: coordinates[0],
@@ -83,6 +97,7 @@ class NewEventForm extends Component {
   handleSubmit = () => {
     const eventToAdd = newEvent(
       this.state.sportId,
+      this.state.eventName,
       this.state.currentNumberOfPlayers,
       this.state.targetNumberOfPlayers,
       this.state.targetSkillLevel,
@@ -175,66 +190,41 @@ class NewEventForm extends Component {
                 </li>
               ))}
             </ul>
-            <label>Current number of players / target number of players</label>
             <label>
+              Naziv eventa
               <input
+                name="eventName"
+                type="text"
+                value={this.state.eventName}
+                onChange={this.handleInputChange}
+              />
+            </label>
+
+            <label>
+              Broj trenutnih igrača
+              {/* <input
                 name="currentNumberOfPlayers"
                 type="number"
                 value={this.state.currentNumberOfPlayers}
                 onChange={this.handleInputChange}
+              /> */}
+              <NumberInput
+                value={this.state.currentNumberOfPlayers}
+                handleChange={this.handleCurrentNumberChange}
               />
-              /
-              <input
+            </label>
+            <label>
+              Broj traženih igrača
+              {/* <input
                 name="targetNumberOfPlayers"
                 type="number"
                 value={this.state.targetNumberOfPlayers}
                 onChange={this.handleInputChange}
+              /> */}
+              <NumberInput
+                value={this.state.targetNumberOfPlayers}
+                handleChange={this.handleTargetNumberChange}
               />
-            </label>
-            <label className="event__form--rating--container">
-              Skill level:
-              <div className="event__form--rating">
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="1"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="2"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="3"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-              </div>
-            </label>
-            <label>Instant join</label>
-            <label className="event__form--switch">
-              <input
-                type="checkbox"
-                name="isInstantJoin"
-                onChange={this.handleInputChange}
-                defaultChecked={true}
-              />
-              <span className="event__form--switch--slider" />
             </label>
             <label>
               Date:
@@ -268,6 +258,78 @@ class NewEventForm extends Component {
               coordinates={this.props.currentCoordinates}
               handleClick={this.handleCoordinateChange}
             />
+
+            <label>Instant join</label>
+            <label className="event__form--switch">
+              <input
+                type="checkbox"
+                name="isInstantJoin"
+                onChange={this.handleInputChange}
+                defaultChecked={true}
+              />
+              <span className="event__form--switch--slider" />
+            </label>
+
+            <label className="event__form--rating--container">
+              Skill level:
+              <div className="event__form--rating">
+                <label>
+                  <input
+                    type="radio"
+                    name="targetSkillLevel"
+                    value="1"
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon--rating">★</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="targetSkillLevel"
+                    value="2"
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="targetSkillLevel"
+                    value="3"
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="targetSkillLevel"
+                    value="4"
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="targetSkillLevel"
+                    value="5"
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                  <span className="icon--rating">★</span>
+                </label>
+              </div>
+            </label>
           </form>
           <button onClick={this.handleSubmit}>Submit</button>
         </div>

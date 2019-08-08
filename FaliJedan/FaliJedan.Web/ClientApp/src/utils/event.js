@@ -2,7 +2,7 @@ import * as dateFormat from "./dateFormatting";
 import { ERROR } from "../constants";
 
 export const getEventError = event => {
-  console.log(event)
+  console.log(event);
   const {
     sportId,
     currentNumberOfPlayers,
@@ -16,11 +16,7 @@ export const getEventError = event => {
   const dateNow = dateFormat.getDateNow();
   const timeNow = dateFormat.getTime(new Date());
 
-  if (
-    sportId === null ||
-    eventStart === null ||
-    eventEnd === null
-  ) {
+  if (sportId === null || eventStart === null || eventEnd === null) {
     return ERROR.isNull;
   }
 
@@ -79,6 +75,7 @@ export const handleEventFormError = error => {
 
 export const newEvent = (
   sportId,
+  eventName,
   currentNumberOfPlayers,
   targetNumberOfPlayers,
   targetSkillLevel,
@@ -107,6 +104,7 @@ export const newEvent = (
 
   return {
     sportId,
+    name: eventName,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
     targetSkillLevel,
@@ -121,6 +119,7 @@ export const newEvent = (
 export const eventDto = dto => {
   return {
     sport: dto.event.sport,
+    name: dto.event.name,
     host: dto.host,
     dateOfEvent: dateFormat.getDate(dto.event.eventStart),
     startTime: dateFormat.getTime(dto.event.eventStart),

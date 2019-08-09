@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import {
-  saveRefreshToken,
-  saveJwtToken,
-  getJwtToken,
-  getRefreshToken
-} from "../../services/jwtUtlis";
+import { saveRefreshToken, saveJwtToken } from "../../services/jwtUtlis";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "biowea",
-      password: "aaaaaa"
+      username: "",
+      password: ""
     };
   }
 
@@ -27,16 +22,13 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    console.log(getRefreshToken());
     Axios.post("/api/users/login", {
-      username: "biowea",
-      password: "aaaaaa"
+      username: this.state.username,
+      password: this.state.password
     }).then(r => {
       saveJwtToken(r.data.value.token);
       saveRefreshToken(r.data.value.refreshToken);
-      console.log(getRefreshToken());
     });
-    console.log(getRefreshToken());
   };
 
   render() {

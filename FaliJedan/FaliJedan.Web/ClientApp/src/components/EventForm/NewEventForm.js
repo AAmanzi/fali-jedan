@@ -39,7 +39,11 @@ class NewEventForm extends Component {
   }
 
   componentDidMount = () => {
+    console.log("AAAAAA");
+
     getAllSports().then(sportList => {
+      console.log(sportList);
+
       this.setState({ sportList });
     });
   };
@@ -53,6 +57,8 @@ class NewEventForm extends Component {
     const sport = this.state.sportList.find(sp => {
       return sp.id === selectedId;
     });
+    console.log(sport);
+
     this.setState({
       sport
     });

@@ -1,12 +1,18 @@
 import React, { Component } from "react";
+import Axios from "axios";
+import {
+  saveRefreshToken,
+  saveJwtToken,
+  getJwtToken
+} from "../../services/jwtUtlis";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
-      password: ""
+      username: "biowea",
+      password: "aaaaaa"
     };
   }
 
@@ -20,7 +26,13 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    // TODO
+    Axios.post("/api/users/login", {
+      username: "biowea",
+      password: "aaaaaa"
+    }).then(r => {
+      saveJwtToken(r.data.value.token);
+      saveRefreshToken(r.data.value.refreshToken);
+    });
   };
 
   render() {
@@ -56,7 +68,7 @@ class Login extends Component {
           />
           <a href="/">Forgot your password?</a>
         </form>
-        <button className="button-login" onClick={this.handleLogin}>
+        <button className="button-login" onClick={() => this.handleLogin()}>
           Log In
         </button>
       </div>

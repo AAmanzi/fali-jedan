@@ -1,17 +1,18 @@
 import axios from "axios";
 import { API_ROUTE } from "../constants";
+import { axiosGetWithCredentials } from "./jwtUtlis";
 
 export const getAll = controller => {
-  return axios.get(`${API_ROUTE}/${controller}/all`);
+  return axiosGetWithCredentials(`${API_ROUTE}/${controller}/all`, null);
 };
 
 export const getFiltered = (controller, filters) => {
-  console.log(filters)
+  console.log(filters);
   return axios.post(`${API_ROUTE}/${controller}/filtered`, filters);
 };
 
 export const getById = (controller, id) => {
-  return axios.get(`${API_ROUTE}/${controller}/get-by-id`, {
+  return axiosGetWithCredentials(`${API_ROUTE}/${controller}/get-by-id`, {
     params: {
       id
     }

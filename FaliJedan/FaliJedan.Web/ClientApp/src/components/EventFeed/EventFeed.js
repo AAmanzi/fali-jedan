@@ -160,14 +160,20 @@ class EventFeed extends Component {
             handleAddSport={this.addSport}
             applyFilters={this.applyFilters}
             handleReset={this.resetFilters}
+            handleClose={this.closeFilterBar}
           />
         ) : (
           undefined
         )}
 
         <header>
-          <span>Event lista</span>
-          <button onClick={this.displayFilterBar}>Filter</button>
+          <span className="spacing" />
+          <span className="header__title">Event lista</span>
+          <img
+            onClick={this.displayFilterBar}
+            src="/assets/filter-icon.svg"
+            alt="Filter"
+          />
         </header>
 
         <ul className="event__list">

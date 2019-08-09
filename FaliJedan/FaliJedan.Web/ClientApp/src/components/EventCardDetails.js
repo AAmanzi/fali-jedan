@@ -14,13 +14,13 @@ const EventCardDetails = props => {
         <div className="event__card__details--content__main--container">
           <SportIcon sport={event.sport.name} className="icon--sport" />
           <div className="event__card__details--content__main">
-            <h2 className="c-bl tt-uc">{event.sport.name}</h2>
+            <h3 className="c-bl tt-uc">{event.sport.name}</h3>
             <h2 className="event__card--host-name">{event.host}</h2>
             <span className="event__card--location">{event.name}</span>
           </div>
           {event.isInstantJoin ? (
             <div className="event__card__details--instant">
-              <h2 className="c-bl tt-uc">INSTANT JOIN</h2>
+              <h3 className="c-bl tt-uc">INSTANT JOIN</h3>
               <span className="event__card--instant-join" />
             </div>
           ) : (
@@ -32,7 +32,7 @@ const EventCardDetails = props => {
           <li className="event__card__details--info-item">
             {/* image */}
             <div>
-              <h2 className="c-bl tt-uc">broj sudionika</h2>
+              <h3 className="c-bl tt-uc">broj sudionika</h3>
               <span>{`${event.currentPlayers}/${event.targetPlayers}`}</span>
             </div>
             <span>
@@ -42,7 +42,7 @@ const EventCardDetails = props => {
           <li className="event__card__details--info-item">
             {/* image */}
             <div>
-              <h2 className="c-bl tt-uc">vrijeme</h2>
+              <h3 className="c-bl tt-uc">vrijeme</h3>
               <span className="event__card--time">{`${event.startTime} - ${
                 event.endTime
               }`}</span>
@@ -52,7 +52,7 @@ const EventCardDetails = props => {
           <li className="event__card__details--info-item">
             {/* image */}
             <div>
-              <h2 className="c-bl tt-uc">razina igre</h2>
+              <h3 className="c-bl tt-uc">razina igre</h3>
               <span className="event__card--time">
                 {event.targetSkillLevel}
               </span>

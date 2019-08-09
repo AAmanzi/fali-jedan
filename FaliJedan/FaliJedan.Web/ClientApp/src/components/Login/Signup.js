@@ -86,7 +86,7 @@ class Signup extends Component {
             placeholder="Repeat password"
           />
         </form>
-        <button className="button-login" onClick={this.handleSignup}>
+        <button className="button" onClick={this.handleSignup}>
           Sign Up
         </button>
       </div>

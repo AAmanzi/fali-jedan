@@ -56,7 +56,7 @@ class Login extends Component {
           />
           <a href="/">Forgot your password?</a>
         </form>
-        <button className="button-login" onClick={this.handleLogin}>
+        <button className="button" onClick={this.handleLogin}>
           Log In
         </button>
       </div>

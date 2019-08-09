@@ -42,7 +42,8 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         public List<User> GetAllUsers()
         {
-            return _context.Users.Include(u => u.Subscription).Include(u => u.UserBadges).ThenInclude(ub => ub.Badge).ToList();
+            return _context.Users.Include(u => u.Subscription).Include(u => u.UserBadges).ThenInclude(ub => ub.Badge)
+                .ToList();
         }
 
         public User GetUserById(Guid id)
@@ -64,7 +65,8 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         public void SaveRefreshToken(Guid userId, string refreshToken)
         {
-            var refreshTokenToAdd = new RefreshToken { Value = refreshToken, UserId = userId, User = _context.Users.Find(userId) };
+            var refreshTokenToAdd = new RefreshToken
+                {Value = refreshToken, UserId = userId, User = _context.Users.Find(userId)};
             _context.RefreshTokens.Add(refreshTokenToAdd);
             _context.Users.Find(userId).RefreshTokens.Add(refreshTokenToAdd);
             _context.SaveChanges();
@@ -72,9 +74,10 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         public Guid? Login(string username, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => HashHelper.ValidatePassword(password, u.Password) && username == u.Username);
+            var user = _context.Users.FirstOrDefault(u =>
+                HashHelper.ValidatePassword(password, u.Password) && username == u.Username);
 
-            return user == null ? null : user.Id as Guid?;
+            return user?.Id;
         }
     }
 }

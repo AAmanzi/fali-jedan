@@ -35,7 +35,7 @@ export const getEventById = async id => {
   return axiosGetWithCredentials(`${API_ROUTE}/${CONTROLLER.event}/all`, id)
     .then(response => response.data)
     .catch(r => {
-      console.log(r); //if(r === 401) onda
+      //if(r === 401) onda
       axiosGetWithCredentials(`${API_ROUTE}/${CONTROLLER.event}/all`, id);
     });
 };
@@ -44,7 +44,7 @@ export const getAvailableEvents = async () => {
   return axiosGetWithCredentials(`${API_ROUTE}/${CONTROLLER.event}/all`, null)
     .then(response => response.data)
     .catch(r => {
-      console.log(r); //if(r === 401) onda
+      //if(r === 401) onda
       axiosGetWithCredentials(`${API_ROUTE}/${CONTROLLER.event}/all`, null);
     });
 };
@@ -63,10 +63,9 @@ export const getFilteredEvents = filters => {
     );
 };
 
-export const getUsersAndEventsToRate = userId => {
+export const getUsersAndEventsToRate = async () => {
   return axiosGetWithCredentials(
-    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
-    userId
+    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed`
   )
     .then(response => {
       if (response === undefined) {
@@ -74,35 +73,23 @@ export const getUsersAndEventsToRate = userId => {
       }
       return response.data;
     })
-    .catch(r => {
+    .catch(async r => {
       if (r.response.status !== 401) {
         return;
       }
       return axiosGetWithCredentials(
-        `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
-        userId
+        `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed`
       ).then(response => response.data);
     });
 };
 
-export const getUserNotifications = userId => {
+export const getUserNotifications = async () => {
   return axiosGetWithCredentials(
-    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
-    userId
-  )
-    .then(response => response.data)
-    .catch(r => {
-      if (r.response.status !== 401) {
-        return;
-      }
-      return axiosGetWithCredentials(
-        `${API_ROUTE}/${CONTROLLER.event}/get-by-user-id`,
-        userId
-      ).then(response => response.data);
-    });
+    `${API_ROUTE}/${CONTROLLER.event}/get-upcoming`
+  ).then(response => response.data);
 };
 
-export const reviewUsers = review => {
+export const reviewUsers = async review => {
   return axiosPostWithCredentials(
     `${API_ROUTE}/${CONTROLLER.event}/review`,
     review

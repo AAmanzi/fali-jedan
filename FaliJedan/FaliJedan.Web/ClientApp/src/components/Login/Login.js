@@ -28,6 +28,7 @@ class Login extends Component {
     }).then(r => {
       saveJwtToken(r.data.value.token);
       saveRefreshToken(r.data.value.refreshToken);
+      localStorage.setItem("userId", r.data.value.userId);
     });
   };
 

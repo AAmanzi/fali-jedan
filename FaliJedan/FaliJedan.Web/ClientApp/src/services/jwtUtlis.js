@@ -16,7 +16,7 @@ export function saveRefreshToken(refreshToken) {
   localStorage.setItem("refreshToken", refreshToken);
 }
 
-export function axiosPostWithCredentials(url, payload) {
+export const axiosPostWithCredentials = async (url, payload) => {
   const jwtToken = getJwtToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 
@@ -30,9 +30,9 @@ export function axiosPostWithCredentials(url, payload) {
         refresh();
       }
     });
-}
+};
 
-export const axiosGetWithCredentials = (url, payload) => {
+export const axiosGetWithCredentials = async (url, payload) => {
   const jwtToken = getJwtToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
   return axios
@@ -58,5 +58,10 @@ function refresh() {
     .then(r => {
       saveJwtToken(r.data.token);
       saveRefreshToken(r.data.refreshToken);
+    })
+    .catch(e => {
+      const currentUrlArray = window.location.href.split("/");
+      const homePage = currentUrlArray[0] + "//" + currentUrlArray[2];
+      window.location.replace(`${homePage}/login`);
     });
 }

@@ -27,9 +27,18 @@ namespace FaliJedan.Web.Controllers
         [HttpPost("refresh")]
         public IActionResult Refresh(TokenTransferDTO tokens)
         {
-          var jwtHelper = new JwtHelper();
-            var claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
-            var userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
+            var jwtHelper = new JwtHelper();
+            List<Claim> claims;
+            Guid userId;
+            try
+            {
+              claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
+              userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
             var savedRefreshToken = _userRepository.GetRefreshTokens(userId); //retrieve the refresh token from a data store
             if (savedRefreshToken.All(rt => rt.Value != tokens.RefreshToken))
                 throw new SecurityTokenException("Invalid refresh token");

@@ -58,5 +58,10 @@ function refresh() {
     .then(r => {
       saveJwtToken(r.data.token);
       saveRefreshToken(r.data.refreshToken);
+    })
+    .catch(e => {
+      const currentUrlArray = window.location.href.split("/");
+      const homePage = currentUrlArray[0] + "//" + currentUrlArray[2];
+      window.location.replace(`${homePage}/login`);
     });
 }

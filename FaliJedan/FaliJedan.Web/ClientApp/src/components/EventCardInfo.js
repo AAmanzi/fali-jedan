@@ -3,6 +3,7 @@ import React from "react";
 const EventCardInfo = props => {
   const { event } = props;
 
+
   const redirectToProfile = event => {
     event.stopPropagation();
 
@@ -12,7 +13,7 @@ const EventCardInfo = props => {
   return (
     <>
       <div className="event__card--content" onClick={props.handleClick}>
-        <h2 className="c-bl tt-uc">{event.sport.name}</h2>
+        <h3 className="c-bl tt-uc">{event.sport.name}</h3>
         <h2 className="event__card--host-name" onClick={redirectToProfile}>
           {event.host.username}
         </h2>

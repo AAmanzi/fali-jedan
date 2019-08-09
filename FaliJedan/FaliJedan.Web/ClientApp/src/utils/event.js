@@ -6,9 +6,8 @@ export const getEventError = event => {
     sportId,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
-    dateOfEvent,
-    startTime,
-    endTime,
+    eventStart,
+    eventEnd,
     locationLatitude,
     locationLongitude
   } = event;
@@ -16,12 +15,7 @@ export const getEventError = event => {
   const dateNow = dateFormat.getDateNow();
   const timeNow = dateFormat.getTime(new Date());
 
-  if (
-    sportId === null ||
-    startTime === "" ||
-    endTime === "" ||
-    dateOfEvent === ""
-  ) {
+  if (sportId === null || eventStart === null || eventEnd === null) {
     return ERROR.isNull;
   }
 
@@ -37,15 +31,15 @@ export const getEventError = event => {
     return ERROR.numberDifference;
   }
 
-  if (dateOfEvent < dateNow) {
+  if (eventStart < dateNow) {
     return ERROR.dateLessThanNow;
   }
 
-  if (dateOfEvent === dateNow && startTime < timeNow) {
+  if (eventStart === dateNow && eventStart < timeNow) {
     return ERROR.dateLessThanNow;
   }
 
-  if (startTime >= endTime) {
+  if (eventStart >= eventEnd) {
     return ERROR.timeDifference;
   }
 
@@ -80,6 +74,7 @@ export const handleEventFormError = error => {
 
 export const newEvent = (
   sportId,
+  eventName,
   currentNumberOfPlayers,
   targetNumberOfPlayers,
   targetSkillLevel,
@@ -88,7 +83,8 @@ export const newEvent = (
   startTime,
   endTime,
   locationLatitude,
-  locationLongitude
+  locationLongitude,
+  description
 ) => {
   let eventStart = dateOfEvent + "T" + startTime;
   let eventEnd = dateOfEvent + "T" + endTime;
@@ -108,6 +104,7 @@ export const newEvent = (
 
   return {
     sportId,
+    name: eventName,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
     targetSkillLevel,
@@ -115,21 +112,23 @@ export const newEvent = (
     eventStart,
     eventEnd,
     locationLatitude,
-    locationLongitude
+    locationLongitude,
+    description
   };
 };
 
 export const eventDto = dto => {
   return {
     sport: dto.event.sport,
+    name: dto.event.name,
     host: dto.host,
-    dateOfEvent: dateFormat.getDate(dto.event.dateOfEvent),
-    startTime: dateFormat.getTime(dto.event.startTime),
-    endTime: dateFormat.getTime(dto.event.endTime),
+    dateOfEvent: dateFormat.getDate(dto.event.eventStart),
+    startTime: dateFormat.getTime(dto.event.eventStart),
+    endTime: dateFormat.getTime(dto.event.eventEnd),
     currentPlayers: dto.event.currentNumberOfPlayers,
     targetPlayers: dto.event.targetNumberOfPlayers,
     coordinates: [dto.event.locationLatitude, dto.event.locationLongitude],
     description: dto.event.description,
-    targetSkillLevel: dto.event.targetSkillLevel
+    targetSkillLevel: dto.event.targetSkillLevel,
   };
 };

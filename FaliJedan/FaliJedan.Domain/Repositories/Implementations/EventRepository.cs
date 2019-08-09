@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,33 +81,33 @@ namespace FaliJedan.Domain.Repositories.Implementations
             return _context.Events.Find(id);
         }
 
-        public List<Event> GetUnreviewedEventsByUserId(Guid userId)
+        public Event GetUnreviewedEventByUserId(Guid userId)
         {
-            return _context.EventUsers.Where(
-                eu => 
-                eu.UserId == userId && 
-                !eu.IsCanceled && 
-                !eu.IsReviewed &&
-                DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0)
-                .Select(eu => eu.Event)
-                .Include(e => e.Sport)
-                .Include(e => e.EventUsers)
-                .ThenInclude(eu => eu.User).ToList();
+            var eventUser = _context.EventUsers
+                .Include(eu => eu.Event)
+                .ThenInclude(e => e.EventUsers)
+                .ThenInclude(eu => eu.User)
+                .FirstOrDefault(
+                    eu =>
+                        eu.UserId == userId &&
+                        !eu.IsCanceled &&
+                        !eu.IsReviewed &&
+                        DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0);
+
+            return eventUser?.Event;
         }
 
         public List<Event> GetEventsByUserId(Guid userId)
         {
             return _context.EventUsers.Where(
-                eu =>
-                eu.UserId == userId &&
-                !eu.IsCanceled &&
-                DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0)
+                    eu => 
+                        eu.UserId == userId && 
+                        !eu.IsCanceled && 
+                        DateTime.Compare(eu.Event.EventEnd, DateTime.Now) < 0)
                 .Select(eu => eu.Event)
                 .Include(e => e.Sport)
                 .Include(e => e.EventUsers)
-                .ThenInclude(eu => eu.User)
-                .OrderByDescending(e => e.EventUsers.First(eu => eu.IsHost).UserId == userId)
-                .ToList();
+                .ThenInclude(eu => eu.User).ToList();
         }
 
         public List<EventHostDTO> GetFilteredEvents(EventFilterDTO filters)

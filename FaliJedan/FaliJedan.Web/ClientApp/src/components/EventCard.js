@@ -55,7 +55,7 @@ class EventCard extends Component {
           //TODO preventDefaults
           trackTouch={true}
           trackMouse={true}
-          className="event__card"
+          className={`event__card ${this.state.isMapActive ? "b-bl" : ""}`}
         >
           <EventCardInfo
             event={event}

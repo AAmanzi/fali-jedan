@@ -37,28 +37,44 @@ class FilterBar extends Component {
       <div className="modal__cover">
         <section className="modal__content modal__content-full">
           <header>
-            <button onClick={this.props.handleReset}>Reset</button>
-            <span>Filter</span>
-            <button onClick={this.props.applyFilters}>Apply</button>
+            <img
+              onClick={this.props.handleReset}
+              src="/assets/refresh-icon.svg"
+              alt="Vrati na početno"
+            />
+            <span className="header__title" onClick={this.props.handleClose}>
+              Filter
+            </span>
+            <img
+              onClick={this.props.applyFilters}
+              src="/assets/checkmark-icon.svg"
+              alt="Primijeni promjene"
+            />
           </header>
           <ul className="filter__list">
             <li
               id={FILTER.sport}
-              className="filter__list__item"
+              className={`filter__list__item button ${
+                this.state.selectedFilter === FILTER.sport ? "" : "ghost"
+              }`}
               onClick={this.handleFilterClick}
             >
               <span id={FILTER.sport}>Sport</span>
             </li>
             <li
               id={FILTER.location}
-              className="filter__list__item"
+              className={`filter__list__item button ${
+                this.state.selectedFilter === FILTER.location ? "" : "ghost"
+              }`}
               onClick={this.handleFilterClick}
             >
               <span id={FILTER.location}>Location</span>
             </li>
             <li
               id={FILTER.time}
-              className="filter__list__item"
+              className={`filter__list__item button ${
+                this.state.selectedFilter === FILTER.time ? "" : "ghost"
+              }`}
               onClick={this.handleFilterClick}
             >
               <span id={FILTER.time}>Time</span>
@@ -93,6 +109,7 @@ class FilterBar extends Component {
           ) : (
             undefined
           )}
+          <span className="line" />
         </section>
       </div>
     );

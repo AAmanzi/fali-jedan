@@ -62,3 +62,27 @@ export const getFilteredEvents = filters => {
       )
     );
 };
+
+export const getUsersAndEventsToRate = async userId => {
+  return api
+    .commonGet(CONTROLLER.event, "get-unreviewed-by-user-id", {
+      id: userId
+    })
+    .then(response => response.data);
+};
+
+export const getUserNotifications = async userId => {
+  return api
+    .commonGet(CONTROLLER.event, "get-by-user-id", {
+      id: userId
+    })
+    .then(response => response.data);
+};
+
+export const reviewUsers = async review => {
+  return api
+    .commonPost(CONTROLLER.event, "review", {
+      review
+    })
+    .then(response => response.data);
+};

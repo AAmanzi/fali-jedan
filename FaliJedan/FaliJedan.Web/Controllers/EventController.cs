@@ -74,9 +74,9 @@ namespace FaliJedan.Web.Controllers
         [HttpGet("get-unreviewed-by-user-id")]
         public IActionResult GetUnreviewedEventsByUserId(Guid id)
         {
-            var eventsByUserId = _eventRepository.GetUnreviewedEventsByUserId(id);
-            if (eventsByUserId != null)
-                return Ok(eventsByUserId);
+            var eventByUserId = _eventRepository.GetUnreviewedEventByUserId(id);
+            if (eventByUserId != null)
+                return Ok(eventByUserId);
             return NotFound();
         }
 

@@ -31,7 +31,7 @@ namespace FaliJedan.Web.Controllers
             var claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
             var userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
             var savedRefreshToken = _userRepository.GetRefreshTokens(userId); //retrieve the refresh token from a data store
-            if (!savedRefreshToken.Any(rt => rt.Value == tokens.RefreshToken))
+            if (savedRefreshToken.All(rt => rt.Value != tokens.RefreshToken))
                 throw new SecurityTokenException("Invalid refresh token");
 
             var newJwtToken = jwtHelper.GenerateToken(claims);
@@ -60,21 +60,18 @@ namespace FaliJedan.Web.Controllers
         public IActionResult Login(LoginDTO login)
         {
             var wasLoginSuccessful = _userRepository.Login(login.Username, login.Password);
-            
-            if (wasLoginSuccessful != null)
+
+            if (wasLoginSuccessful == null) return Forbid();
+            var jwtHelper = new JwtHelper();
+            var newJwtToken = jwtHelper.GenerateToken(new List<Claim> { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
+            var newRefreshToken = jwtHelper.GenerateRefreshToken();
+            _userRepository.SaveRefreshToken(wasLoginSuccessful.Value, newRefreshToken);
+            return Ok(new ObjectResult(new
             {
-                var jwtHelper = new JwtHelper();
-                var newJwtToken = jwtHelper.GenerateToken(new List<Claim> { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
-                var newRefreshToken = jwtHelper.GenerateRefreshToken();
-                _userRepository.SaveRefreshToken(wasLoginSuccessful.Value, newRefreshToken);
-                return Ok(new ObjectResult(new
-                {
-                    token = newJwtToken,
-                    refreshToken = newRefreshToken,
-                    userId = wasLoginSuccessful.Value
-                }));
-            }
-            return Forbid();
+                token = newJwtToken,
+                refreshToken = newRefreshToken,
+                userId = wasLoginSuccessful.Value
+            }));
         }
 
     }

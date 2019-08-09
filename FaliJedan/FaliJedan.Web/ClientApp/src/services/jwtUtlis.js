@@ -16,7 +16,7 @@ export function saveRefreshToken(refreshToken) {
   localStorage.setItem("refreshToken", refreshToken);
 }
 
-export function axiosPostWithCredentials(url, payload) {
+export const axiosPostWithCredentials = async (url, payload) => {
   const jwtToken = getJwtToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 
@@ -30,9 +30,9 @@ export function axiosPostWithCredentials(url, payload) {
         refresh();
       }
     });
-}
+};
 
-export const axiosGetWithCredentials = (url, payload) => {
+export const axiosGetWithCredentials = async (url, payload) => {
   const jwtToken = getJwtToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
   return axios

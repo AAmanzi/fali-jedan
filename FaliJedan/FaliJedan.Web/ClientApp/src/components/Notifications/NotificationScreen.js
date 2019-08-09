@@ -18,7 +18,7 @@ class NotificationScreen extends Component {
   componentDidMount = () => {
     // TODO: userId
 
-    getUserNotifications(localStorage.getItem("userId")).then(userEvents => {
+    getUserNotifications().then(userEvents => {
       const eventUsers = userEvents.map(event => {
         return {
           event: eventDto({ event }),

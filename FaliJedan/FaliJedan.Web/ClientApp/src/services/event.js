@@ -63,10 +63,9 @@ export const getFilteredEvents = filters => {
     );
 };
 
-export const getUsersAndEventsToRate = id => {
+export const getUsersAndEventsToRate = async () => {
   return axiosGetWithCredentials(
-    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
-    { params: { id } }
+    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed`
   )
     .then(response => {
       if (response === undefined) {
@@ -74,25 +73,23 @@ export const getUsersAndEventsToRate = id => {
       }
       return response.data;
     })
-    .catch(r => {
+    .catch(async r => {
       if (r.response.status !== 401) {
         return;
       }
       return axiosGetWithCredentials(
-        `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
-        { params: { id } }
+        `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed`
       ).then(response => response.data);
     });
 };
 
-export const getUserNotifications = id => {
+export const getUserNotifications = async () => {
   return axiosGetWithCredentials(
-    `${API_ROUTE}/${CONTROLLER.event}/get-by-user-id`,
-    { params: { id } }
+    `${API_ROUTE}/${CONTROLLER.event}/get-upcoming`
   ).then(response => response.data);
 };
 
-export const reviewUsers = review => {
+export const reviewUsers = async review => {
   return axiosPostWithCredentials(
     `${API_ROUTE}/${CONTROLLER.event}/review`,
     review

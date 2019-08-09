@@ -45,7 +45,7 @@ class EventFeed extends Component {
 
     // TODO: userId
 
-    getUsersAndEventsToRate(localStorage.getItem("userId")).then(event => {
+    getUsersAndEventsToRate().then(event => {
       if (event !== null && event !== undefined) {
         this.setState({
           eventUserCurrentlyRating: event.eventUsers.filter(

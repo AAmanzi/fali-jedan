@@ -571,6 +571,7 @@ header .spacing {
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
   padding: 16px 0;
   width: 170px;
+  border: 2px solid #ffffff;
 }
 
 .date__display img {
@@ -583,10 +584,16 @@ header .spacing {
 
 .date__display h2 {
   margin: 11px 19px 0 0;
+  transition: color 0.2s ease-in-out;
 }
 
 .date-active {
-  border: 2px solid red;
+  border: 2px solid #37b3ed;
+  transition: border 0.2s ease-in-out;
+}
+
+.date-active h2 {
+  color: #63677c;
 }
 
 .date__display__content {
@@ -599,6 +606,79 @@ header .spacing {
   margin-top: 14px;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+/* react-date-picker */
+
+.react-datepicker {
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.react-datepicker__navigation--next {
+  border-left-color: #71b0ce;
+}
+
+.react-datepicker__navigation--next:hover {
+  border-left-color: #178bf6;
+}
+
+.react-datepicker__navigation--previous:hover {
+  border-right-color: #178bf6;
+}
+
+.react-datepicker__navigation--previous {
+  left: 10px;
+  border-right-color: #37b3ed;
+}
+
+.react-datepicker__current-month {
+  color: #178bf6;
+}
+
+.react-datepicker__month-container {
+  float: inherit;
+}
+
+.react-datepicker__header {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  margin: 0;
+  width: 45px;
+  height: 45px;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range {
+  background: rgba(23, 139, 246, 0.3);
+  color: #178bf6;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--in-range:hover {
+  background-color: #178bf6;
+  color: #ffffff;
+}
+
+.react-datepicker__day--range-start {
+  border-radius: 10px 0px 0px 10px;
+}
+
+.react-datepicker__day--range-end {
+  border-radius: 0px 10px 10px 0px;
 }
 
 /* modal */

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Axios from "axios";
+import { saveRefreshToken, saveJwtToken } from "../../services/jwtUtlis";
 
 class Login extends Component {
   constructor(props) {
@@ -20,7 +22,13 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    // TODO
+    Axios.post("/api/users/login", {
+      username: this.state.username,
+      password: this.state.password
+    }).then(r => {
+      saveJwtToken(r.data.value.token);
+      saveRefreshToken(r.data.value.refreshToken);
+    });
   };
 
   render() {

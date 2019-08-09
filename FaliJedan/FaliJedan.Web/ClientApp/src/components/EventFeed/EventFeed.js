@@ -47,7 +47,8 @@ class EventFeed extends Component {
 
     getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
       event => {
-        if (event !== null) {
+        console.log(event);
+        if (event !== null && event !== undefined) {
           this.setState({
             eventUserCurrentlyRating: event.eventUsers.filter(
               eventUser =>
@@ -127,6 +128,10 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
+      if (filteredEvents == undefined) {
+        this.setState({ eventList: [] });
+        return;
+      }
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
     });
@@ -160,7 +165,6 @@ class EventFeed extends Component {
             handleAddSport={this.addSport}
             applyFilters={this.applyFilters}
             handleReset={this.resetFilters}
-            handleClose={this.closeFilterBar}
           />
         ) : (
           undefined

@@ -810,9 +810,12 @@ a {
 }
 
 .button {
+  /* position: absolute;
+  top: 50px; */
   border-radius: 20px;
   border: 1px solid #ff4b2b;
   background-color: #ff4b2b;
+  z-index: 6;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -844,6 +847,7 @@ a {
   padding: 0 50px;
   height: 100%;
   text-align: center;
+  margin-top: -200px;
 }
 
 .input-login {
@@ -860,7 +864,8 @@ a {
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  min-height: 480px;
+  /* min-height: 480px; */
+  height: 750px;
 }
 
 .form-container {

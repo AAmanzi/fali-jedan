@@ -12,8 +12,9 @@ namespace FaliJedan.Data.Entities.Models
         public Guid Id { get; set; }
         public ICollection<EventUser> EventUsers { get; set; }
         public ICollection<UserBadge> UserBadges { get; set; }
-        public Guid SubscriptionId { get; set; }
+        public Guid? SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
+        public List<RefreshToken> RefreshTokens { get; set; }
 
         [Required]
         public string Username { get; set; }

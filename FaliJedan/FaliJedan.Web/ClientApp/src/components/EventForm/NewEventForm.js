@@ -21,7 +21,7 @@ class NewEventForm extends Component {
 
     this.state = {
       sportList: null,
-      sport: undefined,
+      sport: "",
       sportId: null,
       eventName: "",
       currentNumberOfPlayers: 0,
@@ -42,9 +42,11 @@ class NewEventForm extends Component {
   }
 
   componentDidMount = () => {
-    getAllSports().then(sportList => {
-      this.setState({ sportList });
-    });
+    getAllSports()
+      .then(sportList => {
+        this.setState({ sportList });
+      })
+      .catch();
   };
 
   handleSportChange = event => {
@@ -56,6 +58,7 @@ class NewEventForm extends Component {
     const sport = this.state.sportList.find(sp => {
       return sp.id === selectedId;
     });
+
     this.setState({
       sport
     });

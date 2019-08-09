@@ -20,31 +20,27 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         private FaliJedanContext _context { get; set; }
 
-        public Guid? AddEvent(Event eventToAdd)
+        public Guid? AddEvent(Event eventToAdd, Guid userId)
         {
             if (
                 eventToAdd.CurrentNumberOfPlayers < 1 || 
                 eventToAdd.TargetNumberOfPlayers < 2 ||
                 eventToAdd.TargetNumberOfPlayers <= eventToAdd.CurrentNumberOfPlayers ||
-                eventToAdd.EventStart >= eventToAdd.EventEnd ||
-                eventToAdd.EventStart < DateTime.Now
+                eventToAdd.EventStart >= eventToAdd.EventEnd
                 )
                 return null;
 
-            var doesEventExist = _context.Events.Any(e => e.Id == eventToAdd.Id);
-            if (doesEventExist)
-                return null;
-
-            //_context.EventUsers.Add(new EventUser
-            //{
-            //    User = userToAdd,
-            //    UserId = userToAdd.Id,
-            //    Event = eventToAdd,
-            //    EventId = eventToAdd.Id,
-            //    IsApproved = eventToAdd.IsInstantJoin ? true : false,
-            //    IsCanceled = false,
-            //    IsHost = true
-            //});
+            eventToAdd.Id = Guid.NewGuid();
+            _context.EventUsers.Add(new EventUser
+            {
+                User = _context.Users.Find(userId),
+                UserId = userId,
+                Event = eventToAdd,
+                EventId = eventToAdd.Id,
+                IsApproved = eventToAdd.IsInstantJoin ? true : false,
+                IsCanceled = false,
+                IsHost = true
+            });
 
             eventToAdd.Sport = _context.Sports.Find(eventToAdd.SportId);
             eventToAdd.DateCreated = DateTime.Now;
@@ -134,7 +130,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 filters.Sports.ForEach(sport => events.AddRange(
                     _context.Events
                     .Where(
-                        e => 
+                        e =>
                         e.Sport.Id == sport.Id &&
                         (DateTime.Compare(e.EventEnd, DateTime.Now) > 0) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
@@ -162,7 +158,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
             events.ForEach(e => {
                 if (filters.TimeframeEndDate != null)
                 {
-                    if(
+                    if (
                         e.EventStart > filters.TimeframeStartDate &&
                         e.EventEnd < filters.TimeframeEndDate
                     )
@@ -172,7 +168,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 }
                 else
                 {
-                    if(
+                    if (
                         e.EventStart > filters.TimeframeStartDate
                     )
                     {

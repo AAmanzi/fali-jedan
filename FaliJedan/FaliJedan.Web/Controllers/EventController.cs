@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FaliJedan.Data.Entities.Models;
 using FaliJedan.Domain.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,21 +22,26 @@ namespace FaliJedan.Web.Controllers
 
         private readonly IEventRepository _eventRepository;
 
+        [Authorize]
         [HttpGet("all")]
         public IActionResult GetAllEvents()
         {
             return Ok(_eventRepository.GetAvailableEvents());
         }
 
+        [Authorize]
         [HttpPost("add")]
         public IActionResult AddEvent(Event eventToAdd)
         {
-            var eventId = _eventRepository.AddEvent(eventToAdd);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var claims = identity.Claims.ToList();
+            var eventId = _eventRepository.AddEvent(eventToAdd, Guid.Parse(claims.First(c => c.Type == "userId").Value));
             if (eventId != null)
                 return Ok(eventId.Value);
             return Forbid();
         }
 
+        [Authorize]
         [HttpPost("delete")]
         public IActionResult DeleteEventById(Guid eventId)
         {
@@ -44,6 +51,7 @@ namespace FaliJedan.Web.Controllers
             return Forbid();
         }
 
+        [Authorize]
         [HttpGet("get-by-id")]
         public IActionResult GetEventById(Guid id)
         {
@@ -53,6 +61,7 @@ namespace FaliJedan.Web.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPost("filtered")]
         public IActionResult GetFilteredEvents(EventFilterDTO filters)
         {
@@ -61,6 +70,7 @@ namespace FaliJedan.Web.Controllers
             return Ok(filteredEvents);
         }
 
+        [Authorize]
         [HttpGet("get-unreviewed-by-user-id")]
         public IActionResult GetUnreviewedEventsByUserId(Guid id)
         {
@@ -70,6 +80,7 @@ namespace FaliJedan.Web.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpGet("get-by-user-id")]
         public IActionResult GetEventsByUserId(Guid id)
         {

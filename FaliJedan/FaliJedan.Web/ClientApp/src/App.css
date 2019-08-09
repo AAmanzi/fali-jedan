@@ -37,6 +37,21 @@ h2 {
   text-transform: uppercase;
 }
 
+.fw-b {
+  font-weight: bold;
+}
+
+.b-bl {
+  border: 2px solid #178bf6;
+}
+
+.line {
+  border: 2px solid #ffffff;
+  width: 75px;
+  border-radius: 10px;
+  margin: 10.5px 0 12px 0;
+}
+
 header {
   display: flex;
   color: #ffffff;
@@ -700,11 +715,13 @@ header .spacing {
   color: #ffffff;
 }
 
-.react-datepicker__day--range-start {
+.react-datepicker__day--range-start,
+.react-datepicker__day:nth-child(1) {
   border-radius: 10px 0px 0px 10px;
 }
 
-.react-datepicker__day--range-end {
+.react-datepicker__day--range-end,
+.react-datepicker__day:nth-child(7) {
   border-radius: 0px 10px 10px 0px;
 }
 

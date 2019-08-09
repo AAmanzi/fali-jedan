@@ -17,7 +17,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         List<RefreshToken> GetRefreshTokens(Guid userId);
 
-        void DeleteRefreshToken(string refreshToken);
+        void DeleteRefreshToken(Guid userId, string refreshToken);
 
         void SaveRefreshToken(Guid userId, string refreshToken);
 

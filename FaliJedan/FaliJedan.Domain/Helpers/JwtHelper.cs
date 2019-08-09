@@ -25,10 +25,10 @@ namespace FaliJedan.Domain.Helpers
                 audience: "Everyone",
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddMinutes(15),
+                expires: DateTime.UtcNow.AddHours(15),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
-            return new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken());
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
         public string GenerateRefreshToken()
@@ -45,11 +45,13 @@ namespace FaliJedan.Domain.Helpers
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateAudience = false,
+                ValidateAudience = true,
+                ValidAudience = "Everyone",
                 ValidateIssuer = true,
+                ValidIssuer = "FaliJedan",
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NeznanStaBiOdiTribaloIc12345678901234567890")),
-                ValidateLifetime = true
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NeznanStaBiOdiTribaloIc2345678901234567890")),
+                ValidateLifetime = false
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

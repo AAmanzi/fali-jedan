@@ -39,13 +39,11 @@ class NewEventForm extends Component {
   }
 
   componentDidMount = () => {
-    console.log("AAAAAA");
-
-    getAllSports().then(sportList => {
-      console.log(sportList);
-
-      this.setState({ sportList });
-    });
+    getAllSports()
+      .then(sportList => {
+        this.setState({ sportList });
+      })
+      .catch();
   };
 
   handleSportChange = event => {
@@ -57,7 +55,6 @@ class NewEventForm extends Component {
     const sport = this.state.sportList.find(sp => {
       return sp.id === selectedId;
     });
-    console.log("sport", sport);
 
     this.setState({
       sport

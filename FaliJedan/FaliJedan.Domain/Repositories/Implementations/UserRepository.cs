@@ -52,21 +52,21 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         public List<RefreshToken> GetRefreshTokens(Guid userId)
         {
-            return _context.Users.Find(userId).RefreshTokens;
+            return _context.Users.Include(u => u.RefreshTokens).First(u => u.Id == userId).RefreshTokens.ToList();
         }
 
-        public void DeleteRefreshToken(string refreshToken)
+        public void DeleteRefreshToken(Guid userId, string refreshToken)
         {
-            _context.RefreshTokens.Remove(_context.RefreshTokens.First(rt => rt.Value == refreshToken));
-            _context.SaveChanges();
+            var a = _context.RefreshTokens.First(rt => rt.Value == refreshToken);
+            _context.RefreshTokens.Remove(a);
+            _context.SaveChangesAsync();
         }
 
         public void SaveRefreshToken(Guid userId, string refreshToken)
         {
-            var user = _context.Users.Find(userId);
-            var refreshTokenToAdd = new RefreshToken { Value = refreshToken, UserId = userId, User = user };
+            var refreshTokenToAdd = new RefreshToken { Value = refreshToken, UserId = userId, User = _context.Users.Find(userId) };
             _context.RefreshTokens.Add(refreshTokenToAdd);
-            user.RefreshTokens.Add(refreshTokenToAdd);
+            _context.Users.Find(userId).RefreshTokens.Add(refreshTokenToAdd);
             _context.SaveChanges();
         }
 

@@ -16,7 +16,12 @@ export const getEventError = event => {
   const dateNow = dateFormat.getDateNow();
   const timeNow = dateFormat.getTime(new Date());
 
-  if (sportId === null || startTime === "" || endTime === "" || dateOfEvent === "") {
+  if (
+    sportId === null ||
+    startTime === "" ||
+    endTime === "" ||
+    dateOfEvent === ""
+  ) {
     return ERROR.isNull;
   }
 

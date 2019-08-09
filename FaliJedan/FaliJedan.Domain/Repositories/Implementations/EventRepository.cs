@@ -19,25 +19,21 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         private FaliJedanContext _context { get; set; }
 
-        public Guid? AddEvent(Event eventToAdd)
+        public Guid? AddEvent(Event eventToAdd, Guid userId)
         {
             if (
                 eventToAdd.CurrentNumberOfPlayers < 1 || 
                 eventToAdd.TargetNumberOfPlayers < 2 ||
                 eventToAdd.TargetNumberOfPlayers <= eventToAdd.CurrentNumberOfPlayers ||
-                eventToAdd.EventStart <= eventToAdd.EventEnd ||
-                eventToAdd.EventStart > DateTime.Now
+                eventToAdd.EventStart >= eventToAdd.EventEnd
                 )
                 return null;
 
-            var doesEventExist = _context.Events.Any(e => e.Id == eventToAdd.Id);
-            if (doesEventExist)
-                return null;
-
+            eventToAdd.Id = Guid.NewGuid();
             _context.EventUsers.Add(new EventUser
             {
-                //User = userToAdd,
-                //UserId = userToAdd.Id,
+                User = _context.Users.Find(userId),
+                UserId = userId,
                 Event = eventToAdd,
                 EventId = eventToAdd.Id,
                 IsApproved = eventToAdd.IsInstantJoin ? true : false,
@@ -124,7 +120,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User)
                     .Where(
-                    e => (DateTime.Compare(e.EventEnd, DateTime.Now) <= 0 &&
+                    e => (DateTime.Compare(e.EventEnd, DateTime.Now) > 0 &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers))
                     .ToList();
             }
@@ -133,21 +129,13 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 filters.Sports.ForEach(sport => events.AddRange(
                     _context.Events
                     .Where(
-                        e => 
+                        e =>
                         e.Sport.Id == sport.Id &&
-                        (DateTime.Compare(e.EventEnd, DateTime.Now) <= 0) &&
+                        (DateTime.Compare(e.EventEnd, DateTime.Now) > 0) &&
                         e.CurrentNumberOfPlayers < e.TargetNumberOfPlayers)
                     .Include(e => e.Sport)
                     .Include(e => e.EventUsers)
                     .ThenInclude(eu => eu.User).ToList()));
-            }
-
-            if (filters.TimeframeStartDate != null) {
-                events = events.Where(e => e.EventStart >= filters.TimeframeStartDate).ToList();
-            }
-            if (filters.TimeframeEndDate != null)
-            {
-                events = events.Where(e => e.EventEnd <= filters.TimeframeEndDate).ToList();
             }
 
             if (filters.CurrentLatitude != null && filters.CurrentLongitude != null)
@@ -167,7 +155,25 @@ namespace FaliJedan.Domain.Repositories.Implementations
             var eventHosts = new List<EventHostDTO>();
 
             events.ForEach(e => {
-                eventHosts.Add(new EventHostDTO(e, _context));
+                if (filters.TimeframeEndDate != null)
+                {
+                    if (
+                        e.EventStart > filters.TimeframeStartDate &&
+                        e.EventEnd < filters.TimeframeEndDate
+                    )
+                    {
+                        eventHosts.Add(new EventHostDTO(e, _context));
+                    }
+                }
+                else
+                {
+                    if (
+                        e.EventStart > filters.TimeframeStartDate
+                    )
+                    {
+                        eventHosts.Add(new EventHostDTO(e, _context));
+                    }
+                }
             });
 
             return eventHosts;

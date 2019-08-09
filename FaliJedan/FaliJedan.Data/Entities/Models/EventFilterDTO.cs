@@ -10,7 +10,7 @@ namespace FaliJedan.Data.Entities.Models
     {
         public List<Sport> Sports { get; set; }
         public DateTime TimeframeStartDate { get; set; }
-        public DateTime TimeframeEndDate { get; set; }
+        public DateTime? TimeframeEndDate { get; set; }
         public double? CurrentLatitude { get; set; }
         public double? CurrentLongitude { get; set; }
     }

@@ -27,7 +27,7 @@ namespace FaliJedan.Web.Controllers
         [HttpPost("refresh")]
         public IActionResult Refresh(TokenTransferDTO tokens)
         {
-            var jwtHelper = new JwtHelper();
+          var jwtHelper = new JwtHelper();
             var claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
             var userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
             var savedRefreshToken = _userRepository.GetRefreshTokens(userId); //retrieve the refresh token from a data store
@@ -36,7 +36,7 @@ namespace FaliJedan.Web.Controllers
 
             var newJwtToken = jwtHelper.GenerateToken(claims);
             var newRefreshToken = jwtHelper.GenerateRefreshToken();
-            _userRepository.DeleteRefreshToken(tokens.RefreshToken);
+            _userRepository.DeleteRefreshToken(userId, tokens.RefreshToken);
             _userRepository.SaveRefreshToken(userId, newRefreshToken);
 
             return new ObjectResult(new
@@ -60,12 +60,13 @@ namespace FaliJedan.Web.Controllers
         public IActionResult Login(LoginDTO login)
         {
             var wasLoginSuccessful = _userRepository.Login(login.Username, login.Password);
-
+            
             if (wasLoginSuccessful != null)
             {
                 var jwtHelper = new JwtHelper();
                 var newJwtToken = jwtHelper.GenerateToken(new List<Claim> { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
                 var newRefreshToken = jwtHelper.GenerateRefreshToken();
+                _userRepository.SaveRefreshToken(wasLoginSuccessful.Value, newRefreshToken);
                 return Ok(new ObjectResult(new
                 {
                     token = newJwtToken,

@@ -3,7 +3,8 @@ import Axios from "axios";
 import {
   saveRefreshToken,
   saveJwtToken,
-  getJwtToken
+  getJwtToken,
+  getRefreshToken
 } from "../../services/jwtUtlis";
 
 class Login extends Component {
@@ -26,14 +27,16 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    localStorage.clear();
+    console.log(getRefreshToken());
     Axios.post("/api/users/login", {
       username: "biowea",
       password: "aaaaaa"
     }).then(r => {
       saveJwtToken(r.data.value.token);
       saveRefreshToken(r.data.value.refreshToken);
+      console.log(getRefreshToken());
     });
+    console.log(getRefreshToken());
   };
 
   render() {

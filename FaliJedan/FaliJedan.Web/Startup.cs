@@ -60,7 +60,8 @@ namespace FaliJedan.Web
                     ValidateIssuer = true,
                     ValidIssuer = "FaliJedan",
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NeznanStaBiOdiTribaloIc12345678901234567890")),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NeznanStaBiOdiTribaloIc2345678901234567890")),
+                    ValidateLifetime = true
                     };
                 options.Events = new JwtBearerEvents
                 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FaliJedan.Data.Entities.Models;
 using FaliJedan.Domain.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace FaliJedan.Web.Controllers
         private readonly IEventUserRepository _eventUserRepository;
 
 
+        [Authorize]
         [HttpPost("add")]
         public IActionResult AddEventUser(EventUser eventUserToAdd)
         {
@@ -30,6 +32,7 @@ namespace FaliJedan.Web.Controllers
             return Forbid();
         }
 
+        [Authorize]
         [HttpPost("delete")]
         public IActionResult DeleteEventUserById(EventUser eventUser)
         {
@@ -39,6 +42,7 @@ namespace FaliJedan.Web.Controllers
             return Forbid();
         }
 
+        [Authorize]
         [HttpPost("confirm")]
         public IActionResult ConfirmEventUser(EventUser eventUser)
         {
@@ -48,6 +52,7 @@ namespace FaliJedan.Web.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPost("review")]
         public IActionResult ReviewEventUser(ReviewDTO review)
         {

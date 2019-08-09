@@ -15,7 +15,7 @@ const EventCardDetails = props => {
           <SportIcon sport={event.sport.name} className="icon--sport" />
           <div className="event__card__details--content__main">
             <h2 className="c-bl tt-uc">{event.sport.name}</h2>
-            <h2 className="event__card--host-name">{event.host}</h2>
+            <h2 className="event__card--host-name">{event.host.username}</h2>
             <span className="event__card--location">{event.name}</span>
           </div>
           {event.isInstantJoin ? (

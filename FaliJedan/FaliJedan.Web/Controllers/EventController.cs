@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FaliJedan.Data.Entities.Models;
 using FaliJedan.Domain.Repositories.Interfaces;
@@ -32,7 +33,9 @@ namespace FaliJedan.Web.Controllers
         [HttpPost("add")]
         public IActionResult AddEvent(Event eventToAdd)
         {
-            var eventId = _eventRepository.AddEvent(eventToAdd);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var claims = identity.Claims.ToList();
+            var eventId = _eventRepository.AddEvent(eventToAdd, Guid.Parse(claims.First(c => c.Type == "userId").Value));
             if (eventId != null)
                 return Ok(eventId.Value);
             return Forbid();
@@ -58,7 +61,7 @@ namespace FaliJedan.Web.Controllers
             return NotFound();
         }
 
-
+        [Authorize]
         [HttpPost("filtered")]
         public IActionResult GetFilteredEvents(EventFilterDTO filters)
         {
@@ -67,6 +70,7 @@ namespace FaliJedan.Web.Controllers
             return Ok(filteredEvents);
         }
 
+        [Authorize]
         [HttpGet("get-unreviewed-by-user-id")]
         public IActionResult GetUnreviewedEventsByUserId(Guid id)
         {
@@ -76,6 +80,7 @@ namespace FaliJedan.Web.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpGet("get-by-user-id")]
         public IActionResult GetEventsByUserId(Guid id)
         {

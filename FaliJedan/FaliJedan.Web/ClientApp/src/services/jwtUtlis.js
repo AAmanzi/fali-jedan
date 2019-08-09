@@ -25,8 +25,10 @@ export function axiosPostWithCredentials(url, payload) {
     .then(r => {
       return r;
     })
-    .catch(() => {
-      refresh();
+    .catch(r => {
+      if (r.response.status === 401) {
+        refresh();
+      }
     });
 }
 
@@ -39,18 +41,15 @@ export const axiosGetWithCredentials = (url, payload) => {
       return r;
     })
     .catch(r => {
-      console.log(r);
-      refresh();
+      if (r.response.status === 401) {
+        refresh();
+      }
     });
 };
 
 function refresh() {
   const jwtToken = getJwtToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
-  console.log({
-    token: getJwtToken(),
-    refreshToken: getRefreshToken()
-  });
   axios
     .post("/api/users/refresh", {
       token: getJwtToken(),

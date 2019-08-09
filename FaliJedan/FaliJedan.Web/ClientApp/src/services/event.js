@@ -63,26 +63,58 @@ export const getFilteredEvents = filters => {
     );
 };
 
-export const getUsersAndEventsToRate = async userId => {
-  return api
-    .commonGet(CONTROLLER.event, "get-unreviewed-by-user-id", {
-      id: userId
+export const getUsersAndEventsToRate = userId => {
+  return axiosGetWithCredentials(
+    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
+    userId
+  )
+    .then(response => {
+      if (response === undefined) {
+        return null;
+      }
+      return response.data;
     })
-    .then(response => response.data);
+    .catch(r => {
+      if (r.response.status !== 401) {
+        return;
+      }
+      return axiosGetWithCredentials(
+        `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
+        userId
+      ).then(response => response.data);
+    });
 };
 
-export const getUserNotifications = async userId => {
-  return api
-    .commonGet(CONTROLLER.event, "get-by-user-id", {
-      id: userId
-    })
-    .then(response => response.data);
+export const getUserNotifications = userId => {
+  return axiosGetWithCredentials(
+    `${API_ROUTE}/${CONTROLLER.event}/get-unreviewed-by-user-id`,
+    userId
+  )
+    .then(response => response.data)
+    .catch(r => {
+      if (r.response.status !== 401) {
+        return;
+      }
+      return axiosGetWithCredentials(
+        `${API_ROUTE}/${CONTROLLER.event}/get-by-user-id`,
+        userId
+      ).then(response => response.data);
+    });
 };
 
-export const reviewUsers = async review => {
-  return api
-    .commonPost(CONTROLLER.event, "review", {
-      review
-    })
-    .then(response => response.data);
+export const reviewUsers = review => {
+  return axiosPostWithCredentials(
+    `${API_ROUTE}/${CONTROLLER.event}/review`,
+    review
+  )
+    .then(response => response.data)
+    .catch(r => {
+      if (r.response.status !== 401) {
+        return;
+      }
+      return axiosPostWithCredentials(
+        `${API_ROUTE}/${CONTROLLER.event}/review`,
+        review
+      );
+    });
 };

@@ -47,7 +47,8 @@ class EventFeed extends Component {
 
     getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
       event => {
-        if (event !== null) {
+        console.log(event);
+        if (event !== null && event !== undefined) {
           this.setState({
             eventUserCurrentlyRating: event.eventUsers.filter(
               eventUser =>

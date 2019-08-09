@@ -52,6 +52,24 @@ h2 {
   margin: 10.5px 0 12px 0;
 }
 
+.arrow-down {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #178bf6;
+  left: calc(50% - 20px);
+  top: -20px;
+  transition: opacity 0.35s ease-in, top 0.35s ease-out;
+}
+
+.event__form--input-sport:checked ~ .arrow-down {
+  top: calc(80% + 30px);
+  opacity: 1;
+}
+
 header {
   display: flex;
   color: #ffffff;
@@ -292,8 +310,6 @@ header .spacing {
 
 .event__form--list-sport {
   background-color: #fff;
-  display: flex;
-  flex-wrap: wrap;
   position: absolute;
   top: -100vh;
   z-index: -2;
@@ -301,18 +317,21 @@ header .spacing {
   width: 100vw;
   height: 100vw;
   transition: all 0.3s ease-in-out;
+  height: 75% !important;
+  border-radius: 0 0 10px 10px;
 }
 
-.event__form--list-sport .icon--sport {
-  width: 50%;
-  height: 50%;
+.event__form--list-sport ul {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #178bf6;
 }
 
 /* Toggled State */
 .event__form--input-sport:checked ~ .event__form--list-sport {
   z-index: 5;
   opacity: 1;
-  top: 20px;
+  top: 65px;
 }
 
 /* Event form skill level */

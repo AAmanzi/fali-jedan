@@ -150,7 +150,7 @@ class NewEventForm extends Component {
       redirect,
       toggleSportList
     } = this.state;
-    
+
     if (sportList === null) {
       return <Loading />;
     }
@@ -161,12 +161,17 @@ class NewEventForm extends Component {
       <>
         <div className="event__form__container">
           <form className="event__form" name="eventForm">
-            <label
-              htmlFor="toggleSportList"
-              className="event__form--label-sport"
-            >
-              {sportId === null ? "Odaberi sport" : sport.name}
-            </label>
+            <header>
+              <img
+                src="/assets/back-icon.svg"
+                alt="Nazad"
+                onClick={this.redirectToFeed}
+              />
+              <label htmlFor="toggleSportList" className="header__title">
+                {sportId === null ? "Odaberi sport" : sport.name}
+              </label>
+              <span className="spacing" />
+            </header>
             <input
               checked={toggleSportList}
               type="checkbox"
@@ -175,22 +180,32 @@ class NewEventForm extends Component {
               name="toggleSportList"
               onChange={this.handleInputChange}
             />
-            <ul className="event__form--list-sport">
-              {sportList.map((sport, index) => (
-                <li key={index}>
-                  <label>
+            <section className="event__form--list-sport filter__sport">
+              <ul className="filter__sport__list">
+                {sportList.map((sport, index) => (
+                  <React.Fragment key={index}>
                     <input
                       type="radio"
                       name="sportId"
-                      id="sportRadio"
+                      id={`sport_${index}`}
                       value={sport.id}
                       onChange={this.handleSportChange}
                     />
-                    <SportIcon className="icon--sport" sport={sport.name} />
-                  </label>
-                </li>
-              ))}
-            </ul>
+                    <li key={index}>
+                      <img src="assets/checkmark-icon.svg" alt="Označen" />
+                      <label htmlFor={`sport_${index}`}>
+                        <SportIcon
+                          className="icon--sport icon--sport-checkbox"
+                          sport={sport.name}
+                        />
+                      </label>
+                      <span className="c-az tt-uc fw-b">{sport.name}</span>
+                    </li>
+                  </React.Fragment>
+                ))}
+              </ul>
+            </section>
+            <span className="arrow-down" />
             <label>
               Naziv eventa
               <input

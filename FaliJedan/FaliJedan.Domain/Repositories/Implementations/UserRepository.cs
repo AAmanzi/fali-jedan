@@ -64,7 +64,9 @@ namespace FaliJedan.Domain.Repositories.Interfaces
         public void SaveRefreshToken(Guid userId, string refreshToken)
         {
             var user = _context.Users.Find(userId);
-            user.RefreshTokens.Remove(user.RefreshTokens.First(rf => rf.Value == refreshToken));
+            var refreshTokenToAdd = new RefreshToken { Value = refreshToken, UserId = userId, User = user };
+            _context.RefreshTokens.Add(refreshTokenToAdd);
+            user.RefreshTokens.Add(refreshTokenToAdd);
             _context.SaveChanges();
         }
 

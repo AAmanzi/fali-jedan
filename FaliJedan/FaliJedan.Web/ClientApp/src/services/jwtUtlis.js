@@ -51,13 +51,17 @@ export function axiosPostWithCredentials(url, payload) {
 
 export const axiosGetWithCredentials = (url, payload) => {
   const jwtToken = getJwtToken();
+  var refreshToken = getRefreshToken();
+  //axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
   var response = axios
     .get(url, payload, {
-      headers: { Authorization: "Bearer " + jwtToken }
+      headers: { Authorization: "bearer " + jwtToken }
     })
     .then(r => {
+      console.log(r);
       return r;
-    });
+    })
+    .catch(() => this.props.history.push("/login"));
   console.log(response);
   if (response.ok) {
     //all is good, return the response
@@ -65,8 +69,6 @@ export const axiosGetWithCredentials = (url, payload) => {
   }
 
   if (response.status === 401 && response.headers.has("Token-Expired")) {
-    var refreshToken = getRefreshToken();
-
     var refreshResponse = refresh(jwtToken, refreshToken);
     if (!refreshResponse.ok) {
       return response; //failed to refresh so return original 401 response
@@ -83,5 +85,8 @@ export const axiosGetWithCredentials = (url, payload) => {
 };
 
 function refresh() {
-  axios.post("/api/users/refresh");
+  axios.post("/api/users/refresh").then(r => {
+    saveJwtToken(r.data.value.token);
+    saveRefreshToken(r.data.value.refreshToken);
+  });
 }

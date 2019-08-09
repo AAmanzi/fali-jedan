@@ -26,6 +26,7 @@ class Login extends Component {
   };
 
   handleLogin = () => {
+    localStorage.clear();
     Axios.post("/api/users/login", {
       username: "biowea",
       password: "aaaaaa"

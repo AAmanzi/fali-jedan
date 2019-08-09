@@ -25,18 +25,18 @@ namespace FaliJedan.Web.Controllers
         private readonly IUserRepository _userRepository;
 
         [HttpPost("refresh")]
-        public IActionResult Refresh(string token, string refreshToken)
+        public IActionResult Refresh(TokenTransferDTO tokens)
         {
             var jwtHelper = new JwtHelper();
-            var principal = jwtHelper.GetPrincipalFromExpiredToken(token);
-            var userId = Guid.Parse(principal.Identity.Name);
+            var claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
+            var userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
             var savedRefreshToken = _userRepository.GetRefreshTokens(userId); //retrieve the refresh token from a data store
-            if (savedRefreshToken.Any(rt => rt.Value == refreshToken))
+            if (!savedRefreshToken.Any(rt => rt.Value == tokens.RefreshToken))
                 throw new SecurityTokenException("Invalid refresh token");
 
-            var newJwtToken = jwtHelper.GenerateToken(principal.Claims);
+            var newJwtToken = jwtHelper.GenerateToken(claims);
             var newRefreshToken = jwtHelper.GenerateRefreshToken();
-            _userRepository.DeleteRefreshToken(refreshToken);
+            _userRepository.DeleteRefreshToken(tokens.RefreshToken);
             _userRepository.SaveRefreshToken(userId, newRefreshToken);
 
             return new ObjectResult(new
@@ -64,7 +64,7 @@ namespace FaliJedan.Web.Controllers
             if (wasLoginSuccessful != null)
             {
                 var jwtHelper = new JwtHelper();
-                var newJwtToken = jwtHelper.GenerateToken(new Claim[] { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
+                var newJwtToken = jwtHelper.GenerateToken(new List<Claim> { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
                 var newRefreshToken = jwtHelper.GenerateRefreshToken();
                 return Ok(new ObjectResult(new
                 {

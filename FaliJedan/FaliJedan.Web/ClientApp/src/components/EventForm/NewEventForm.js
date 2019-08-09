@@ -20,7 +20,7 @@ class NewEventForm extends Component {
 
     this.state = {
       sportList: null,
-      sport: undefined,
+      sport: "",
       sportId: null,
       currentNumberOfPlayers: "",
       targetNumberOfPlayers: "",
@@ -57,7 +57,7 @@ class NewEventForm extends Component {
     const sport = this.state.sportList.find(sp => {
       return sp.id === selectedId;
     });
-    console.log(sport);
+    console.log("sport", sport);
 
     this.setState({
       sport
@@ -146,7 +146,9 @@ class NewEventForm extends Component {
               htmlFor="toggleSportList"
               className="event__form--label-sport"
             >
-              {this.state.sport === "" ? "Odaberi sport" : this.state.sport}
+              {this.state.sport === ""
+                ? "Odaberi sport"
+                : this.state.sport.name}
             </label>
             <input
               checked={this.state.toggleSportList}

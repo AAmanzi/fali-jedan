@@ -20,7 +20,7 @@ namespace FaliJedan.Web.Controllers
 
         private readonly ISportRepository _sportRepository;
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet("all")]
         public IActionResult GetAllSports()
         {

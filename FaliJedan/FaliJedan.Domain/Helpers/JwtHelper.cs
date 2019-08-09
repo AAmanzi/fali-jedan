@@ -15,7 +15,7 @@ namespace FaliJedan.Domain.Helpers
 {
     public class JwtHelper
     {
-        public string GenerateToken(IEnumerable<Claim> claims)
+        public string GenerateToken(List<Claim> claims)
         {
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NeznanStaBiOdiTribaloIc2345678901234567890"));
@@ -25,7 +25,7 @@ namespace FaliJedan.Domain.Helpers
                 audience: "Everyone",
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(15),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
             return new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken());
@@ -41,7 +41,7 @@ namespace FaliJedan.Domain.Helpers
             }
         }
 
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        public List<Claim> GetClaimsFromExpiredToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -59,7 +59,7 @@ namespace FaliJedan.Domain.Helpers
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid token");
 
-            return principal;
+            return principal.Claims.ToList();
         }
     }
 }

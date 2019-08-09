@@ -7,7 +7,7 @@
 // };
 
 // export const getFiltered = (controller, filters) => {
-//   console.log(filters);
+//   (filters);
 //   return axios.post(`${API_ROUTE}/${controller}/filtered`, filters);
 // };
 

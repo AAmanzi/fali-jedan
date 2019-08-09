@@ -159,6 +159,10 @@
     <Compile Include="Migrations\20190807210113_ChangedAttributeNames.designer.cs">
       <DependentUpon>20190807210113_ChangedAttributeNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.cs" />
+    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.designer.cs">
+      <DependentUpon>20190809211018_ChangedSubscriptionIdToNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

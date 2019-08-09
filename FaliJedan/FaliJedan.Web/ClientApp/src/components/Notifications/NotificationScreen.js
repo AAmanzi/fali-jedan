@@ -18,18 +18,16 @@ class NotificationScreen extends Component {
   componentDidMount = () => {
     // TODO: userId
 
-    getUserNotifications("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
-      userEvents => {
-        const eventUsers = userEvents.map(event => {
-          return {
-            event: eventDto({ event }),
-            users: event.userEvents.map(userEvent => userEvent.user)
-          };
-        });
+    getUserNotifications(localStorage.getItem("userId")).then(userEvents => {
+      const eventUsers = userEvents.map(event => {
+        return {
+          event: eventDto({ event }),
+          users: event.userEvents.map(userEvent => userEvent.user)
+        };
+      });
 
-        this.setState({ eventUsers });
-      }
-    );
+      this.setState({ eventUsers });
+    });
   };
 
   render() {

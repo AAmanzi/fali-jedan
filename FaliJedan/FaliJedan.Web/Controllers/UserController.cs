@@ -70,7 +70,8 @@ namespace FaliJedan.Web.Controllers
                 return Ok(new ObjectResult(new
                 {
                     token = newJwtToken,
-                    refreshToken = newRefreshToken
+                    refreshToken = newRefreshToken,
+                    userId = wasLoginSuccessful.Value
                 }));
             }
             return Forbid();

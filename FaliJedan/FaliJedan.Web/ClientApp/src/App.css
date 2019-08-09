@@ -606,6 +606,7 @@ header .spacing {
 }
 
 .date__display {
+  cursor: pointer;
   display: flex;
   background-color: #ffffff;
   border-radius: 10px;
@@ -717,12 +718,14 @@ header .spacing {
 
 .react-datepicker__day--range-start,
 .react-datepicker__day:nth-child(1) {
-  border-radius: 10px 0px 0px 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .react-datepicker__day--range-end,
 .react-datepicker__day:nth-child(7) {
-  border-radius: 0px 10px 10px 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 /* modal */

@@ -35,7 +35,7 @@ class FilterTime extends Component {
       <section className="filter__time">
         <div className="date__display__container">
           <span
-            className={`date__display ${
+            className={`input date__display ${
               this.state.currentlyEditing === START_DATE_STRING
                 ? "date-active"
                 : ""
@@ -43,13 +43,13 @@ class FilterTime extends Component {
             onClick={() => this.handleChangeDateToSet(START_DATE_STRING)}
           >
             <img src="/assets/date-icon.svg" />
-            <div className="date__display__content">
+            <div className="input__content">
               <h3 className="c-bl">OD</h3>
               <h2 className="c-gr">{getDate(this.props.dateFrom)}</h2>
             </div>
           </span>
           <span
-            className={`date__display ${
+            className={`input date__display ${
               this.state.currentlyEditing === END_DATE_STRING
                 ? "date-active"
                 : ""
@@ -57,7 +57,7 @@ class FilterTime extends Component {
             onClick={() => this.handleChangeDateToSet(END_DATE_STRING)}
           >
             <img src="/assets/date-icon.svg" />
-            <div className="date__display__content">
+            <div className="input__content">
               <h3 className="c-bl">DO</h3>
               <h2 className="c-gr">
                 {this.props.dateTo !== ""

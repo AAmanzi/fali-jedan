@@ -24,6 +24,10 @@ h2 {
   color: #178bf6;
 }
 
+.c-gr {
+  color: rgba(99, 103, 124, 0.5);
+}
+
 .c-az {
   color: #37b3ed;
 }
@@ -547,6 +551,54 @@ header .spacing {
   top: 0;
   left: 0;
   z-index: 2;
+}
+
+.filter__time {
+  margin-top: 35px;
+  width: 95%;
+  height: 80%;
+}
+
+.date__display__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date__display {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+  padding: 16px 0;
+  width: 170px;
+}
+
+.date__display img {
+  margin: 0 13px;
+}
+
+.date__display h3 {
+  margin: 0;
+}
+
+.date__display h2 {
+  margin: 11px 19px 0 0;
+}
+
+.date-active {
+  border: 2px solid red;
+}
+
+.date__display__content {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.datepicker__container {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
 }
 
 /* modal */

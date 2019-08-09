@@ -13,7 +13,7 @@ const EventCardInfo = props => {
   return (
     <>
       <div className="event__card--content" onClick={props.handleClick}>
-        <h2 className="c-bl tt-uc">{event.sport.name}</h2>
+        <h3 className="c-bl tt-uc">{event.sport.name}</h3>
         <h2 className="event__card--host-name" onClick={redirectToProfile}>
           {event.host}
         </h2>

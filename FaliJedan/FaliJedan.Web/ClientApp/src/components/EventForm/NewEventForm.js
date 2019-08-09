@@ -206,144 +206,146 @@ class NewEventForm extends Component {
               </ul>
             </section>
             <span className="arrow-down" />
-            <label>
-              Naziv eventa
-              <input
-                name="eventName"
-                type="text"
-                value={this.state.eventName}
-                onChange={this.handleInputChange}
-              />
-            </label>
+            <section className="event__form__content">
+              <label>
+                Naziv eventa
+                <input
+                  name="eventName"
+                  type="text"
+                  value={this.state.eventName}
+                  onChange={this.handleInputChange}
+                />
+              </label>
 
-            <label>
-              Broj trenutnih igrača
-              <NumberInput
-                value={this.state.currentNumberOfPlayers}
-                handleChange={this.handleCurrentNumberChange}
-              />
-            </label>
-            <label>
-              Broj traženih igrača
-              <NumberInput
-                value={this.state.targetNumberOfPlayers}
-                handleChange={this.handleTargetNumberChange}
-              />
-            </label>
-            <label>
-              Date:
-              <input
-                name="dateOfEvent"
-                type="date"
-                value={this.state.dateOfEvent}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              Start:
-              <input
-                name="startTime"
-                type="time"
-                value={this.state.startTime}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              End:
-              <input
-                name="endTime"
-                type="time"
-                value={this.state.endTime}
-                onChange={this.handleInputChange}
-              />
-            </label>
+              <label>
+                Broj trenutnih igrača
+                <NumberInput
+                  value={this.state.currentNumberOfPlayers}
+                  handleChange={this.handleCurrentNumberChange}
+                />
+              </label>
+              <label>
+                Broj traženih igrača
+                <NumberInput
+                  value={this.state.targetNumberOfPlayers}
+                  handleChange={this.handleTargetNumberChange}
+                />
+              </label>
+              <label>
+                Date:
+                <input
+                  name="dateOfEvent"
+                  type="date"
+                  value={this.state.dateOfEvent}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+              <label>
+                Start:
+                <input
+                  name="startTime"
+                  type="time"
+                  value={this.state.startTime}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+              <label>
+                End:
+                <input
+                  name="endTime"
+                  type="time"
+                  value={this.state.endTime}
+                  onChange={this.handleInputChange}
+                />
+              </label>
 
-            <LocationPicker
-              coordinates={this.props.currentCoordinates}
-              handleClick={this.handleCoordinateChange}
-            />
-
-            <label>
-              Opis eventa
-              <input
-                name="description"
-                type="text"
-                value={this.state.description}
-                onChange={this.handleInputChange}
+              <LocationPicker
+                coordinates={this.props.currentCoordinates}
+                handleClick={this.handleCoordinateChange}
               />
-            </label>
 
-            <label>Instant join</label>
-            <label className="event__form--switch">
-              <input
-                type="checkbox"
-                name="isInstantJoin"
-                onChange={this.handleInputChange}
-                defaultChecked={true}
-              />
-              <span className="event__form--switch--slider" />
-            </label>
+              <label>
+                Opis eventa
+                <input
+                  name="description"
+                  type="text"
+                  value={this.state.description}
+                  onChange={this.handleInputChange}
+                />
+              </label>
 
-            <label className="event__form--rating--container">
-              Skill level:
-              <div className="event__form--rating">
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="1"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="2"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="3"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="4"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="5"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-              </div>
-            </label>
+              <label>Instant join</label>
+              <label className="event__form--switch">
+                <input
+                  type="checkbox"
+                  name="isInstantJoin"
+                  onChange={this.handleInputChange}
+                  defaultChecked={true}
+                />
+                <span className="event__form--switch--slider" />
+              </label>
+
+              <label className="event__form--rating--container">
+                Skill level:
+                <div className="event__form--rating">
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="1"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="2"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="3"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="4"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="5"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                </div>
+              </label>
+            </section>
           </form>
           <button onClick={this.handleSubmit}>Submit</button>
         </div>

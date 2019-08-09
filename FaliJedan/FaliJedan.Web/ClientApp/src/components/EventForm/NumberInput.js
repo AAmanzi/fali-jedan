@@ -32,14 +32,26 @@ const NumberInput = props => {
 
   return (
     <span className="input__number">
-      <span onClick={() => handleChange(props.value - 1)}>-</span>
+      <span className="navbar__item--create-inner">
+        <img
+          src="/assets/common/minus.svg"
+          alt="-"
+          onClick={() => handleChange(props.value - 1)}
+        />
+      </span>
       <input
         type="text"
         value={props.value}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <span onClick={() => handleChange(props.value + 1)}>+</span>
+      <span className="navbar__item--create-inner plus">
+        <img
+          src="/assets/common/plus.svg"
+          alt="+"
+          onClick={() => handleChange(props.value + 1)}
+        />
+      </span>
     </span>
   );
 };

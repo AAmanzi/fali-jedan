@@ -199,7 +199,7 @@ header .spacing {
   border-radius: 10px 10px 0px 0px;
   padding-top: 6px;
   box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.16);
-  z-index: 9999;
+  z-index: 999;
 }
 
 .navbar__item__container {
@@ -689,6 +689,7 @@ header .spacing {
 .react-datepicker__month-text--in-range {
   background: rgba(23, 139, 246, 0.3);
   color: #178bf6;
+  border-radius: 0;
 }
 
 .react-datepicker__day--range-start,
@@ -715,7 +716,7 @@ header .spacing {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 100;
+  z-index: 9999;
   background-color: #453d3d77;
 }
 
@@ -736,6 +737,7 @@ header .spacing {
   height: 95%;
   background-color: #178bf6;
   border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
 }
 
 .modal__cover-right {

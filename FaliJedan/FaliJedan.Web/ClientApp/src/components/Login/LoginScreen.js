@@ -24,7 +24,10 @@ class LoginScreen extends Component {
           this.state.isSignupActive ? "right-panel-active" : ""
         }`}
       >
-        <Signup handlePanelSwitch={() => this.toggleSignup(false)} />
+        <Signup
+          handlePanelSwitch={() => this.toggleSignup(false)}
+          onSignupSuccess={() => this.toggleSignup(false)}
+        />
         <Login handlePanelSwitch={() => this.toggleSignup(true)} />
       </div>
     );

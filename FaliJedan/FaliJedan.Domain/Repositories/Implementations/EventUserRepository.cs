@@ -31,6 +31,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
             _context.EventUsers.Add(eventUser);
             if (eventToAdd.IsInstantJoin)
             {
+                eventUser.IsApproved = true;
                 eventToAdd.CurrentNumberOfPlayers++;
             }
             _context.SaveChanges();

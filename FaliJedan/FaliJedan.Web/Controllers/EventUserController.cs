@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FaliJedan.Data.Entities.Models;
 using FaliJedan.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace FaliJedan.Web.Controllers
 {
-    [Route("api/eventUsers")]
+    [Route("api/event-users")]
     [ApiController]
     public class EventUserController : ControllerBase
     {
@@ -24,8 +26,26 @@ namespace FaliJedan.Web.Controllers
 
         [Authorize]
         [HttpPost("add")]
-        public IActionResult AddEventUser(EventUser eventUserToAdd)
+        public IActionResult AddEventUser(JObject eventId)
         {
+            var eventGuidString = eventId["eventId"].ToString();
+            var eventGuid = Guid.Parse(eventGuidString);
+
+
+            if (!(HttpContext.User.Identity is ClaimsIdentity identity)) return Forbid();
+            var claims = identity.Claims.ToList();
+            var userId = Guid.Parse(claims.First(c => c.Type == "userId").Value);
+
+            var eventUserToAdd = new EventUser
+            {
+                EventId = eventGuid,
+                UserId = userId,
+                IsReviewed = false,
+                IsApproved = false,
+                IsCanceled = false,
+                IsHost = false
+            };
+
             var wasAddSuccessful = _eventUserRepository.AddEventUser(eventUserToAdd);
             if (wasAddSuccessful)
                 return Ok();

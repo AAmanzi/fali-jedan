@@ -85,7 +85,6 @@ class Login extends Component {
             type="password"
             name="password"
             placeholder="Lozinka"
-            value={this.state.password}
             onChange={this.handleInputChange}
             onKeyDown={this.handleKeyDown}
           />

@@ -46,6 +46,10 @@ h2 {
   border: 2px solid #178bf6;
 }
 
+.bc-rd {
+  border-color: #f63117 !important;
+}
+
 .fs-17 {
   font-size: 17px;
   line-height: 25px;
@@ -1053,10 +1057,11 @@ a {
   font-size: 14px;
   line-height: 19px;
   border: none;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   padding: 12px 0;
   margin: 8px 0;
   width: 100%;
+  transition: border 0.2s ease-in-out;
 }
 
 .input-login::placeholder {

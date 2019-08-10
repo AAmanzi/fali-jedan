@@ -23,6 +23,11 @@ h2 {
   margin: 0;
 }
 
+#root {
+  height: 100vh;
+  background-color: #e5e5e5;
+}
+
 .test {
   position: absolute;
   top: 50%;
@@ -129,6 +134,7 @@ header .spacing {
   width: 250px;
   align-self: center;
   padding: 22px;
+  margin-bottom: 20px;
 }
 
 /* EVENT FEED */
@@ -136,7 +142,7 @@ header .spacing {
 .event__list {
   overflow: scroll;
   overflow-x: hidden;
-  height: 94vh;
+  height: 82vh;
   background-color: #e5e5e5;
 }
 
@@ -144,6 +150,10 @@ header .spacing {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.event__list li:last-child {
+  margin-bottom: 20px;
 }
 
 .list__empty--text {
@@ -392,7 +402,7 @@ header .spacing {
   position: absolute;
   display: flex;
   bottom: 5px;
-  left: 50%;
+  left: calc(50% - 8px);
 }
 
 .event__card--dot {
@@ -519,7 +529,7 @@ header .spacing {
   flex-direction: column;
   padding: 10px;
   overflow-y: scroll;
-  height: 78vh;
+  height: 82vh;
 }
 
 .input__number__container {
@@ -929,7 +939,7 @@ input::placeholder {
 }
 
 .filter__sport__list li:nth-child(4n) {
-  margin-right: 0;
+  margin-right: 35px;
   margin-left: 17.5px;
 }
 

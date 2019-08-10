@@ -337,6 +337,7 @@ class NewEventForm extends Component {
               />
 
               <label className="input">
+                <img src="/assets/description-icon.svg" alt="Opis" />
                 <div className="input__content">
                   <h3 className="c-bl tt-uc fs-11">Opis eventa</h3>
                   <input

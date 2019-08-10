@@ -77,12 +77,13 @@ h2 {
   border-top: 20px solid #178bf6;
   left: calc(50% - 20px);
   top: -20px;
-  transition: opacity 0.35s ease-in, top 0.35s ease-out;
+  transition: opacity 0.05s ease-in-out, top 0.4s ease-in-out;
 }
 
 .event__form--input-sport:checked ~ .arrow-down {
-  top: calc(80% + 30px);
+  top: calc(85% + 60px);
   opacity: 1;
+  z-index: 1;
 }
 
 header {
@@ -315,6 +316,10 @@ header .spacing {
 .event__form {
   display: flex;
   flex-direction: column;
+}
+
+.event__form .filter__sport {
+  height: 85% !important;
 }
 
 .event__form .react-datepicker {

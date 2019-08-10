@@ -7,7 +7,6 @@ const EventCardInfo = props => {
   const svg = (
     <svg
       width="18"
-      height="18"
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +26,6 @@ const EventCardInfo = props => {
   );
 
   const CalculateDistance = (lat1, lon1, lat2, lon2) => {
-    console.log(lat1, lon1, lat2, lon2);
     if (lat1 == lat2 && lon1 == lon2) {
       return 0;
     } else {
@@ -50,10 +48,7 @@ const EventCardInfo = props => {
 
   const redirectToProfile = event => {
     event.stopPropagation();
-
-    //TODO
   };
-  console.log(event);
   return (
     <>
       <div className="event__card--content" onClick={props.handleClick}>

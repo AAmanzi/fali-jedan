@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaliJedan.Data.Migrations
 {
     [DbContext(typeof(FaliJedanContext))]
-    [Migration("20190724123140_CreatedBadgeTypeAndUpdatedGeolocation")]
-    partial class CreatedBadgeTypeAndUpdatedGeolocation
+    [Migration("20190810050300_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,11 +47,11 @@ namespace FaliJedan.Data.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<DateTime>("DateOfEvent");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<DateTime>("EventEnd");
+
+                    b.Property<DateTime>("EventStart");
 
                     b.Property<bool>("IsInstantJoin");
 
@@ -59,9 +59,9 @@ namespace FaliJedan.Data.Migrations
 
                     b.Property<double>("LocationLongitude");
 
-                    b.Property<int>("SportId");
+                    b.Property<string>("Name");
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<int>("SportId");
 
                     b.Property<int>("TargetNumberOfPlayers");
 
@@ -82,15 +82,34 @@ namespace FaliJedan.Data.Migrations
 
                     b.Property<bool>("IsApproved");
 
+                    b.Property<bool>("IsCanceled");
+
                     b.Property<bool>("IsHost");
 
-                    b.Property<bool>("isCanceled");
+                    b.Property<bool>("IsReviewed");
 
                     b.HasKey("UserId", "EventId");
 
                     b.HasIndex("EventId");
 
                     b.ToTable("EventUsers");
+                });
+
+            modelBuilder.Entity("FaliJedan.Data.Entities.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.Sport", b =>
@@ -129,27 +148,22 @@ namespace FaliJedan.Data.Migrations
                         new
                         {
                             Id = 5,
-                            Name = "Bicikliranje"
+                            Name = "Američki nogomet"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Trčanje"
+                            Name = "Ragbi"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Planinarenje"
+                            Name = "Rukomet"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Pikado"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Biljar"
+                            Name = "Vaterpolo"
                         });
                 });
 
@@ -196,9 +210,9 @@ namespace FaliJedan.Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<float>("Rating");
+                    b.Property<Guid?>("SubscriptionId");
 
-                    b.Property<Guid>("SubscriptionId");
+                    b.Property<int>("TotalRating");
 
                     b.Property<string>("Username")
                         .IsRequired();
@@ -208,7 +222,8 @@ namespace FaliJedan.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[SubscriptionId] IS NOT NULL");
 
                     b.ToTable("Users");
                 });
@@ -249,12 +264,19 @@ namespace FaliJedan.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("FaliJedan.Data.Entities.Models.RefreshToken", b =>
+                {
+                    b.HasOne("FaliJedan.Data.Entities.Models.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.User", b =>
                 {
                     b.HasOne("FaliJedan.Data.Entities.Models.Subscription", "Subscription")
                         .WithOne("User")
-                        .HasForeignKey("FaliJedan.Data.Entities.Models.User", "SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FaliJedan.Data.Entities.Models.User", "SubscriptionId");
                 });
 
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.UserBadge", b =>

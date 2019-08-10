@@ -57,6 +57,8 @@ namespace FaliJedan.Data.Migrations
 
                     b.Property<double>("LocationLongitude");
 
+                    b.Property<string>("Name");
+
                     b.Property<int>("SportId");
 
                     b.Property<int>("TargetNumberOfPlayers");
@@ -144,27 +146,22 @@ namespace FaliJedan.Data.Migrations
                         new
                         {
                             Id = 5,
-                            Name = "Bicikliranje"
+                            Name = "Američki nogomet"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Trčanje"
+                            Name = "Ragbi"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Planinarenje"
+                            Name = "Rukomet"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Pikado"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Biljar"
+                            Name = "Vaterpolo"
                         });
                 });
 

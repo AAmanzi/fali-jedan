@@ -67,6 +67,7 @@ class EventCard extends Component {
             event={event}
             toggleMap={this.toggleMap}
             handleClick={this.displayDetails}
+            currentCoordinates={this.props.currentCoordinates}
           />
 
           <div

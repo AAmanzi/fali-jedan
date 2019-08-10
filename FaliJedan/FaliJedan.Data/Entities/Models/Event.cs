@@ -14,6 +14,7 @@ namespace FaliJedan.Data.Entities.Models
         public Sport Sport { get; set; }
         public ICollection<EventUser> EventUsers { get; set; }
 
+        public string Name { get; set; }
         [Required]
         public int CurrentNumberOfPlayers { get; set; }
         [Required]

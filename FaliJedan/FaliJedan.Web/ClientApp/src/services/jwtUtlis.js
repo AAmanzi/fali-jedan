@@ -62,6 +62,9 @@ function refresh() {
     .catch(e => {
       const currentUrlArray = window.location.href.split("/");
       const homePage = currentUrlArray[0] + "//" + currentUrlArray[2];
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("userId");
       window.location.replace(`${homePage}/login`);
     });
 }

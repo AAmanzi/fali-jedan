@@ -1,5 +1,4 @@
 import React from "react";
-import { convertToWebMercator } from "../utils/map";
 
 const EventCardInfo = props => {
   const { event } = props;
@@ -27,7 +26,7 @@ const EventCardInfo = props => {
   );
 
   const CalculateDistance = (lat1, lon1, lat2, lon2) => {
-    if (lat1 == lat2 && lon1 == lon2) {
+    if (lat1 === lat2 && lon1 === lon2) {
       return 0;
     } else {
       var radlat1 = (Math.PI * lat1) / 180;
@@ -81,7 +80,7 @@ const EventCardInfo = props => {
           </span>
         </section>
         <span className="event__card--time">
-          <img src="../assets/clock-icon.svg" className="mr-10" />
+          <img src="../assets/clock-icon.svg" className="mr-10" alt="Vrijeme"/>
           {`${event.startTime} - ${event.endTime}`}
         </span>
       </div>
@@ -89,6 +88,7 @@ const EventCardInfo = props => {
         <img
           className="event__card--icon"
           src={"../assets/sports/" + event.sport.name + ".svg"}
+          alt={event.sport.name}
         />
         {event.isInstantJoin ? (
           <span className="event__card--instant-join" />
@@ -98,6 +98,7 @@ const EventCardInfo = props => {
         <img
           className="event__card--players"
           src="../assets/common/players.svg"
+          alt="Broj igrača"
         />
         <span className="event__card--players-span">{`${event.currentPlayers}/${
           event.targetPlayers

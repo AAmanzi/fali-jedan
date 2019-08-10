@@ -4,14 +4,16 @@ using FaliJedan.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FaliJedan.Data.Migrations
 {
     [DbContext(typeof(FaliJedanContext))]
-    partial class FaliJedanContextModelSnapshot : ModelSnapshot
+    [Migration("20190808114738_MadeSubscriptionIdNullable")]
+    partial class MadeSubscriptionIdNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,8 +83,6 @@ namespace FaliJedan.Data.Migrations
                     b.Property<bool>("IsCanceled");
 
                     b.Property<bool>("IsHost");
-
-                    b.Property<bool>("IsReviewed");
 
                     b.HasKey("UserId", "EventId");
 

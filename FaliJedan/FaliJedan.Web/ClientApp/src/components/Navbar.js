@@ -10,13 +10,14 @@ const Navbar = () => {
             <img
               className="navbar__item-active"
               src="/assets/navbar/icon-feed.svg"
+              alt="Lista"
             />
             <span>Lista</span>
           </li>
         </Link>
         <Link className="navbar__item__container" to="/scoreboard">
           <li className="navbar__item">
-            <img src="/assets/navbar/icon-scoreboard.svg" />
+            <img src="/assets/navbar/icon-scoreboard.svg" alt="Ljestvice" />
             <span>Ljestvice</span>
           </li>
         </Link>
@@ -29,13 +30,13 @@ const Navbar = () => {
         </Link>
         <Link className="navbar__item__container" to="/user?">
           <li className="navbar__item">
-            <img src="/assets/navbar/icon-profile.svg" />
+            <img src="/assets/navbar/icon-profile.svg" alt="Profil" />
             <span>Profil</span>
           </li>
         </Link>
         <Link className="navbar__item__container" to="/notifications">
           <li className="navbar__item">
-            <img src="/assets/navbar/icon-notifications.svg" />
+            <img src="/assets/navbar/icon-notifications.svg" alt="Obavijesti" />
             <span>Obavijesti</span>
           </li>
         </Link>

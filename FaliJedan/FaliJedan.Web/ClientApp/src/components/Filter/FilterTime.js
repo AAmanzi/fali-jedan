@@ -42,8 +42,8 @@ class FilterTime extends Component {
             }`}
             onClick={() => this.handleChangeDateToSet(START_DATE_STRING)}
           >
-            <img src="/assets/date-icon.svg" />
-            <div className="input__content">
+            <img src="/assets/date-icon.svg" alt="Datum" />
+            <div className="date__display__content">
               <h3 className="c-bl">OD</h3>
               <h2 className="c-gr">{getDate(this.props.dateFrom)}</h2>
             </div>
@@ -56,8 +56,8 @@ class FilterTime extends Component {
             }`}
             onClick={() => this.handleChangeDateToSet(END_DATE_STRING)}
           >
-            <img src="/assets/date-icon.svg" />
-            <div className="input__content">
+            <img src="/assets/date-icon.svg" alt="Datum" />
+            <div className="date__display__content">
               <h3 className="c-bl">DO</h3>
               <h2 className="c-gr">
                 {this.props.dateTo !== ""

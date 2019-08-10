@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import Axios from "axios";
+import { saveRefreshToken, saveJwtToken } from "../../services/jwtUtlis";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
+      email: "",
       password: ""
     };
   }
@@ -20,45 +22,49 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    // TODO
+    Axios.post("/api/users/login", {
+      username: this.state.username,
+      password: this.state.password
+    }).then(r => {
+      saveJwtToken(r.data.value.token);
+      saveRefreshToken(r.data.value.refreshToken);
+      localStorage.setItem("userId", r.data.value.userId);
+    });
   };
 
   render() {
     return (
       <div className="form-container log-in-container">
         <form className="form-login">
-          <h1>Log in</h1>
-          <div className="social-container">
-            <a href="/" className="social">
-              <i className="fab fa-facebook-f" />
-            </a>
-            <a href="/" className="social">
-              <i className="fab fa-google-plus-g" />
-            </a>
-            <a href="/" className="social">
-              <i className="fab fa-linkedin-in" />
-            </a>
-          </div>
-          <span>or use your account</span>
           <input
             className="input-login"
-            type="text"
-            name="username"
-            placeholder="Username"
+            type="email"
+            name="email"
+            placeholder="E-mail"
             onChange={this.handleInputChange}
           />
           <input
             className="input-login"
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Lozinka"
             onChange={this.handleInputChange}
           />
-          <a href="/">Forgot your password?</a>
         </form>
-        <button className="button" onClick={this.handleLogin}>
-          Log In
-        </button>
+        <div className="button__login--container">
+          <button
+            className="button__login ghost"
+            onClick={this.props.handlePanelSwitch}
+          >
+            Registracija
+          </button>
+          <button className="button__login" onClick={this.handleLogin}>
+            Prijava
+          </button>
+        </div>
+        <span className="text__login">
+          Novi korisnik
+        </span>
       </div>
     );
   }

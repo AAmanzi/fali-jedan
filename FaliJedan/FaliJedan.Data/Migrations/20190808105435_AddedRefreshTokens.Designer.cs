@@ -4,14 +4,16 @@ using FaliJedan.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FaliJedan.Data.Migrations
 {
     [DbContext(typeof(FaliJedanContext))]
-    partial class FaliJedanContextModelSnapshot : ModelSnapshot
+    [Migration("20190808105435_AddedRefreshTokens")]
+    partial class AddedRefreshTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,8 +83,6 @@ namespace FaliJedan.Data.Migrations
                     b.Property<bool>("IsCanceled");
 
                     b.Property<bool>("IsHost");
-
-                    b.Property<bool>("IsReviewed");
 
                     b.HasKey("UserId", "EventId");
 
@@ -211,9 +211,9 @@ namespace FaliJedan.Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<Guid?>("SubscriptionId");
+                    b.Property<float>("Rating");
 
-                    b.Property<int>("TotalRating");
+                    b.Property<Guid>("SubscriptionId");
 
                     b.Property<string>("Username")
                         .IsRequired();
@@ -223,8 +223,7 @@ namespace FaliJedan.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionId")
-                        .IsUnique()
-                        .HasFilter("[SubscriptionId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -277,7 +276,8 @@ namespace FaliJedan.Data.Migrations
                 {
                     b.HasOne("FaliJedan.Data.Entities.Models.Subscription", "Subscription")
                         .WithOne("User")
-                        .HasForeignKey("FaliJedan.Data.Entities.Models.User", "SubscriptionId");
+                        .HasForeignKey("FaliJedan.Data.Entities.Models.User", "SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.UserBadge", b =>

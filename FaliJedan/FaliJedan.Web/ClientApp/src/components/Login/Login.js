@@ -37,16 +37,23 @@ class Login extends Component {
     Axios.post("/api/users/login", {
       username: this.state.username,
       password: this.state.password
-    }).then(r => {
-      saveJwtToken(r.data.value.token);
-      saveRefreshToken(r.data.value.refreshToken);
-      localStorage.setItem("userId", r.data.value.userId);
-      this.redirect();
-    });
+    })
+      .then(r => {
+        saveJwtToken(r.data.value.token);
+        saveRefreshToken(r.data.value.refreshToken);
+        localStorage.setItem("userId", r.data.value.userId);
+        this.redirect();
+      })
+      .catch(() => {
+        alert("Username or password incorrect");
+        this.setState({
+          password: ""
+        });
+      });
   };
 
   handleKeyDown = event => {
-    if (event.key) {
+    if (event.key === "Enter") {
       this.handleLogin();
     }
   };
@@ -69,6 +76,7 @@ class Login extends Component {
             type="text"
             name="username"
             placeholder="Korisničko ime"
+            value={this.state.username}
             onChange={this.handleInputChange}
             onKeyDown={this.handleKeyDown}
           />
@@ -77,6 +85,7 @@ class Login extends Component {
             type="password"
             name="password"
             placeholder="Lozinka"
+            value={this.state.password}
             onChange={this.handleInputChange}
             onKeyDown={this.handleKeyDown}
           />

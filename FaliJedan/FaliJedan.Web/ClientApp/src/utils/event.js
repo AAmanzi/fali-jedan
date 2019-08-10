@@ -119,6 +119,7 @@ export const newEvent = (
 
 export const eventDto = dto => {
   return {
+    id: dto.event.id,
     sport: dto.event.sport,
     name: dto.event.name,
     host: dto.host,
@@ -129,6 +130,6 @@ export const eventDto = dto => {
     targetPlayers: dto.event.targetNumberOfPlayers,
     coordinates: [dto.event.locationLatitude, dto.event.locationLongitude],
     description: dto.event.description,
-    targetSkillLevel: dto.event.targetSkillLevel,
+    targetSkillLevel: dto.event.targetSkillLevel
   };
 };

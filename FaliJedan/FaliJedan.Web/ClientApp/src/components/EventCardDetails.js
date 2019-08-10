@@ -1,9 +1,11 @@
 import React from "react";
 import SportIcon from "./SportIcon";
 import LocationDisplay from "./Map/LocationDisplay";
+import { joinEvent } from "../services/event";
 
 const EventCardDetails = props => {
   const { event } = props;
+  console.log(event);
   return (
     <div className="event__card__details">
       <button className="button--back" onClick={props.handleClickBack}>
@@ -59,8 +61,8 @@ const EventCardDetails = props => {
             </div>
           </li>
         </ul>
-        <button
-        //TODO: onclick
+        <button className="jebimater"
+          onClick={() => joinEvent(event.id)}
         >
           PRIDRUŽI SE
         </button>

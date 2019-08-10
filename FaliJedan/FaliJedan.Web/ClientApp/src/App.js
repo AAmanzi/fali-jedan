@@ -61,7 +61,7 @@ export default class App extends Component {
         <Switch>
           <Route
             exact
-            path="/feed"
+            path="/"
             render={() => (
               <EventFeed
                 currentCoordinates={currentCoordinates}
@@ -83,7 +83,7 @@ export default class App extends Component {
             render={() => <NotificationScreen />}
           />
           <Route exact path="/login" render={() => <LoginScreen />} />
-          <Redirect to="/feed" />
+          <Redirect to="/" />
         </Switch>
       </BrowserRouter>
     );

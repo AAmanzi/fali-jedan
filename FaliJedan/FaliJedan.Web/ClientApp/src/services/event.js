@@ -30,6 +30,18 @@ export const deleteEvent = async eventId => {
     );
 };
 
+export const joinEvent = async eventId => {
+  console.log(eventId);
+  return axiosPostWithCredentials(`api/event-users/add`, eventId)
+    .then(response => response)
+    .catch(
+      axiosPostWithCredentials(
+        `${API_ROUTE}/${CONTROLLER.eventUser}/add`,
+        eventId
+      )
+    );
+};
+
 export const getEventById = async id => {
   return axiosGetWithCredentials(`${API_ROUTE}/${CONTROLLER.event}/all`, id)
     .then(response => response.data)

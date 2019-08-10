@@ -5,6 +5,15 @@ import { joinEvent } from "../services/event";
 
 const EventCardDetails = props => {
   const { event } = props;
+
+  const isLoggedUsersEvent = event.host.id === localStorage.getItem("userId");
+
+  const handleJoinEvent = () => {
+    if (!isLoggedUsersEvent) {
+      joinEvent(event.id);
+    }
+  };
+
   return (
     <div className="event__card__details">
       <button className="button--back" onClick={props.handleClickBack}>
@@ -60,8 +69,11 @@ const EventCardDetails = props => {
             </div>
           </li>
         </ul>
-        <button className="test" onClick={() => joinEvent(event.id)}>
-          PRIDRUŽI SE
+        <button
+          className={`${isLoggedUsersEvent ? "button-joined" : ""}`}
+          onClick={() => handleJoinEvent()}
+        >
+          {isLoggedUsersEvent ? "PRIDRUŽEN" : "PRIDRUŽI SE"}
         </button>
       </section>
     </div>

@@ -104,6 +104,7 @@ class EventCard extends Component {
               isLoggedUsersEvent={this.state.isLoggedUsersEvent}
               event={event}
               handleClickBack={this.closeDetails}
+              currentCoordinates={this.props.currentCoordinates}
             />
           ) : (
             undefined

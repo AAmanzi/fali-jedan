@@ -1,4 +1,5 @@
 import React from "react";
+import { calculateDistance } from "../utils/map";
 
 const EventCardInfo = props => {
   const { event } = props;
@@ -24,33 +25,12 @@ const EventCardInfo = props => {
     </svg>
   );
 
-  const CalculateDistance = (lat1, lon1, lat2, lon2) => {
-    if (lat1 === lat2 && lon1 === lon2) {
-      return 0;
-    } else {
-      var radlat1 = (Math.PI * lat1) / 180;
-      var radlat2 = (Math.PI * lat2) / 180;
-      var theta = lon1 - lon2;
-      var radtheta = (Math.PI * theta) / 180;
-      var dist =
-        Math.sin(radlat1) * Math.sin(radlat2) +
-        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = Math.acos(dist);
-      dist = (dist * 180) / Math.PI;
-      dist = dist * 60 * 1.1515 * 1.609344;
-      return dist.toFixed(1) + " km";
-    }
-  };
-
   const redirectToProfile = event => {
     event.stopPropagation();
   };
   return (
     <>
-      <div className="event__card--content" onClick={props.handleClick}>
+      <span className="event__card--content" onClick={props.handleClick}>
         <h3 className="c-bl tt-uc event_card--name">{event.sport.name}</h3>
         <h2 className="event__card--host-name" onClick={redirectToProfile}>
           {event.host.username}
@@ -80,15 +60,22 @@ const EventCardInfo = props => {
           <img src="../assets/clock-icon.svg" className="mr-10" alt="Vrijeme" />
           {`${event.startTime} - ${event.endTime}`}
         </span>
-      </div>
-      <div className="event__card--panel" onClick={props.handleClick}>
+      </span>
+      <span className="event__card--panel" onClick={props.handleClick}>
         <img
           className="event__card--icon"
           src={"../assets/sports/" + event.sport.name + ".svg"}
           alt={event.sport.name}
         />
         {event.isInstantJoin ? (
-          <span className="event__card--instant-join" />
+          <div className="event__card__details--instant">
+            <h3 className="fs-11 c-bl tt-uc">INSTANT JOIN</h3>
+            <img
+              className="event__card--instant-join"
+              src="/assets/common/instantJoin.svg"
+              alt="instantJoin"
+            />
+          </div>
         ) : (
           undefined
         )}
@@ -102,17 +89,14 @@ const EventCardInfo = props => {
         }`}</span>
         <span className="event__card--location">
           {svg}
-          {CalculateDistance(
+          {calculateDistance(
             (event.coordinates[0] / 20037508.34) * 180,
             (event.coordinates[1] / 20037508.34) * 180,
             (props.currentCoordinates[0] / 20037508.34) * 180,
             (props.currentCoordinates[1] / 20037508.34) * 180
           )}
         </span>
-      </div>
-      <button className="event__card--button-slide" onClick={props.toggleMap}>
-        &#x25B6;
-      </button>
+      </span>
     </>
   );
 };

@@ -14,5 +14,13 @@ namespace FaliJedan.Domain.Repositories.Interfaces
         bool AddUser(User userToAdd);
 
         User GetUserById(Guid id);
+
+        List<RefreshToken> GetRefreshTokens(Guid userId);
+
+        void DeleteRefreshToken(Guid userId, string refreshToken);
+
+        void SaveRefreshToken(Guid userId, string refreshToken);
+
+        Guid? Login(string username, string password);
     }
 }

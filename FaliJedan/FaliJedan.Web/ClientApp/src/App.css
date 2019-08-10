@@ -1,3 +1,5 @@
+@import "~react-datepicker/dist/react-datepicker.css";
+
 * {
   box-sizing: border-box;
   font-family: Nunito Sans;
@@ -7,6 +9,7 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  color: #63677c;
 }
 
 ul {
@@ -23,12 +26,55 @@ h2 {
   color: #178bf6;
 }
 
+.c-gr {
+  color: rgba(99, 103, 124, 0.5);
+}
+
+.c-az {
+  color: #37b3ed;
+}
+
 .tt-uc {
   text-transform: uppercase;
 }
 
+.fw-b {
+  font-weight: bold;
+}
+
+.b-bl {
+  border: 2px solid #178bf6;
+}
+
+.line {
+  border: 2px solid #ffffff;
+  width: 75px;
+  border-radius: 10px;
+  margin: 10.5px 0 12px 0;
+}
+
 header {
   display: flex;
+  color: #ffffff;
+  background-color: #178bf6;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  width: 100%;
+}
+
+header * {
+  margin: 0 18px;
+}
+
+header .spacing {
+  width: 20px;
+}
+
+.header__title {
+  font-size: 24px;
+  line-height: 33px;
 }
 
 /* EVENT FEED */
@@ -38,6 +84,12 @@ header {
   overflow-x: hidden;
   height: 94vh;
   background-color: #e5e5e5;
+}
+
+.event__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* EVENT CARD */
@@ -53,6 +105,7 @@ header {
   background-color: #ffffff;
   margin: 6px 0;
   height: 130px;
+  transition: border 0.3s ease-in-out;
 }
 
 .event__card--panel,
@@ -103,8 +156,11 @@ header {
 }
 
 .map__container {
-  width: 80%;
-  height: 80%;
+  border-radius: 10px;
+}
+
+.ol-overlaycontainer {
+  display: none;
 }
 
 .event__card--description {
@@ -114,7 +170,7 @@ header {
 }
 
 .event__card--instant-join {
-  background-image: url(/assets/instantJoin.svg);
+  background-image: url(/assets/common/instantJoin.svg);
   background-repeat: no-repeat;
   width: 0;
   height: 0;
@@ -144,6 +200,10 @@ header {
 
 /* NAVBAR */
 
+.navbar__item-active {
+  fill: #178bf6;
+}
+
 .navbar__list {
   position: absolute;
   bottom: 0;
@@ -152,16 +212,54 @@ header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  border-radius: 10px 10px 0px 0px;
+  padding-top: 6px;
+  box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.16);
+  z-index: 999;
+}
+
+.navbar__item__container {
+  text-decoration: none;
+  color: #63677c;
+  background-color: #ffffff;
+  width: 20%;
+  text-align: center;
+  margin: 0;
 }
 
 .navbar__item {
-  text-decoration: none;
-  color: black;
-  background-color: #ccc;
-  border: 1px solid black;
-  width: 25%;
-  text-align: center;
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__item img,
+.navbar__item span {
+  margin: 4px;
+}
+
+.navbar__item--create {
+  position: absolute;
+  width: 59px;
+  height: 59px;
+  left: calc(50% - 59px / 2);
+  bottom: 17px;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__item--create-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #178bf6;
+  border-radius: 50%;
+  padding: 12.5px;
 }
 
 /* NEW EVENT FORM */
@@ -274,7 +372,8 @@ header {
 
 .event__form--rating label input,
 .user__rating--input label input,
-.event__form--list-sport li input {
+.event__form--list-sport li input,
+.filter__sport__list input {
   position: absolute;
   top: 0;
   left: 0;
@@ -372,13 +471,19 @@ header {
   display: none;
 }
 
-/* fiter bar */
+/* FILTER BAR */
+
+/* TODO: width less than 100% */
+/* 
+  button colors will get set after merging with 
+  aamanzi_ui_login-screen branch
+*/
 
 .filter__list {
   display: flex;
   width: 100%;
   justify-content: space-around;
-  background-color: blue;
+  margin: 0 10px;
 }
 
 .filter__list__item {
@@ -388,6 +493,240 @@ header {
   background-color: #ccc;
   border: 1px solid black;
   cursor: pointer;
+  border-radius: 0 !important;
+}
+
+.filter__list__item:nth-child(1) {
+  border-radius: 10px 0 0 10px !important;
+}
+
+.filter__list__item:nth-child(3) {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+.filter__sport {
+  overflow: scroll;
+  height: 80%;
+}
+
+.filter__sport__list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.filter__sport__list input:checked + li {
+  background-color: #37b3ed;
+}
+
+.filter__sport__list input:checked + li span {
+  color: #ffffff;
+}
+
+.filter__sport__list input:checked + li img {
+  filter: brightness(0) invert(1);
+}
+
+.filter__sport__list input:checked + li > img {
+  position: absolute;
+  opacity: 1;
+  top: 6px;
+  right: 6px;
+}
+
+.filter__sport__list li {
+  position: relative;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 12px rgba(12, 72, 128, 0.6);
+  border-radius: 10px;
+  margin: 12.5px 35px;
+  width: calc(50% - 52.5px);
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.filter__sport__list li > img {
+  position: absolute;
+  opacity: 0;
+}
+
+.filter__sport__list li:nth-child(2),
+.filter__sport__list li:nth-child(4) {
+  margin-top: 35px;
+}
+
+.filter__sport__list li:nth-child(2n) {
+  margin-right: 17.5px;
+}
+
+.filter__sport__list li:nth-child(4n) {
+  margin-right: 0;
+  margin-left: 17.5px;
+}
+
+.filter__location__dropdown {
+  position: relative;
+  height: 80%;
+  margin: 35px 10px 12.5px 10px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.filter__location__dropdown .map__container {
+  position: relative;
+}
+
+.filter__location__dropdown .map__container div {
+  height: 424px !important;
+  border-radius: 10px;
+  margin-top: -10px;
+}
+
+.button-location {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.filter__time {
+  margin-top: 35px;
+  width: 95%;
+  height: 80%;
+}
+
+.date__display__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date__display {
+  cursor: pointer;
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+  padding: 16px 0;
+  width: 170px;
+  border: 2px solid #ffffff;
+}
+
+.date__display img {
+  margin: 0 13px;
+}
+
+.date__display h3 {
+  margin: 0;
+}
+
+.date__display h2 {
+  margin: 11px 19px 0 0;
+  transition: color 0.2s ease-in-out;
+}
+
+.date-active {
+  border: 2px solid #37b3ed;
+  transition: border 0.2s ease-in-out;
+}
+
+.date-active h2 {
+  color: #63677c;
+}
+
+.date__display__content {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.datepicker__container {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* react-date-picker */
+
+.react-datepicker {
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.react-datepicker__navigation--next {
+  border-left-color: #71b0ce;
+}
+
+.react-datepicker__navigation--next:hover {
+  border-left-color: #178bf6;
+}
+
+.react-datepicker__navigation--previous:hover {
+  border-right-color: #178bf6;
+}
+
+.react-datepicker__navigation--previous {
+  left: 10px;
+  border-right-color: #37b3ed;
+}
+
+.react-datepicker__current-month {
+  color: #178bf6;
+}
+
+.react-datepicker__month-container {
+  float: inherit;
+}
+
+.react-datepicker__header {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  margin: 0;
+  width: 45px;
+  height: 45px;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range {
+  background: rgba(23, 139, 246, 0.3);
+  color: #178bf6;
+  border-radius: 0;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--in-range:hover {
+  background-color: #178bf6;
+  color: #ffffff;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day:nth-child(1) {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.react-datepicker__day--range-end,
+.react-datepicker__day:nth-child(7) {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 /* modal */
@@ -398,7 +737,7 @@ header {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 3;
+  z-index: 9999;
   background-color: #453d3d77;
 }
 
@@ -410,6 +749,35 @@ header {
   align-items: center;
   width: 40%;
   background-color: #fff;
+}
+
+.modal__content-full {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 95%;
+  background-color: #178bf6;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+}
+
+.modal__cover-right {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+  left: 100%;
+  z-index: 100;
+  transition: right 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    left 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.modal__cover-right--active {
+  right: 0;
+  left: 0;
+  opacity: 1;
 }
 
 /* Login screen */
@@ -453,6 +821,9 @@ a {
   border: 1px solid #ffffff;
   background-color: #ffffff;
   color: #178bf6;
+}
+
+.button {
   font-size: 12px;
   font-weight: bold;
   padding: 10px 0;
@@ -469,6 +840,15 @@ a {
   outline: none;
 }
 
+.button:active {
+  transform: scale(0.95);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button.ghost,
 .button__login.ghost {
   background-color: transparent;
   color: #ffffff;
@@ -480,6 +860,7 @@ a {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  margin-top: -200px;
 }
 
 .input-login {
@@ -587,35 +968,6 @@ a {
   animation: show 0.6s;
 }
 
-.modal__cover {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
-  background-color: #453d3d77;
-}
-
-.modal__cover-right {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  bottom: 0;
-  right: -100%;
-  left: 100%;
-  z-index: 100;
-  transition: right 0.2s ease-in-out, opacity 0.2s ease-in-out,
-    left 0.2s ease-in-out;
-  background-color: #ffffff;
-}
-
-.modal__cover-right--active {
-  right: 0;
-  left: 0;
-  opacity: 1;
-}
-
 .button--back {
   position: absolute;
   top: 5px;
@@ -627,20 +979,4 @@ a {
   .event__card--button-slide {
     display: none;
   }
-}
-
-.modal__content {
-  margin: auto;
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 40%;
-  background-color: #fff;
-}
-
-.modal__content-full {
-  margin: 0;
-  width: 100%;
-  background-color: #2196f3;
 }

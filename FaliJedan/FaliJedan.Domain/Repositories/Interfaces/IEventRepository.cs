@@ -11,7 +11,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
     {
         List<EventHostDTO> GetAvailableEvents();
 
-        Guid? AddEvent(Event eventToAdd);
+        Guid? AddEvent(Event eventToAdd, Guid userId);
 
         bool DeleteEventById(Guid id);
 

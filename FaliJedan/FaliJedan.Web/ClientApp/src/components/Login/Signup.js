@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Axios from "axios";
 
 class Signup extends Component {
   constructor(props) {
@@ -24,7 +25,25 @@ class Signup extends Component {
   };
 
   handleSignup = () => {
-    // TODO
+    const {
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+      repeatPassword
+    } = this.state;
+    const user = {
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+      repeatPassword
+    };
+    Axios.post("/api/users/add", user).then(response =>
+      (response.data)
+    );
   };
 
   render() {

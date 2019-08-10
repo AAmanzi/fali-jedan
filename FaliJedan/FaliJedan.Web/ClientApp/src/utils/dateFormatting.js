@@ -29,6 +29,23 @@ export const getDate = dateString => {
   return day + "." + month + "." + year;
 };
 
+export const getFormattedDate = dateString => {
+  const date = new Date(dateString);
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  return year + "-" + month + "-" + day;
+};
+
 export const getTime = dateString => {
   const date = new Date(dateString);
 

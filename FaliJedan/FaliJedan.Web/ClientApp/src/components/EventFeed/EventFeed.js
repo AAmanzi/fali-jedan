@@ -23,7 +23,7 @@ class EventFeed extends Component {
       selectedSports: [],
       timeframeStartDate: "",
       timeframeEndDate: "",
-      usersToRate: null,
+      usersToRate: [],
       eventUserCurrentlyRating: null,
       isFilterBarDisplayed: false
     };
@@ -45,26 +45,23 @@ class EventFeed extends Component {
 
     // TODO: userId
 
-    getUsersAndEventsToRate("f74e9c61-8bf5-4ef4-895e-9c636645a753").then(
-      event => {
-        if (event !== null) {
-          // TODO: map return value line 57
-          this.setState({
-            eventUserCurrentlyRating: event.eventUsers.filter(
-              eventUser =>
-                eventUser.user.id === "f74e9c61-8bf5-4ef4-895e-9c636645a753"
-            ),
-            usersToRate: event.eventUsers.map(eventUser => {
-              if (
-                eventUser.user.id !== "f74e9c61-8bf5-4ef4-895e-9c636645a753"
-              ) {
+    getUsersAndEventsToRate().then(event => {
+      if (event !== null && event !== undefined) {
+        this.setState({
+          eventUserCurrentlyRating: event.eventUsers.filter(
+            eventUser => eventUser.user.id === localStorage.getItem("userId")
+          ),
+          usersToRate: event.eventUsers
+            .map(eventUser => {
+              if (eventUser.user.id !== localStorage.getItem("userId")) {
                 return eventUser.user;
               }
+              return undefined;
             })
-          });
-        }
+            .filter(eventUser => eventUser !== undefined)
+        });
       }
-    );
+    });
   };
 
   handleInputChange = event => {
@@ -128,6 +125,10 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
+      if (filteredEvents == undefined) {
+        this.setState({ eventList: [] });
+        return;
+      }
       const eventList = filteredEvents.map(element => eventDto(element));
       this.setState({ eventList });
     });
@@ -167,8 +168,13 @@ class EventFeed extends Component {
         )}
 
         <header>
-          <span>Event lista</span>
-          <button onClick={this.displayFilterBar}>Filter</button>
+          <span className="spacing" />
+          <span className="header__title">Event lista</span>
+          <img
+            onClick={this.displayFilterBar}
+            src="/assets/filter-icon.svg"
+            alt="Filter"
+          />
         </header>
 
         <ul className="event__list">
@@ -177,7 +183,8 @@ class EventFeed extends Component {
           ))}
         </ul>
 
-        {this.state.usersToRate !== null ? (
+        {this.state.usersToRate !== null &&
+        this.state.usersToRate.length !== 0 ? (
           <UserRating
             users={this.state.usersToRate}
             eventUserCurrentlyRating={this.state.eventUserCurrentlyRating}

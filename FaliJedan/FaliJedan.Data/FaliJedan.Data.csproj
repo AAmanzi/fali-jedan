@@ -125,9 +125,12 @@
     <Compile Include="Entities\Models\EventFilterDTO.cs" />
     <Compile Include="Entities\Models\EventHostDTO.cs" />
     <Compile Include="Entities\Models\EventUser.cs" />
+    <Compile Include="Entities\Models\LoginDTO.cs" />
+    <Compile Include="Entities\Models\RefreshToken.cs" />
     <Compile Include="Entities\Models\ReviewDTO.cs" />
     <Compile Include="Entities\Models\Sport.cs" />
     <Compile Include="Entities\Models\Subscription.cs" />
+    <Compile Include="Entities\Models\TokenTransferDTO.cs" />
     <Compile Include="Entities\Models\User.cs" />
     <Compile Include="Entities\Models\UserBadge.cs" />
     <Compile Include="Entities\Models\UserRatingDTO.cs" />
@@ -155,6 +158,10 @@
     <Compile Include="Migrations\20190807210113_ChangedAttributeNames.cs" />
     <Compile Include="Migrations\20190807210113_ChangedAttributeNames.designer.cs">
       <DependentUpon>20190807210113_ChangedAttributeNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.cs" />
+    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.designer.cs">
+      <DependentUpon>20190809211018_ChangedSubscriptionIdToNullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

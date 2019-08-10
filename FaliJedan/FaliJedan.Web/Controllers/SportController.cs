@@ -1,4 +1,6 @@
 ﻿using FaliJedan.Domain.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace FaliJedan.Web.Controllers
 
         private readonly ISportRepository _sportRepository;
 
+        [Authorize]
         [HttpGet("all")]
         public IActionResult GetAllSports()
         {

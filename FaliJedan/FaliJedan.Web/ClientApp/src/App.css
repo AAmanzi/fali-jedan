@@ -823,7 +823,8 @@ a {
   color: #178bf6;
 }
 
-.button {
+.button,
+.button__login {
   font-size: 12px;
   font-weight: bold;
   padding: 10px 0;
@@ -860,7 +861,6 @@ a {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  margin-top: -200px;
 }
 
 .input-login {

@@ -9,6 +9,21 @@ namespace FaliJedan.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Badges",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    RulesForAquire = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Badges", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sports",
                 columns: table => new
                 {
@@ -41,14 +56,17 @@ namespace FaliJedan.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     SportId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     CurrentNumberOfPlayers = table.Column<int>(nullable: false),
                     TargetNumberOfPlayers = table.Column<int>(nullable: false),
-                    DateOfEvent = table.Column<DateTime>(nullable: false),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
-                    GeoLocation = table.Column<string>(nullable: false),
-                    TargetSkillLevel = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    EventStart = table.Column<DateTime>(nullable: false),
+                    EventEnd = table.Column<DateTime>(nullable: false),
+                    LocationLongitude = table.Column<double>(nullable: false),
+                    LocationLatitude = table.Column<double>(nullable: false),
+                    TargetSkillLevel = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    IsInstantJoin = table.Column<bool>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,13 +84,20 @@ namespace FaliJedan.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    SubscriptionId = table.Column<Guid>(nullable: false),
+                    SubscriptionId = table.Column<Guid>(nullable: true),
                     Username = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    IsSuperUser = table.Column<bool>(nullable: false)
+                    IsSuperUser = table.Column<bool>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    TotalRating = table.Column<int>(nullable: false),
+                    NumberOfRatings = table.Column<int>(nullable: false),
+                    UsersRatedCount = table.Column<int>(nullable: false),
+                    AttendedEventCount = table.Column<int>(nullable: false),
+                    HostedEventCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +107,7 @@ namespace FaliJedan.Data.Migrations
                         column: x => x.SubscriptionId,
                         principalTable: "Subsctiptions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +116,10 @@ namespace FaliJedan.Data.Migrations
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     EventId = table.Column<Guid>(nullable: false),
-                    IsHost = table.Column<bool>(nullable: false)
+                    IsHost = table.Column<bool>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false),
+                    IsCanceled = table.Column<bool>(nullable: false),
+                    IsReviewed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,23 +139,44 @@ namespace FaliJedan.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserFavouriteSports",
+                name: "RefreshTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(nullable: false),
-                    SportId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Value = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserFavouriteSports", x => new { x.UserId, x.SportId });
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserFavouriteSports_Sports_SportId",
-                        column: x => x.SportId,
-                        principalTable: "Sports",
+                        name: "FK_RefreshTokens_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserBadges",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(nullable: false),
+                    BadgeId = table.Column<int>(nullable: false),
+                    Level = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserBadges", x => new { x.UserId, x.BadgeId });
+                    table.ForeignKey(
+                        name: "FK_UserBadges_Badges_BadgeId",
+                        column: x => x.BadgeId,
+                        principalTable: "Badges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserFavouriteSports_Users_UserId",
+                        name: "FK_UserBadges_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -143,11 +192,10 @@ namespace FaliJedan.Data.Migrations
                     { 2, "Košarka" },
                     { 3, "Tenis" },
                     { 4, "Odbojka" },
-                    { 5, "Bicikliranje" },
-                    { 6, "Trčanje" },
-                    { 7, "Planinarenje" },
-                    { 8, "Pikado" },
-                    { 9, "Biljar" }
+                    { 5, "Američki nogomet" },
+                    { 6, "Ragbi" },
+                    { 7, "Rukomet" },
+                    { 8, "Vaterpolo" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -161,15 +209,21 @@ namespace FaliJedan.Data.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserFavouriteSports_SportId",
-                table: "UserFavouriteSports",
-                column: "SportId");
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserBadges_BadgeId",
+                table: "UserBadges",
+                column: "BadgeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_SubscriptionId",
                 table: "Users",
                 column: "SubscriptionId",
-                unique: true);
+                unique: true,
+                filter: "[SubscriptionId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -178,10 +232,16 @@ namespace FaliJedan.Data.Migrations
                 name: "EventUsers");
 
             migrationBuilder.DropTable(
-                name: "UserFavouriteSports");
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
+                name: "UserBadges");
 
             migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Badges");
 
             migrationBuilder.DropTable(
                 name: "Users");

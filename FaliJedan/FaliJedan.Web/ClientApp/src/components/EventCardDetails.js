@@ -61,7 +61,7 @@ const EventCardDetails = props => {
             </div>
           </li>
         </ul>
-        <button className="jebimater"
+        <button className="test"
           onClick={() => joinEvent(event.id)}
         >
           PRIDRUŽI SE

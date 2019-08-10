@@ -42,43 +42,35 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 IsCanceled = false,
                 IsHost = false
             };
-            _context.EventUsers.Add(eventUser);
+
             if (eventToAdd.IsInstantJoin)
             {
                 eventUser.IsApproved = true;
                 eventToAdd.CurrentNumberOfPlayers++;
             }
+            _context.EventUsers.Add(eventUser);
             _context.SaveChanges();
             return true;
         }
 
         public bool DeleteEventUser(EventUser eventUser)
         {
-            var userToAdd = _context.Users.Find(eventUser.UserId);
-            var eventToAdd = _context.Events.Find(eventUser.EventId);
-            if (eventToAdd == null || userToAdd == null)
-                return false;
-
-            _context.EventUsers.Add(eventUser);
-            if (eventUser.IsApproved)
-            {
-                eventUser.Event.CurrentNumberOfPlayers--;
-                eventUser.IsCanceled = true;
-            }
+            var eventUserToDelete = _context.EventUsers.Include(eu => eu.Event).FirstOrDefault(eu => eu.UserId == eventUser.UserId && eu.EventId == eventUser.EventId);
+            _context.EventUsers.Remove(eventUserToDelete);
             _context.SaveChanges();
             return true;
         }
 
         public bool ConfirmEventUser(EventUser eventUser)
         {
-            var eventUserToConfirm = _context.EventUsers.FirstOrDefault(eu => eu.UserId == eventUser.UserId && eu.EventId == eventUser.EventId);
+            var eventUserToConfirm = _context.EventUsers.Include(eu => eu.Event).FirstOrDefault(eu => eu.UserId == eventUser.UserId && eu.EventId == eventUser.EventId);
             if (eventUserToConfirm == null)
                 return false;
             if (eventUserToConfirm.Event.CurrentNumberOfPlayers >= eventUserToConfirm.Event.TargetNumberOfPlayers)
                 return false;
 
             eventUserToConfirm.Event.CurrentNumberOfPlayers++;
-            eventUser.IsApproved = true;
+            eventUserToConfirm.IsApproved = true;
             _context.SaveChanges();
             return true;
         }
@@ -102,6 +94,25 @@ namespace FaliJedan.Domain.Repositories.Implementations
             });
             _context.SaveChanges();
             return true;
+        }
+
+        public List<EventUser> GetUnconfirmedEventUsers(Guid userId)
+        {
+            var data = new List<EventUser>();
+            var b = _context.EventUsers.Include(eu => eu.Event).ThenInclude(e => e.EventUsers).Where(eu => userId == eu.UserId && eu.IsHost);
+            b.ToList().ForEach(eu => {
+                var eventUsers = _context.EventUsers
+                .Include(eU => eU.Event)
+                .ThenInclude(events => events.EventUsers)
+                .Include(eU => eU.User)
+                .First(c => c.UserId == eu.UserId && c.EventId == eu.EventId).Event.EventUsers
+                .Where(eUser => !eUser.IsApproved && eUser.Event.CurrentNumberOfPlayers < eUser.Event.TargetNumberOfPlayers);
+                if(eventUsers != null)
+                {
+                    data.AddRange(eventUsers);
+                }
+            });
+            return data;
         }
     }
 }

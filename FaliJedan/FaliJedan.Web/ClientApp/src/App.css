@@ -1452,7 +1452,105 @@ a {
   cursor: pointer;
 }
 
-@media screen and (min-width: 1023px) {
+.notif-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+  width: 80%;
+  height: 150px;
+  display: flex;
+  align-self: center;
+  background: #ffffff;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.notif-card-label {
+  position: absolute;
+  width: 115px;
+  height: 11px;
+  left: 51px;
+  top: 12px;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: #178bf6;
+}
+
+.notif-card-title {
+  width: 115px;
+  height: 11px;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: #178bf6;
+}
+
+.notif-card-text {
+  margin: 15px;
+  margin-top: 30px;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #63677c;
+}
+
+.notif-card-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.notif-card-buttons-accept {
+  background: #178bf6;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+  border-radius: 10px;
+  color: white;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px 35px;
+}
+
+.notif-card-buttons-reject {
+  background: transparent;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+  border-color: #178bf6;
+  border-radius: 10px;
+  color: #178bf6;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px 35px;
+}
+
+@media screen and (max-width: 1023px) {
+  .event__card--button-slide {
+    display: none;
+  }
+  
   .event__list {
     display: flex;
     flex-wrap: wrap;

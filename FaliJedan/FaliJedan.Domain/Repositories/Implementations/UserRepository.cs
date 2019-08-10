@@ -22,7 +22,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         public bool AddUser(User userToAdd)
         {
-            var doesUserExist = _context.Users.Any(u => u.Id == userToAdd.Id);
+            var doesUserExist = _context.Users.Any(u => u.Id == userToAdd.Id || u.Username == userToAdd.Username);
             if (doesUserExist)
                 return false;
             if (userToAdd.Username.Length <= 3 || 

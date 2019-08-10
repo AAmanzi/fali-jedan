@@ -19,9 +19,9 @@ class Login extends Component {
   }
 
   componentDidMount = () => {
-    if (getJwtToken() !== null) {
-      this.redirect();
-    }
+    // if (getJwtToken() !== null) {
+    //   this.redirect();
+    // }
   };
 
   handleInputChange = event => {

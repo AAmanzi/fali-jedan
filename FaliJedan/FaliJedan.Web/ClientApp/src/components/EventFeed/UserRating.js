@@ -13,11 +13,14 @@ class UserRating extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({
-      userRatings: this.props.users.map(user => {
-        return { user, rating: 0 };
-      })
-    });
+    this.setState(
+      {
+        userRatings: this.props.users.map(user => {
+          return { user, rating: 0 };
+        })
+      },
+      console.log(this.state.userRatings)
+    );
   };
 
   handleRatingChange = (index, event) => {

@@ -1,6 +1,7 @@
 ﻿using FaliJedan.Data.Entities;
 using FaliJedan.Data.Entities.Models;
 using FaliJedan.Domain.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,29 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         private FaliJedanContext _context { get; set; }
 
-        public bool AddEventUser(EventUser eventUser)
+        public bool AddEventUser(Guid eventGuid, Guid userId)
         {
-            var userToAdd = _context.Users.Find(eventUser.UserId);
-            var eventToAdd = _context.Events.Find(eventUser.EventId);
+
+
+            var userToAdd = _context.Users.Find(userId);
+            var eventToAdd = _context.Events.Find(eventGuid);
             if(eventToAdd == null || userToAdd == null)
                 return false;
 
             if(eventToAdd.CurrentNumberOfPlayers >= eventToAdd.TargetNumberOfPlayers)
                 return false;
 
+            var eventUser = new EventUser
+            {
+                EventId = eventGuid,
+                Event = _context.Events.Find(eventGuid),
+                UserId = userId,
+                User = _context.Users.Find(userId),
+                IsReviewed = false,
+                IsApproved = false,
+                IsCanceled = false,
+                IsHost = false
+            };
             _context.EventUsers.Add(eventUser);
             if (eventToAdd.IsInstantJoin)
             {
@@ -71,12 +85,14 @@ namespace FaliJedan.Domain.Repositories.Implementations
 
         public bool ReviewEventUser(ReviewDTO review)
         {
-            if (!_context.EventUsers.Any(eu => eu.UserId == review.EventUser.UserId && eu.EventId == review.EventUser.EventId))
+            var eventUser = _context.EventUsers.FirstOrDefault(eu => eu.UserId == review.EventUser.UserId && eu.EventId == review.EventUser.EventId);
+            if (eventUser == null)
                 return false;
 
-            review.EventUser.IsReviewed = true;
+            var eventToReview = _context.Events.Include(e => e.EventUsers).ThenInclude(eu => eu.User).First(e => e.Id == review.EventUser.EventId);
+            eventUser.IsReviewed = true;
             review.UserRatings.ForEach(ur => {
-                if(review.EventUser.Event.EventUsers.Any(eu => eu.UserId == ur.UserId) && 
+                if(eventToReview.EventUsers.Any(eu => eu.UserId == ur.UserId) && 
                     ur.Rating > 0 && 
                     ur.Rating < 6)
                 {

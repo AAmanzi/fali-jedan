@@ -33,11 +33,14 @@ namespace FaliJedan.Web.Controllers
         [HttpPost("add")]
         public IActionResult AddEvent(Event eventToAdd)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (!(HttpContext.User.Identity is ClaimsIdentity identity)) return Forbid();
             var claims = identity.Claims.ToList();
-            var eventId = _eventRepository.AddEvent(eventToAdd, Guid.Parse(claims.First(c => c.Type == "userId").Value));
+            var id = Guid.Parse(claims.First(c => c.Type == "userId").Value);
+
+            var eventId = _eventRepository.AddEvent(eventToAdd, id);
             if (eventId != null)
                 return Ok(eventId.Value);
+
             return Forbid();
         }
 
@@ -71,22 +74,32 @@ namespace FaliJedan.Web.Controllers
         }
 
         [Authorize]
-        [HttpGet("get-unreviewed-by-user-id")]
-        public IActionResult GetUnreviewedEventsByUserId(Guid id)
+        [HttpGet("get-unreviewed")]
+        public IActionResult GetUnreviewed()
         {
+            if (!(HttpContext.User.Identity is ClaimsIdentity identity)) return NotFound();
+            var claims = identity.Claims.ToList();
+            var id = Guid.Parse(claims.First(c => c.Type == "userId").Value);
+
             var eventByUserId = _eventRepository.GetUnreviewedEventByUserId(id);
             if (eventByUserId != null)
                 return Ok(eventByUserId);
+
             return NotFound();
         }
 
         [Authorize]
-        [HttpGet("get-by-user-id")]
-        public IActionResult GetEventsByUserId(Guid id)
+        [HttpGet("get-upcoming")]
+        public IActionResult GetEventsByUserId()
         {
+            if (!(HttpContext.User.Identity is ClaimsIdentity identity)) return NotFound();
+            var claims = identity.Claims.ToList();
+            var id = Guid.Parse(claims.First(c => c.Type == "userId").Value);
+
             var eventsByUserId = _eventRepository.GetEventsByUserId(id);
             if (eventsByUserId != null)
                 return Ok(eventsByUserId);
+
             return NotFound();
         }
     }

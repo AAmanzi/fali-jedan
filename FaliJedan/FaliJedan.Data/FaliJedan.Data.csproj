@@ -167,13 +167,9 @@
     <Compile Include="Migrations\20190808105435_AddedRefreshTokens.Designer.cs">
       <DependentUpon>20190808105435_AddedRefreshTokens.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20190808114738_MadeSubscriptionIdNullable.cs" />
-    <Compile Include="Migrations\20190808114738_MadeSubscriptionIdNullable.Designer.cs">
-      <DependentUpon>20190808114738_MadeSubscriptionIdNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190810030633_AddedNameToEvent.cs" />
-    <Compile Include="Migrations\20190810030633_AddedNameToEvent.designer.cs">
-      <DependentUpon>20190810030633_AddedNameToEvent.cs</DependentUpon>
+    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.cs" />
+    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.designer.cs">
+      <DependentUpon>20190809211018_ChangedSubscriptionIdToNullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

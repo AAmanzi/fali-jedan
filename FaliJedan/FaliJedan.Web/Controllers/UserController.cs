@@ -27,11 +27,20 @@ namespace FaliJedan.Web.Controllers
         [HttpPost("refresh")]
         public IActionResult Refresh(TokenTransferDTO tokens)
         {
-          var jwtHelper = new JwtHelper();
-            var claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
-            var userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
+            var jwtHelper = new JwtHelper();
+            List<Claim> claims;
+            Guid userId;
+            try
+            {
+              claims = jwtHelper.GetClaimsFromExpiredToken(tokens.Token);
+              userId = Guid.Parse(claims.First(claim => claim.Type == "userId").Value);
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
             var savedRefreshToken = _userRepository.GetRefreshTokens(userId); //retrieve the refresh token from a data store
-            if (!savedRefreshToken.Any(rt => rt.Value == tokens.RefreshToken))
+            if (savedRefreshToken.All(rt => rt.Value != tokens.RefreshToken))
                 throw new SecurityTokenException("Invalid refresh token");
 
             var newJwtToken = jwtHelper.GenerateToken(claims);
@@ -60,20 +69,18 @@ namespace FaliJedan.Web.Controllers
         public IActionResult Login(LoginDTO login)
         {
             var wasLoginSuccessful = _userRepository.Login(login.Username, login.Password);
-            
-            if (wasLoginSuccessful != null)
+
+            if (wasLoginSuccessful == null) return Forbid();
+            var jwtHelper = new JwtHelper();
+            var newJwtToken = jwtHelper.GenerateToken(new List<Claim> { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
+            var newRefreshToken = jwtHelper.GenerateRefreshToken();
+            _userRepository.SaveRefreshToken(wasLoginSuccessful.Value, newRefreshToken);
+            return Ok(new ObjectResult(new
             {
-                var jwtHelper = new JwtHelper();
-                var newJwtToken = jwtHelper.GenerateToken(new List<Claim> { new Claim(ClaimTypes.Name, login.Username), new Claim("userId", $"{wasLoginSuccessful.Value}")});
-                var newRefreshToken = jwtHelper.GenerateRefreshToken();
-                _userRepository.SaveRefreshToken(wasLoginSuccessful.Value, newRefreshToken);
-                return Ok(new ObjectResult(new
-                {
-                    token = newJwtToken,
-                    refreshToken = newRefreshToken
-                }));
-            }
-            return Forbid();
+                token = newJwtToken,
+                refreshToken = newRefreshToken,
+                userId = wasLoginSuccessful.Value
+            }));
         }
 
     }

@@ -8,6 +8,7 @@ using FaliJedan.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace FaliJedan.Web.Controllers
 {
@@ -25,15 +26,19 @@ namespace FaliJedan.Web.Controllers
 
         [Authorize]
         [HttpPost("add")]
-        public IActionResult AddEventUser(Guid eventId)
+        public IActionResult AddEventUser(JObject eventId)
         {
+            var eventGuidString = eventId["eventId"].ToString();
+            var eventGuid = Guid.Parse(eventGuidString);
+
+
             if (!(HttpContext.User.Identity is ClaimsIdentity identity)) return Forbid();
             var claims = identity.Claims.ToList();
             var userId = Guid.Parse(claims.First(c => c.Type == "userId").Value);
 
             var eventUserToAdd = new EventUser
             {
-                EventId = eventId,
+                EventId = eventGuid,
                 UserId = userId,
                 IsReviewed = false,
                 IsApproved = false,

@@ -5,7 +5,6 @@ import { joinEvent } from "../services/event";
 
 const EventCardDetails = props => {
   const { event } = props;
-  console.log(event);
   return (
     <div className="event__card__details">
       <button className="button--back" onClick={props.handleClickBack}>
@@ -61,9 +60,7 @@ const EventCardDetails = props => {
             </div>
           </li>
         </ul>
-        <button className="test"
-          onClick={() => joinEvent(event.id)}
-        >
+        <button className="test" onClick={() => joinEvent(event.id)}>
           PRIDRUŽI SE
         </button>
       </section>

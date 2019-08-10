@@ -57,14 +57,13 @@ namespace FaliJedan.Data.Entities
 
             modelBuilder.Entity<Sport>().HasData(
                 new Sport { Id = 1, Name = "Nogomet" },
-                new Sport { Id = 2, Name = "Košarka"},
-                new Sport { Id = 3, Name = "Tenis"},
-                new Sport { Id = 4, Name = "Odbojka"},
-                new Sport { Id = 5, Name = "Bicikliranje"},
-                new Sport { Id = 6, Name = "Trčanje"},
-                new Sport { Id = 7, Name = "Planinarenje"},
-                new Sport { Id = 8, Name = "Pikado"},
-                new Sport { Id = 9, Name = "Biljar"});
+                new Sport { Id = 2, Name = "Košarka" },
+                new Sport { Id = 3, Name = "Tenis" },
+                new Sport { Id = 4, Name = "Odbojka" },
+                new Sport { Id = 5, Name = "Američki nogomet" },
+                new Sport { Id = 6, Name = "Ragbi" },
+                new Sport { Id = 7, Name = "Rukomet" },
+                new Sport { Id = 8, Name = "Vaterpolo" });
         }
     }
 }

@@ -135,41 +135,9 @@
     <Compile Include="Entities\Models\UserBadge.cs" />
     <Compile Include="Entities\Models\UserRatingDTO.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
-    <Compile Include="Migrations\20190715172608_InitialMigration.cs" />
-    <Compile Include="Migrations\20190715172608_InitialMigration.designer.cs">
-      <DependentUpon>20190715172608_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190722162540_DatabaseRefactor.cs" />
-    <Compile Include="Migrations\20190722162540_DatabaseRefactor.designer.cs">
-      <DependentUpon>20190722162540_DatabaseRefactor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.cs" />
-    <Compile Include="Migrations\20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.designer.cs">
-      <DependentUpon>20190724123140_CreatedBadgeTypeAndUpdatedGeolocation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190725152432_NamingAndRequiredChanges.cs" />
-    <Compile Include="Migrations\20190725152432_NamingAndRequiredChanges.designer.cs">
-      <DependentUpon>20190725152432_NamingAndRequiredChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190801225818_CombinedEventDateAndTimes.cs" />
-    <Compile Include="Migrations\20190801225818_CombinedEventDateAndTimes.designer.cs">
-      <DependentUpon>20190801225818_CombinedEventDateAndTimes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190807195025_ChangedRatingToTotalRating.cs" />
-    <Compile Include="Migrations\20190807195025_ChangedRatingToTotalRating.Designer.cs">
-      <DependentUpon>20190807195025_ChangedRatingToTotalRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190807210113_ChangedAttributeNames.cs" />
-    <Compile Include="Migrations\20190807210113_ChangedAttributeNames.designer.cs">
-      <DependentUpon>20190807210113_ChangedAttributeNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190808105435_AddedRefreshTokens.cs" />
-    <Compile Include="Migrations\20190808105435_AddedRefreshTokens.Designer.cs">
-      <DependentUpon>20190808105435_AddedRefreshTokens.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.cs" />
-    <Compile Include="Migrations\20190809211018_ChangedSubscriptionIdToNullable.designer.cs">
-      <DependentUpon>20190809211018_ChangedSubscriptionIdToNullable.cs</DependentUpon>
+    <Compile Include="Migrations\20190810050300_InitialMigration.cs" />
+    <Compile Include="Migrations\20190810050300_InitialMigration.designer.cs">
+      <DependentUpon>20190810050300_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

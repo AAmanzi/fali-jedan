@@ -104,7 +104,7 @@ export const newEvent = (
 
   return {
     sportId,
-    names,
+    name,
     currentNumberOfPlayers,
     targetNumberOfPlayers,
     targetSkillLevel,

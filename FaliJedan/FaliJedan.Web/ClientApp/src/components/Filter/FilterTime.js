@@ -35,7 +35,7 @@ class FilterTime extends Component {
       <section className="filter__time">
         <div className="date__display__container">
           <span
-            className={`date__display ${
+            className={`input date__display ${
               this.state.currentlyEditing === START_DATE_STRING
                 ? "date-active"
                 : ""
@@ -49,7 +49,7 @@ class FilterTime extends Component {
             </div>
           </span>
           <span
-            className={`date__display ${
+            className={`input date__display ${
               this.state.currentlyEditing === END_DATE_STRING
                 ? "date-active"
                 : ""

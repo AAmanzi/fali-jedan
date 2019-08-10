@@ -1,9 +1,17 @@
 import React from "react";
 import SportIcon from "./SportIcon";
 import LocationDisplay from "./Map/LocationDisplay";
+import { joinEvent } from "../services/event";
 
 const EventCardDetails = props => {
   const { event } = props;
+
+  const handleJoinEvent = () => {
+    if (!props.isLoggedUsersEvent) {
+      joinEvent(event.id);
+    }
+  };
+
   return (
     <div className="event__card__details">
       <button className="button--back" onClick={props.handleClickBack}>
@@ -60,9 +68,10 @@ const EventCardDetails = props => {
           </li>
         </ul>
         <button
-        //TODO: onclick
+          className={`${props.isLoggedUsersEvent ? "button-joined" : ""}`}
+          onClick={() => handleJoinEvent()}
         >
-          PRIDRUŽI SE
+          {props.isLoggedUsersEvent ? "PRIDRUŽEN" : "PRIDRUŽI SE"}
         </button>
       </section>
     </div>

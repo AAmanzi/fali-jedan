@@ -11,7 +11,9 @@ class EventCard extends Component {
 
     this.state = {
       isMapActive: false,
-      isDetailsActive: false
+      isDetailsActive: false,
+      isLoggedUsersEvent:
+        this.props.event.host.id === localStorage.getItem("userId")
     };
   }
 
@@ -46,8 +48,12 @@ class EventCard extends Component {
   render() {
     const { event } = this.props;
     return (
-      <li>
-        {/* <span className="event__card--date">{event.dateOfEvent}</span> */}
+      <li
+        className={`${
+          this.state.isLoggedUsersEvent ? "event__card--joined" : ""
+        }`}
+      >
+        <span className="event__card--date">{event.dateOfEvent}</span>
         <Swipeable
           onSwipedLeft={() => this.swipe(LEFT)}
           onSwipedRight={() => this.swipe(RIGHT)}
@@ -96,6 +102,7 @@ class EventCard extends Component {
         >
           {this.state.isDetailsActive ? (
             <EventCardDetails
+              isLoggedUsersEvent={this.state.isLoggedUsersEvent}
               event={event}
               handleClickBack={this.closeDetails}
             />

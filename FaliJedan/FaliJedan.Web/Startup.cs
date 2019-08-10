@@ -38,6 +38,7 @@ namespace FaliJedan.Web
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISportRepository, SportRepository>();
+            services.AddScoped<IEventUserRepository, EventUserRepository>();
             //services.AddScoped<IReceiptRepository, ReceiptRepository>();
 
             services.AddMvc().AddJsonOptions(options =>

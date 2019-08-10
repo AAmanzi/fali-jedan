@@ -120,6 +120,7 @@ export const newEvent = (
 export const eventDto = dto => {
   console.log(dto);
   return {
+    id: dto.event.id,
     sport: dto.event.sport,
     name: dto.event.name,
     host: dto.host,

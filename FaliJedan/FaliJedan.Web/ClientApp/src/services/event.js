@@ -33,6 +33,12 @@ export const deleteEvent = async eventId => {
     );
 };
 
+export const joinEvent = async eventId => {
+  return axiosPostWithCredentials(`${API_ROUTE}/${CONTROLLER.eventUser}/add`, {
+    eventId
+  }).then(response => response);
+};
+
 export const getEventById = async id => {
   return axiosGetWithCredentials(`${API_ROUTE}/${CONTROLLER.event}/all`, id)
     .then(response => response.data)

@@ -93,8 +93,10 @@ export const getUsersAndEventsToRate = async () => {
 
 export const getUserNotifications = async () => {
   return axiosGetWithCredentials(
-    `${API_ROUTE}/${CONTROLLER.event}/get-upcoming`
-  ).then(response => response.data);
+    `${API_ROUTE}/${CONTROLLER.eventUser}/get-unconfirmed`
+  )
+    .then(response => response.data)
+    .catch(r => console.log(r));
 };
 
 export const reviewUsers = async review => {

@@ -6,7 +6,6 @@ const EventCardInfo = props => {
   const svg = (
     <svg
       width="18"
-      height="18"
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +47,6 @@ const EventCardInfo = props => {
 
   const redirectToProfile = event => {
     event.stopPropagation();
-
-    //TODO
   };
   return (
     <>
@@ -80,7 +77,7 @@ const EventCardInfo = props => {
           </span>
         </section>
         <span className="event__card--time">
-          <img src="../assets/clock-icon.svg" className="mr-10" alt="Vrijeme"/>
+          <img src="../assets/clock-icon.svg" className="mr-10" alt="Vrijeme" />
           {`${event.startTime} - ${event.endTime}`}
         </span>
       </div>

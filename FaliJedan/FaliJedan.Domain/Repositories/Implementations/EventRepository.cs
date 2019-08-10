@@ -40,7 +40,7 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 IsApproved = eventToAdd.IsInstantJoin ? true : false,
                 IsCanceled = false,
                 IsHost = true,
-                IsReviewed = true
+                IsReviewed = false
             });
 
             eventToAdd.Sport = _context.Sports.Find(eventToAdd.SportId);

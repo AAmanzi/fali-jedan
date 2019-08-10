@@ -98,8 +98,9 @@ export const getUserNotifications = async () => {
 };
 
 export const reviewUsers = async review => {
+  console.log(review);
   return axiosPostWithCredentials(
-    `${API_ROUTE}/${CONTROLLER.event}/review`,
+    `${API_ROUTE}/${CONTROLLER.eventUser}/review`,
     review
   )
     .then(response => response.data)

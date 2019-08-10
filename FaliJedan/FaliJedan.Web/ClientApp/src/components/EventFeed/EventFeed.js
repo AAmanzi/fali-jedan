@@ -43,12 +43,10 @@ class EventFeed extends Component {
       timeframeStartDate: getDateNow()
     });
 
-    // TODO: userId
-
     getUsersAndEventsToRate().then(event => {
       if (event !== null && event !== undefined) {
         this.setState({
-          eventUserCurrentlyRating: event.eventUsers.filter(
+          eventUserCurrentlyRating: event.eventUsers.find(
             eventUser => eventUser.user.id === localStorage.getItem("userId")
           ),
           usersToRate: event.eventUsers

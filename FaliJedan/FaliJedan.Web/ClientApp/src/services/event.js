@@ -1,4 +1,3 @@
-import * as api from "./index";
 import { API_ROUTE } from "../constants";
 import { axiosGetWithCredentials, axiosPostWithCredentials } from "./jwtUtlis";
 import { CONTROLLER } from "../constants";

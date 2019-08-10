@@ -7,7 +7,7 @@ import {
 } from "../../utils/event";
 import { addEvent } from "../../services/event";
 import { getAllSports } from "../../services/sport";
-import { getDate, getTime } from "../../utils/dateFormatting";
+import { getFormattedDate, getTime, getDate } from "../../utils/dateFormatting";
 
 import DatePicker from "react-datepicker";
 import Loading from "../Loading";
@@ -16,7 +16,6 @@ import LocationPicker from "../Map/LocationPicker";
 import SportIcon from "../SportIcon";
 import PostMessage from "./PostMessage";
 import NumberInput from "./NumberInput";
-import { getHours } from "date-fns";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -47,7 +46,7 @@ class NewEventForm extends Component {
   componentDidMount = () => {
     getAllSports()
       .then(sportList => {
-        this.setState({ sportList, dateOfEvent: new Date() });
+        this.setState({ sportList, dateOfEvent: getFormattedDate(new Date()) });
       })
       .catch();
   };
@@ -130,7 +129,6 @@ class NewEventForm extends Component {
         return response;
       })
       .catch(exception => {
-        this.displayError();
         return exception;
       });
   };
@@ -156,6 +154,8 @@ class NewEventForm extends Component {
       redirect,
       toggleSportList
     } = this.state;
+
+    const date = new Date(this.state.dateOfEvent);
 
     if (sportList === null) {
       return <Loading />;
@@ -270,13 +270,13 @@ class NewEventForm extends Component {
                 </div>
                 <DatePicker
                   inline={true}
-                  selected={this.state.dateOfEvent}
+                  selected={date}
                   minDate={new Date()}
                   onChange={value =>
                     this.handleInputChange({
                       target: {
                         name: "dateOfEvent",
-                        value
+                        value: getFormattedDate(value)
                       }
                     })
                   }

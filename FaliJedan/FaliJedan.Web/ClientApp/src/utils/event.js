@@ -86,6 +86,7 @@ export const newEvent = (
   locationLongitude,
   description
 ) => {
+  console.log(dateOfEvent);
   let eventStart = dateOfEvent + "T" + startTime;
   let eventEnd = dateOfEvent + "T" + endTime;
 

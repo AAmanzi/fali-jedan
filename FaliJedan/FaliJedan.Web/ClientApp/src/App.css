@@ -830,23 +830,24 @@ input::placeholder {
 
 .filter__list {
   display: flex;
-  width: 100%;
+  width: 95%;
   justify-content: space-around;
   margin: 0 10px;
 }
 
 .filter__list__item {
-  width: 33.3333%;
   display: flex;
   justify-content: center;
-  background-color: #ccc;
-  border: 1px solid black;
   cursor: pointer;
-  border-radius: 0 !important;
+  margin: 0 !important;
 }
 
 .filter__list__item:nth-child(1) {
   border-radius: 10px 0 0 10px !important;
+}
+
+.filter__list__item:nth-child(2) {
+  border-radius: 0 !important;
 }
 
 .filter__list__item:nth-child(3) {
@@ -957,6 +958,7 @@ input::placeholder {
 
 .date__display {
   width: 170px;
+  margin-top: 0 !important;
 }
 
 .date__display img {
@@ -1164,9 +1166,16 @@ a {
   justify-content: center;
 }
 
-.button__login {
+.button-location {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.button__login,
+.filter__list__item,
+.button-location {
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid #ffffff;
   background-color: #ffffff;
   color: #178bf6;

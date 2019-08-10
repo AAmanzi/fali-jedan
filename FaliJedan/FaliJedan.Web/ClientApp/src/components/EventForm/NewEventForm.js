@@ -7,13 +7,16 @@ import {
 } from "../../utils/event";
 import { addEvent } from "../../services/event";
 import { getAllSports } from "../../services/sport";
+import { getDate, getTime } from "../../utils/dateFormatting";
 
+import DatePicker from "react-datepicker";
 import Loading from "../Loading";
 import Navbar from "../Navbar";
 import LocationPicker from "../Map/LocationPicker";
 import SportIcon from "../SportIcon";
 import PostMessage from "./PostMessage";
 import NumberInput from "./NumberInput";
+import { getHours } from "date-fns";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -44,7 +47,7 @@ class NewEventForm extends Component {
   componentDidMount = () => {
     getAllSports()
       .then(sportList => {
-        this.setState({ sportList });
+        this.setState({ sportList, dateOfEvent: new Date() });
       })
       .catch();
   };
@@ -153,7 +156,7 @@ class NewEventForm extends Component {
       redirect,
       toggleSportList
     } = this.state;
-    
+
     if (sportList === null) {
       return <Loading />;
     }
@@ -164,12 +167,17 @@ class NewEventForm extends Component {
       <>
         <div className="event__form__container">
           <form className="event__form" name="eventForm">
-            <label
-              htmlFor="toggleSportList"
-              className="event__form--label-sport"
-            >
-              {sportId === null ? "Odaberi sport" : sport.name}
-            </label>
+            <header>
+              <img
+                src="/assets/back-icon.svg"
+                alt="Nazad"
+                onClick={this.redirectToFeed}
+              />
+              <label htmlFor="toggleSportList" className="header__title">
+                {sportId === null ? "Odaberi sport" : sport.name}
+              </label>
+              <span className="spacing" />
+            </header>
             <input
               checked={toggleSportList}
               type="checkbox"
@@ -178,162 +186,250 @@ class NewEventForm extends Component {
               name="toggleSportList"
               onChange={this.handleInputChange}
             />
-            <ul className="event__form--list-sport">
-              {sportList.map((sport, index) => (
-                <li key={index}>
-                  <label>
+            <section className="event__form--list-sport filter__sport">
+              <ul className="filter__sport__list">
+                {sportList.map((sport, index) => (
+                  <React.Fragment key={index}>
                     <input
                       type="radio"
                       name="sportId"
-                      id="sportRadio"
+                      id={`sport_${index}`}
                       value={sport.id}
-                      onChange={this.handleSportChange}
                     />
-                    <SportIcon className="icon--sport" sport={sport.name} />
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <label>
-              Naziv eventa
-              <input
-                name="eventName"
-                type="text"
-                value={this.state.eventName}
-                onChange={this.handleInputChange}
-              />
-            </label>
-
-            <label>
-              Broj trenutnih igrača
-              <NumberInput
-                value={this.state.currentNumberOfPlayers}
-                handleChange={this.handleCurrentNumberChange}
-              />
-            </label>
-            <label>
-              Broj traženih igrača
-              <NumberInput
-                value={this.state.targetNumberOfPlayers}
-                handleChange={this.handleTargetNumberChange}
-              />
-            </label>
-            <label>
-              Date:
-              <input
-                name="dateOfEvent"
-                type="date"
-                value={this.state.dateOfEvent}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              Start:
-              <input
-                name="startTime"
-                type="time"
-                value={this.state.startTime}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              End:
-              <input
-                name="endTime"
-                type="time"
-                value={this.state.endTime}
-                onChange={this.handleInputChange}
-              />
-            </label>
-
-            <LocationPicker
-              coordinates={this.props.currentCoordinates}
-              handleClick={this.handleCoordinateChange}
-            />
-
-            <label>
-              Opis eventa
-              <input
-                name="description"
-                type="text"
-                value={this.state.description}
-                onChange={this.handleInputChange}
-              />
-            </label>
-
-            <label>Instant join</label>
-            <label className="event__form--switch">
-              <input
-                type="checkbox"
-                name="isInstantJoin"
-                onChange={this.handleInputChange}
-                defaultChecked={true}
-              />
-              <span className="event__form--switch--slider" />
-            </label>
-
-            <label className="event__form--rating--container">
-              Skill level:
-              <div className="event__form--rating">
-                <label>
+                    <li
+                      key={index}
+                      onClick={() =>
+                        this.handleSportChange({
+                          target: {
+                            value: sport.id,
+                            name: "sportId"
+                          }
+                        })
+                      }
+                    >
+                      <img src="assets/checkmark-icon.svg" alt="Označen" />
+                      <label htmlFor={`sport_${index}`}>
+                        <SportIcon
+                          className="icon--sport icon--sport-checkbox"
+                          sport={sport.name}
+                        />
+                      </label>
+                      <span className="c-az tt-uc fw-b">{sport.name}</span>
+                    </li>
+                  </React.Fragment>
+                ))}
+              </ul>
+            </section>
+            <span className="arrow-down" />
+            <section className="event__form__content">
+              <label className="input">
+                <SportIcon
+                  className="icon--sport alt event__form--icon"
+                  sport={
+                    this.state.sport !== undefined
+                      ? this.state.sport.name
+                      : "Nogomet"
+                  }
+                />
+                <div className="input__content">
+                  <h3 className="c-bl tt-uc fs-11">Naziv eventa</h3>
                   <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="1"
+                    name="eventName"
+                    type="text"
+                    placeholder="npr. Tranvato igralište - OŠ Brda"
+                    value={this.state.eventName}
                     onChange={this.handleInputChange}
                   />
-                  <span className="icon--rating">★</span>
+                </div>
+              </label>
+
+              <label className="input__number__container">
+                <h2 className="c-bl fw-b fs-17">Broj trenutnih igrača</h2>
+                <NumberInput
+                  value={this.state.currentNumberOfPlayers}
+                  handleChange={this.handleCurrentNumberChange}
+                />
+              </label>
+              <label className="input__number__container">
+                <h2 className="c-bl fw-b fs-17">Broj traženih igrača</h2>
+                <NumberInput
+                  value={this.state.targetNumberOfPlayers}
+                  handleChange={this.handleTargetNumberChange}
+                />
+              </label>
+              <span className="input input__date">
+                <div className="input__container__date">
+                  <img
+                    className="event__form--icon"
+                    src="/assets/date-icon.svg"
+                  />
+                  <div className="input__content">
+                    <h3 className="c-bl tt-uc fs-11">Datum eventa</h3>
+                    <span>{getDate(this.state.dateOfEvent)}</span>
+                  </div>
+                </div>
+                <DatePicker
+                  inline={true}
+                  selected={this.state.dateOfEvent}
+                  minDate={new Date()}
+                  onChange={value =>
+                    this.handleInputChange({
+                      target: {
+                        name: "dateOfEvent",
+                        value
+                      }
+                    })
+                  }
+                />
+              </span>
+
+              <div className="input__container">
+                <label className="input date__display">
+                  <img src="/assets/time-icon.svg" alt="Vrijeme" />
+                  <div className="input__content">
+                    <h3 className="c-bl tt-uc fs-11">Početak eventa</h3>
+                    <DatePicker
+                      onChange={value =>
+                        this.handleInputChange({
+                          target: {
+                            name: "startTime",
+                            value: getTime(value)
+                          }
+                        })
+                      }
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="h:mm aa"
+                      timeCaption="Time"
+                      placeholderText={this.state.startTime}
+                    />
+                  </div>
                 </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="2"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="3"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="4"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="targetSkillLevel"
-                    value="5"
-                    onChange={this.handleInputChange}
-                  />
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
-                  <span className="icon--rating">★</span>
+                <img src="/assets/arrow-right-icon.svg" alt="do" />
+                <label className="input date__display">
+                  <img src="/assets/time-icon.svg" alt="Vrijeme" />
+                  <div className="input__content">
+                    <h3 className="c-bl tt-uc fs-11">Kraj eventa</h3>
+                    <DatePicker
+                      onChange={value =>
+                        this.handleInputChange({
+                          target: {
+                            name: "endTime",
+                            value: getTime(value)
+                          }
+                        })
+                      }
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="h:mm aa"
+                      timeCaption="Time"
+                      placeholderText={this.state.endTime}
+                    />
+                  </div>
                 </label>
               </div>
-            </label>
+
+              <LocationPicker
+                coordinates={this.props.currentCoordinates}
+                handleClick={this.handleCoordinateChange}
+              />
+
+              <label className="input">
+                <img src="/assets/description-icon.svg" alt="Opis" />
+                <div className="input__content">
+                  <h3 className="c-bl tt-uc fs-11">Opis eventa</h3>
+                  <input
+                    name="description"
+                    type="text"
+                    value={this.state.description}
+                    onChange={this.handleInputChange}
+                    placeholder="Unesite dodatne informacije o eventu"
+                  />
+                </div>
+              </label>
+
+              <label className="event__form--switch">
+                <h2 className="c-bl fw-b fs-17">Izravno pridruživanje</h2>
+                <input
+                  type="checkbox"
+                  name="isInstantJoin"
+                  onChange={this.handleInputChange}
+                  defaultChecked={true}
+                />
+                <span className="event__form--switch--slider" />
+              </label>
+
+              <span className="event__form--rating--container">
+                <h2 className="c-bl fw-b fs-17">Razina igre</h2>
+                <div className="event__form--rating">
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="1"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="2"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="3"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="4"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="targetSkillLevel"
+                      value="5"
+                      onChange={this.handleInputChange}
+                    />
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                    <span className="icon--rating">★</span>
+                  </label>
+                </div>
+              </span>
+              <button
+                className="button-big tt-uc"
+                onClick={this.handleSubmit}
+                type="button"
+              >
+                Kreiraj event
+              </button>
+            </section>
           </form>
-          <button onClick={this.handleSubmit}>Submit</button>
         </div>
         <Navbar />
 

@@ -57,6 +57,8 @@ namespace FaliJedan.Data.Migrations
 
                     b.Property<double>("LocationLongitude");
 
+                    b.Property<string>("Name");
+
                     b.Property<int>("SportId");
 
                     b.Property<int>("TargetNumberOfPlayers");

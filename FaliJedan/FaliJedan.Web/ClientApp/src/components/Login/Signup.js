@@ -89,7 +89,13 @@ class Signup extends Component {
       return;
     }
 
-    Axios.post("/api/users/add", user).then(response => response.data);
+    Axios.post("/api/users/add", user)
+      .then(response => {
+        this.props.onSignupSuccess();
+      })
+      .catch(err => {
+        alert("An unexpected error occurred");
+      });
   };
 
   render() {

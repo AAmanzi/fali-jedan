@@ -9,7 +9,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 {
     public interface IEventUserRepository
     {
-        bool AddEventUser(EventUser eventUser);
+        bool AddEventUser(Guid eventGuid, Guid userId);
 
         bool DeleteEventUser(EventUser eventUser);
 

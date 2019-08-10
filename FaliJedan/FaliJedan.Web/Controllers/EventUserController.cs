@@ -36,17 +36,8 @@ namespace FaliJedan.Web.Controllers
             var claims = identity.Claims.ToList();
             var userId = Guid.Parse(claims.First(c => c.Type == "userId").Value);
 
-            var eventUserToAdd = new EventUser
-            {
-                EventId = eventGuid,
-                UserId = userId,
-                IsReviewed = false,
-                IsApproved = false,
-                IsCanceled = false,
-                IsHost = false
-            };
 
-            var wasAddSuccessful = _eventUserRepository.AddEventUser(eventUserToAdd);
+            var wasAddSuccessful = _eventUserRepository.AddEventUser(eventGuid, userId);
             if (wasAddSuccessful)
                 return Ok();
             return Forbid();

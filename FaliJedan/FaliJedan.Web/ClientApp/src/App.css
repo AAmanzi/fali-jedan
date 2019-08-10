@@ -23,6 +23,11 @@ h2 {
   margin: 0;
 }
 
+#root {
+  height: 100vh;
+  background-color: #e5e5e5;
+}
+
 .test {
   position: absolute;
   top: 50%;
@@ -129,6 +134,7 @@ header .spacing {
   width: 250px;
   align-self: center;
   padding: 22px;
+  margin-bottom: 20px;
 }
 
 /* EVENT FEED */
@@ -136,7 +142,7 @@ header .spacing {
 .event__list {
   overflow: scroll;
   overflow-x: hidden;
-  height: 94vh;
+  height: 82vh;
   background-color: #e5e5e5;
 }
 
@@ -144,6 +150,15 @@ header .spacing {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.event__list li:last-child {
+  margin-bottom: 20px;
+}
+
+.list__empty--text {
+  margin: 30px;
+  text-align: center;
 }
 
 /* EVENT CARD */
@@ -387,7 +402,7 @@ header .spacing {
   position: absolute;
   display: flex;
   bottom: 5px;
-  left: 50%;
+  left: calc(50% - 8px);
 }
 
 .event__card--dot {
@@ -408,6 +423,15 @@ header .spacing {
 
 .navbar__item-active {
   fill: #178bf6;
+}
+
+.navbar__item-disabled img {
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg)
+    saturate(600%) contrast(0.8);
+}
+
+.navbar__item-disabled span {
+  color: #f63117;
 }
 
 .navbar__list {
@@ -505,7 +529,7 @@ header .spacing {
   flex-direction: column;
   padding: 10px;
   overflow-y: scroll;
-  height: 78vh;
+  height: 82vh;
 }
 
 .input__number__container {
@@ -830,23 +854,24 @@ input::placeholder {
 
 .filter__list {
   display: flex;
-  width: 100%;
+  width: 95%;
   justify-content: space-around;
   margin: 0 10px;
 }
 
 .filter__list__item {
-  width: 33.3333%;
   display: flex;
   justify-content: center;
-  background-color: #ccc;
-  border: 1px solid black;
   cursor: pointer;
-  border-radius: 0 !important;
+  margin: 0 !important;
 }
 
 .filter__list__item:nth-child(1) {
   border-radius: 10px 0 0 10px !important;
+}
+
+.filter__list__item:nth-child(2) {
+  border-radius: 0 !important;
 }
 
 .filter__list__item:nth-child(3) {
@@ -914,7 +939,7 @@ input::placeholder {
 }
 
 .filter__sport__list li:nth-child(4n) {
-  margin-right: 0;
+  margin-right: 35px;
   margin-left: 17.5px;
 }
 
@@ -957,6 +982,7 @@ input::placeholder {
 
 .date__display {
   width: 170px;
+  margin-top: 0 !important;
 }
 
 .date__display img {
@@ -1164,9 +1190,16 @@ a {
   justify-content: center;
 }
 
-.button__login {
+.button-location {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.button__login,
+.filter__list__item,
+.button-location {
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid #ffffff;
   background-color: #ffffff;
   color: #178bf6;

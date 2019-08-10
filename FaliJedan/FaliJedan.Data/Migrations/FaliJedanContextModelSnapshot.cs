@@ -57,6 +57,8 @@ namespace FaliJedan.Data.Migrations
 
                     b.Property<double>("LocationLongitude");
 
+                    b.Property<string>("Name");
+
                     b.Property<int>("SportId");
 
                     b.Property<int>("TargetNumberOfPlayers");
@@ -89,6 +91,23 @@ namespace FaliJedan.Data.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("EventUsers");
+                });
+
+            modelBuilder.Entity("FaliJedan.Data.Entities.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.Sport", b =>
@@ -194,7 +213,7 @@ namespace FaliJedan.Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<Guid>("SubscriptionId");
+                    b.Property<Guid?>("SubscriptionId");
 
                     b.Property<int>("TotalRating");
 
@@ -206,7 +225,8 @@ namespace FaliJedan.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[SubscriptionId] IS NOT NULL");
 
                     b.ToTable("Users");
                 });
@@ -247,12 +267,19 @@ namespace FaliJedan.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("FaliJedan.Data.Entities.Models.RefreshToken", b =>
+                {
+                    b.HasOne("FaliJedan.Data.Entities.Models.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.User", b =>
                 {
                     b.HasOne("FaliJedan.Data.Entities.Models.Subscription", "Subscription")
                         .WithOne("User")
-                        .HasForeignKey("FaliJedan.Data.Entities.Models.User", "SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FaliJedan.Data.Entities.Models.User", "SubscriptionId");
                 });
 
             modelBuilder.Entity("FaliJedan.Data.Entities.Models.UserBadge", b =>

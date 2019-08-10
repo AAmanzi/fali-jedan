@@ -182,7 +182,11 @@ class EventFeed extends Component {
 
         <ul className="event__list">
           {this.state.eventList.map((event, index) => (
-            <EventCard key={index} event={event} />
+            <EventCard
+              key={index}
+              event={event}
+              currentCoordinates={this.props.currentCoordinates}
+            />
           ))}
         </ul>
 

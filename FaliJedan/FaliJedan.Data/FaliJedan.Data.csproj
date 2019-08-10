@@ -155,9 +155,25 @@
     <Compile Include="Migrations\20190801225818_CombinedEventDateAndTimes.designer.cs">
       <DependentUpon>20190801225818_CombinedEventDateAndTimes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190807195025_ChangedRatingToTotalRating.cs" />
+    <Compile Include="Migrations\20190807195025_ChangedRatingToTotalRating.Designer.cs">
+      <DependentUpon>20190807195025_ChangedRatingToTotalRating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\20190807210113_ChangedAttributeNames.cs" />
     <Compile Include="Migrations\20190807210113_ChangedAttributeNames.designer.cs">
       <DependentUpon>20190807210113_ChangedAttributeNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190808105435_AddedRefreshTokens.cs" />
+    <Compile Include="Migrations\20190808105435_AddedRefreshTokens.Designer.cs">
+      <DependentUpon>20190808105435_AddedRefreshTokens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190808114738_MadeSubscriptionIdNullable.cs" />
+    <Compile Include="Migrations\20190808114738_MadeSubscriptionIdNullable.Designer.cs">
+      <DependentUpon>20190808114738_MadeSubscriptionIdNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190810030633_AddedNameToEvent.cs" />
+    <Compile Include="Migrations\20190810030633_AddedNameToEvent.designer.cs">
+      <DependentUpon>20190810030633_AddedNameToEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\FaliJedanContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

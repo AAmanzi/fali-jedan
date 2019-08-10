@@ -3,18 +3,21 @@ import { API_ROUTE } from "../constants";
 import { axiosGetWithCredentials, axiosPostWithCredentials } from "./jwtUtlis";
 import { CONTROLLER } from "../constants";
 
-export const addEvent = async eventToAdd => {
+export const addEvent = eventToAdd => {
   return axiosPostWithCredentials(
     `${API_ROUTE}/${CONTROLLER.event}/add`,
     eventToAdd
   )
     .then(response => response.data)
-    .catch(
-      axiosPostWithCredentials(
+    .catch(r => {
+      if (r.response.status !== 401) {
+        return;
+      }
+      return axiosPostWithCredentials(
         `${API_ROUTE}/${CONTROLLER.event}/add`,
         eventToAdd
-      )
-    );
+      );
+    });
 };
 
 export const deleteEvent = async eventId => {

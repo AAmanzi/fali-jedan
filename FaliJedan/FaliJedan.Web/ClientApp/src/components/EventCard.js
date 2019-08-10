@@ -47,7 +47,7 @@ class EventCard extends Component {
     const { event } = this.props;
     return (
       <li>
-        <span className="event__card--date">{event.dateOfEvent}</span>
+        {/* <span className="event__card--date">{event.dateOfEvent}</span> */}
         <Swipeable
           onSwipedLeft={() => this.swipe(LEFT)}
           onSwipedRight={() => this.swipe(RIGHT)}
@@ -61,6 +61,7 @@ class EventCard extends Component {
             event={event}
             toggleMap={this.toggleMap}
             handleClick={this.displayDetails}
+            currentCoordinates={this.props.currentCoordinates}
           />
 
           <div

@@ -125,7 +125,7 @@ class EventFeed extends Component {
       currentLatitude: this.props.currentCoordinates[0],
       currentLongitude: this.props.currentCoordinates[1]
     }).then(filteredEvents => {
-      if (filteredEvents == undefined) {
+      if (filteredEvents === undefined) {
         this.setState({ eventList: [] });
         return;
       }

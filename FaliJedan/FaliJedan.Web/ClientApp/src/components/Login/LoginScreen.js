@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Signup from "./Signup";
 import Login from "./Login";
-import Overlay from "./Overlay";
 
 class LoginScreen extends Component {
   constructor() {
@@ -25,9 +24,8 @@ class LoginScreen extends Component {
           this.state.isSignupActive ? "right-panel-active" : ""
         }`}
       >
-        <Signup />
-        <Login />
-        <Overlay toggleScreen={this.toggleSignup} />
+        <Signup handlePanelSwitch={() => this.toggleSignup(false)} />
+        <Login handlePanelSwitch={() => this.toggleSignup(true)} />
       </div>
     );
   }

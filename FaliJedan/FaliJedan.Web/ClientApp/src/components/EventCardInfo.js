@@ -53,7 +53,6 @@ const EventCardInfo = props => {
 
     //TODO
   };
-  console.log(event);
   return (
     <>
       <div className="event__card--content" onClick={props.handleClick}>
@@ -62,7 +61,6 @@ const EventCardInfo = props => {
           {event.host.username}
         </h2>
         <span className="event__card--name">{event.name}</span>
-        <span className="event__card--location">{event.name}</span>
         <section className="event__card--skill-level">
           <label className="event__card--skill-level--label">Razina igre</label>
           <span className="event__card--skill-level--level">

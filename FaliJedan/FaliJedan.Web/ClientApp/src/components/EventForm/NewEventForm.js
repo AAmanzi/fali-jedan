@@ -262,6 +262,7 @@ class NewEventForm extends Component {
                   <img
                     className="event__form--icon"
                     src="/assets/date-icon.svg"
+                    alt="Datum"
                   />
                   <div className="input__content">
                     <h3 className="c-bl tt-uc fs-11">Datum eventa</h3>

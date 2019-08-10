@@ -58,7 +58,6 @@ class EventCard extends Component {
           onSwipedLeft={() => this.swipe(LEFT)}
           onSwipedRight={() => this.swipe(RIGHT)}
           preventDefaultTouchmoveEvent={true}
-          //TODO preventDefaults
           trackTouch={true}
           trackMouse={true}
           className={`event__card ${this.state.isMapActive ? "b-bl" : ""}`}
@@ -66,8 +65,8 @@ class EventCard extends Component {
           <EventCardInfo
             event={event}
             toggleMap={this.toggleMap}
-            handleClick={this.displayDetails}
             currentCoordinates={this.props.currentCoordinates}
+            handleClick={this.displayDetails}
           />
 
           <div
@@ -105,6 +104,7 @@ class EventCard extends Component {
               isLoggedUsersEvent={this.state.isLoggedUsersEvent}
               event={event}
               handleClickBack={this.closeDetails}
+              currentCoordinates={this.props.currentCoordinates}
             />
           ) : (
             undefined

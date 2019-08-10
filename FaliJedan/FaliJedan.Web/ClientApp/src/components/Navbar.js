@@ -16,7 +16,7 @@ const Navbar = () => {
           </li>
         </Link>
         <Link className="navbar__item__container" to="/scoreboard">
-          <li className="navbar__item">
+          <li className="navbar__item navbar__item-disabled">
             <img src="/assets/navbar/icon-scoreboard.svg" alt="Ljestvice" />
             <span>Ljestvice</span>
           </li>
@@ -29,7 +29,7 @@ const Navbar = () => {
           </li>
         </Link>
         <Link className="navbar__item__container" to="/user?">
-          <li className="navbar__item">
+          <li className="navbar__item navbar__item-disabled">
             <img src="/assets/navbar/icon-profile.svg" alt="Profil" />
             <span>Profil</span>
           </li>

@@ -160,6 +160,7 @@ class EventFeed extends Component {
             handleAddSport={this.addSport}
             applyFilters={this.applyFilters}
             handleReset={this.resetFilters}
+            handleClose={this.closeFilterBar}
           />
         ) : (
           undefined

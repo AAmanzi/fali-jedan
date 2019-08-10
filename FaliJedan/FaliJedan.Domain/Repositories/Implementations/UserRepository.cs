@@ -58,9 +58,13 @@ namespace FaliJedan.Domain.Repositories.Interfaces
 
         public void DeleteRefreshToken(Guid userId, string refreshToken)
         {
-            var a = _context.RefreshTokens.First(rt => rt.Value == refreshToken);
+            var a = _context.RefreshTokens.FirstOrDefault(rt => rt.Value == refreshToken);
+            if(a == null)
+            {
+                return;
+            }
             _context.RefreshTokens.Remove(a);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void SaveRefreshToken(Guid userId, string refreshToken)

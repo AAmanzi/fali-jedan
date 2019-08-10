@@ -48,6 +48,15 @@ class NotificationScreen extends Component {
     }
     return (
       <>
+        <header>
+          <span className="spacing" />
+          <span className="header__title">
+            {this.state.eventUsers.length === 0
+              ? "0 Notifikacija"
+              : "Notifikacije"}
+          </span>
+          <span className="spacing" />
+        </header>
         <ul className="event__list">
           {this.state.eventUsers.map((eventUser, index) => {
             if (eventUser.user === null) {

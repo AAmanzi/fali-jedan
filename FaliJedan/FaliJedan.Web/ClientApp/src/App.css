@@ -41,6 +41,10 @@ h2 {
   color: rgba(99, 103, 124, 0.5);
 }
 
+.c-blck {
+  color: #000000;
+}
+
 .c-az {
   color: #37b3ed;
 }
@@ -70,6 +74,11 @@ h2 {
   line-height: 25px;
 }
 
+.fs-14 {
+  font-size: 14px;
+  line-height: 19px;
+}
+
 .fs-11 {
   font-size: 11px;
   line-height: 15px;
@@ -96,7 +105,7 @@ h2 {
 }
 
 .event__form--input-sport:checked ~ .arrow-down {
-  top: calc(85% + 60px);
+  top: calc(80% + 60px);
   opacity: 1;
   z-index: 1;
 }
@@ -126,15 +135,25 @@ header .spacing {
 }
 
 .button-big {
+  display: block;
+  margin: auto;
   color: #ffffff;
   border: none;
-  background: #178bf6;
+  background-color: #178bf6;
   box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
   border-radius: 10px;
   width: 250px;
-  align-self: center;
   padding: 22px;
   margin-bottom: 20px;
+}
+
+.button-joined {
+  background-color: #5eb548;
+}
+
+.center {
+  display: block;
+  margin: auto;
 }
 
 /* EVENT FEED */
@@ -389,12 +408,8 @@ header .spacing {
 }
 
 .event__card--instant-join {
-  background-image: url(/assets/common/instantJoin.svg);
-  background-repeat: no-repeat;
-  width: 45px;
-  height: 45px;
-  margin-top: 11.5px;
-  margin-left: -25px;
+  width: 22px;
+  height: 22px;
   transform: scale(0.9);
 }
 
@@ -417,6 +432,81 @@ header .spacing {
 
 .event__card--dot-alt {
   background-color: #178bf6;
+}
+
+.event__card__details {
+  height: 100%;
+  position: relative;
+}
+
+.event__card__details .map__container {
+  height: 30%;
+}
+
+.aaaaa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+}
+
+.aaaaa h3 {
+  margin: 0;
+}
+
+.event__card__details--content__main--container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.event__card__details--instant {
+  display: flex;
+  align-items: center;
+}
+
+.event__card__description {
+  margin: auto;
+  width: 90%;
+  color: #63677c;
+}
+
+.event__card__details--info-item {
+  flex-direction: row !important;
+  width: 80%;
+  margin: auto;
+  justify-content: flex-start;
+  position: relative;
+}
+.event__card__details--info-item--content {
+  margin-left: 15px;
+}
+
+.event__card__details--info-alt {
+  color: #ffffff;
+  background-color: #178bf6;
+  padding: 4px 15px;
+  border-radius: 10px;
+  position: absolute;
+  top: calc(50% - 15px);
+  right: 0;
+}
+
+.event__card__details--content {
+  border-radius: 0 10px 0 10px;
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  top: 25%;
+  overflow: scroll;
+  height: 80%;
+}
+
+.event__card__details--content__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* NAVBAR */
@@ -498,10 +588,11 @@ header .spacing {
 .event__form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .event__form .filter__sport {
-  height: 85% !important;
+  height: 80% !important;
 }
 
 .event__form .react-datepicker {
@@ -931,7 +1022,7 @@ input::placeholder {
 
 .filter__sport__list li:nth-child(2),
 .filter__sport__list li:nth-child(4) {
-  margin-top: 35px;
+  margin-top: 20px;
 }
 
 .filter__sport__list li:nth-child(2n) {
@@ -1130,7 +1221,7 @@ input::placeholder {
   position: relative;
   margin: 0;
   width: 100%;
-  height: 95%;
+  height: 92%;
   background-color: #178bf6;
   border-radius: 0px 0px 10px 10px;
   box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
@@ -1352,14 +1443,134 @@ a {
 }
 
 .button--back {
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-200deg)
+    saturate(600%) contrast(0.8);
   position: absolute;
   top: 5px;
   left: 5px;
   z-index: 101;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 1023px) {
-  .event__card--button-slide {
-    display: none;
+@media screen and (min-width: 1023px) {
+  .event__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .event__list li {
+    width: calc(50% - 50px);
+    margin: 25px;
+  }
+
+  .event__card {
+    height: 100%;
+  }
+
+  h3,
+  span,
+  label,
+  .event__card label,
+  .event__card h3,
+  .event__card span,
+  .input__content h3,
+  .input__content input::placeholder,
+  .input__content input {
+    font-size: 24px;
+  }
+
+  .date__display {
+    width: 500px;
+    height: 200px;
+  }
+
+  p,
+  h2,
+  .event__card__description .event__card h3,
+  .event__card--host-name,
+  .event__card__details--content label,
+  .event__card__details--content h3,
+  .event__card__details--content span,
+  .react-datepicker {
+    font-size: 32px !important;
+  }
+
+  .icon--rating {
+    font-size: 54px !important;
+  }
+
+  .react-datepicker__time-container
+    .react-datepicker__time
+    .react-datepicker__time-box {
+    width: 500px;
+    overflow-x: hidden;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .react-datepicker--time-only .react-datepicker__time-container {
+    border-left: 0;
+    width: 500px;
+  }
+
+  .event__card--skill-level--level span {
+    font-size: 38px;
+  }
+
+  .event__card--time {
+    bottom: -90px;
+  }
+
+  .event__card--host-name {
+    top: initial;
+  }
+
+  .button-big {
+    padding: 40px;
+    font-size: 38px;
+    width: 500px;
+  }
+
+  .event__card--icon {
+    width: 400px;
+    height: 400px;
+    left: -150px;
+    top: -100px;
+  }
+
+  .event__card__details--info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event__form__content {
+    padding: 100px;
+    height: 90vh;
+  }
+
+  .input__number {
+    max-width: initial;
+    height: 100px;
+    width: 350px;
+  }
+
+  .input__number .navbar__item--create-inner {
+    padding: 36.5px !important;
+  }
+
+  .input__number .plus {
+    padding: 36.5px 33.5px 36.5px 33.5px !important;
+  }
+
+  .input__number img {
+    height: 42px;
+    width: 26px;
+  }
+
+  .input__number .plus img {
+    height: 42px;
+    width: 32px;
   }
 }

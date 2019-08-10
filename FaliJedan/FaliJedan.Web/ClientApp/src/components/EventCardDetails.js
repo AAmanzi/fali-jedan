@@ -6,10 +6,8 @@ import { joinEvent } from "../services/event";
 const EventCardDetails = props => {
   const { event } = props;
 
-  const isLoggedUsersEvent = event.host.id === localStorage.getItem("userId");
-
   const handleJoinEvent = () => {
-    if (!isLoggedUsersEvent) {
+    if (!props.isLoggedUsersEvent) {
       joinEvent(event.id);
     }
   };
@@ -70,10 +68,10 @@ const EventCardDetails = props => {
           </li>
         </ul>
         <button
-          className={`${isLoggedUsersEvent ? "button-joined" : ""}`}
+          className={`${props.isLoggedUsersEvent ? "button-joined" : ""}`}
           onClick={() => handleJoinEvent()}
         >
-          {isLoggedUsersEvent ? "PRIDRUŽEN" : "PRIDRUŽI SE"}
+          {props.isLoggedUsersEvent ? "PRIDRUŽEN" : "PRIDRUŽI SE"}
         </button>
       </section>
     </div>

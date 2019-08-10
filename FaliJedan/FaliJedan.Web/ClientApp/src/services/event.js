@@ -2,7 +2,7 @@ import { API_ROUTE } from "../constants";
 import { axiosGetWithCredentials, axiosPostWithCredentials } from "./jwtUtlis";
 import { CONTROLLER } from "../constants";
 
-export const addEvent = eventToAdd => {
+export const addEvent = async eventToAdd => {
   return axiosPostWithCredentials(
     `${API_ROUTE}/${CONTROLLER.event}/add`,
     eventToAdd

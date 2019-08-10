@@ -49,8 +49,9 @@ h2 {
 
 .mr-10 {
   margin-right: 10px;
+}
 
-  .bc-rd {
+.bc-rd {
   border-color: #f63117 !important;
 }
 
@@ -62,7 +63,6 @@ h2 {
 .fs-11 {
   font-size: 11px;
   line-height: 15px;
-
 }
 
 .line {

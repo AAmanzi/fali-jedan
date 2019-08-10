@@ -1,0 +1,1327 @@
+@import "~react-datepicker/dist/react-datepicker.css";
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: Nunito Sans;
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  color: #63677c;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+.c-bl {
+  color: #178bf6;
+}
+
+.c-gr {
+  color: rgba(99, 103, 124, 0.5);
+}
+
+.c-az {
+  color: #37b3ed;
+}
+
+.tt-uc {
+  text-transform: uppercase;
+}
+
+.fw-b {
+  font-weight: bold;
+}
+
+.b-bl {
+  border: 2px solid #178bf6;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.bc-rd {
+  border-color: #f63117 !important;
+}
+
+.fs-17 {
+  font-size: 17px;
+  line-height: 25px;
+}
+
+.fs-11 {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.line {
+  border: 2px solid #ffffff;
+  width: 75px;
+  border-radius: 10px;
+  margin: 10.5px 0 12px 0;
+}
+
+.arrow-down {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #178bf6;
+  left: calc(50% - 20px);
+  top: -20px;
+  transition: opacity 0.05s ease-in-out, top 0.4s ease-in-out;
+}
+
+.event__form--input-sport:checked ~ .arrow-down {
+  top: calc(85% + 60px);
+  opacity: 1;
+  z-index: 1;
+}
+
+header {
+  display: flex;
+  color: #ffffff;
+  background-color: #178bf6;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  width: 100%;
+}
+
+header * {
+  margin: 0 18px;
+}
+
+header .spacing {
+  width: 20px;
+}
+
+.header__title {
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.button-big {
+  color: #ffffff;
+  border: none;
+  background: #178bf6;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+  border-radius: 10px;
+  width: 250px;
+  align-self: center;
+  padding: 22px;
+}
+
+/* EVENT FEED */
+
+.event__list {
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 94vh;
+  background-color: #e5e5e5;
+}
+
+.event__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* EVENT CARD */
+
+.event__card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  overflow: hidden;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin: 6px 0;
+  height: 130px;
+  transition: border 0.3s ease-in-out;
+}
+
+.event_card--name {
+  position: absolute;
+  width: 146px;
+  left: 30px;
+  top: 3.23%;
+  font-family: "Nunito Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: #178bf6;
+}
+
+.event__card--host-name {
+  position: absolute;
+  width: 201px;
+  left: 30px;
+  top: 20.31%;
+  font-family: "Nunito Sans", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+.event__card--name {
+  position: absolute;
+  width: 192px;
+  left: 30px;
+  top: 55.62%;
+  font-family: "Nunito Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #63677c;
+}
+
+.event__card--skill-level--label {
+  position: absolute;
+  width: 71px;
+  left: 0%;
+  top: 10px;
+  font-family: "Nunito Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #63677c;
+}
+
+.event__card--skill-level--level {
+  position: absolute;
+  left: 75px;
+  right: 0%;
+  top: 3.5px;
+  bottom: 0%;
+  color: #178bf6;
+}
+
+.event__card--skill-level {
+  position: relative;
+  left: -83px;
+  top: -25.38px;
+}
+
+.event__card--time {
+  position: absolute;
+  width: 187px;
+  left: 30px;
+  top: 100px;
+  font-family: "Nunito Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+}
+
+.event__card--icon {
+  position: absolute;
+  z-index: 8;
+  left: -25px;
+  top: -7px;
+  width: 115px;
+  height: 115px;
+  filter: opacity(0.1);
+}
+
+.event__card--players {
+  position: absolute;
+  top: 15px;
+  left: 65px;
+  transform: scale(0.9);
+  margin-right: 50px;
+  margin-left: 5px;
+}
+
+.event__card--players-span {
+  position: absolute;
+  width: 42px;
+  height: 10px;
+  right: 10px;
+  top: 20px;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #63677c;
+}
+
+.event__card--location {
+  /* width: 100px; */
+  position: absolute;
+  width: 61px;
+  height: 10px;
+  right: 30px;
+  bottom: 19px;
+  font-family: "Nunito Sans", serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #63677c;
+  position: absolute;
+  right: 30px;
+  bottom: 16px;
+}
+
+.event__card--svg {
+  margin-left: -5px;
+  margin-right: 5px;
+}
+.event__card--panel,
+.event__card--content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.event__card--panel {
+  flex-direction: row;
+  width: 40%;
+}
+
+.event__card--content {
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+
+.event__card--button-slide {
+  width: 10%;
+}
+
+.icon--sport {
+  width: 50px;
+  height: 50px;
+}
+
+.icon--sport.alt {
+  filter: brightness(75%) contrast(200%);
+}
+
+.event__card--map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b4d0d0;
+  opacity: 0;
+  top: 0;
+  right: -100%;
+  z-index: 1;
+  transition: 0.3s all ease-in-out;
+}
+
+.event__card--map-active {
+  right: 0 !important;
+  opacity: 1 !important;
+}
+
+.map__container {
+  border-radius: 10px;
+}
+
+.ol-overlaycontainer {
+  display: none;
+}
+
+.event__card--instant-join {
+  background-image: url(/assets/common/instantJoin.svg);
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 45px;
+  margin-top: 11.5px;
+  margin-left: -25px;
+  transform: scale(0.9);
+}
+
+.event__card--screen_dots {
+  position: absolute;
+  display: flex;
+  bottom: 5px;
+  left: 50%;
+}
+
+.event__card--dot {
+  display: block;
+  padding: 2px;
+  background-color: rgba(99, 103, 124, 0.5);
+  z-index: 3;
+  margin: 0 2px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.event__card--dot-alt {
+  background-color: #178bf6;
+}
+
+/* NAVBAR */
+
+.navbar__item-active {
+  fill: #178bf6;
+}
+
+.navbar__list {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 10px 10px 0px 0px;
+  padding-top: 6px;
+  box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  z-index: 999;
+}
+
+.navbar__item__container {
+  text-decoration: none;
+  color: #63677c;
+  background-color: #ffffff;
+  width: 20%;
+  text-align: center;
+  margin: 0;
+}
+
+.navbar__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__item img,
+.navbar__item span {
+  margin: 4px;
+}
+
+.navbar__item--create {
+  position: absolute;
+  width: 59px;
+  height: 59px;
+  left: calc(50% - 59px / 2);
+  bottom: 17px;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__item--create-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #178bf6;
+  border-radius: 50%;
+  padding: 12.5px;
+}
+
+/* NEW EVENT FORM */
+
+.event__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.event__form .filter__sport {
+  height: 85% !important;
+}
+
+.event__form .react-datepicker {
+  box-shadow: 0px 0px 6px rgba(23, 139, 246, 0.75);
+}
+
+.event__form .ol-viewport {
+  border-radius: 10px;
+}
+
+.input__date {
+  flex-direction: column;
+}
+
+.event__form__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.event__form__content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: scroll;
+  height: 78vh;
+}
+
+.input__number__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 17.5px 0;
+}
+
+.input__number {
+  background-color: #ffffff;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 264px;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 130px;
+  height: 50px;
+}
+
+.input__number input {
+  border: none;
+  text-align: center;
+  color: #63677c;
+  max-width: 30px;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.input__number .plus {
+  padding: 12.5px 10px 12.5px 10px;
+}
+
+.input__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input__container__date {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+  padding: 16px 0;
+  border: 2px solid #ffffff;
+  margin: 17.5px 0;
+}
+
+.input input {
+  border: none;
+}
+
+.input > img {
+  margin: 0 16px;
+}
+
+.event__form--icon {
+  margin: 0 13px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Event form sport picker */
+
+.event__form--input-sport {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.event__form--label-sport {
+  -webkit-appearance: push-button;
+  -moz-appearance: button;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.event__form--list-sport li {
+  cursor: pointer;
+  width: 50%;
+  height: 50%;
+}
+
+/* Default State */
+
+.event__form--list-sport {
+  background-color: #fff;
+  position: absolute;
+  top: -100vh;
+  z-index: -2;
+  opacity: 0;
+  width: 100vw;
+  height: 100vw;
+  transition: all 0.3s ease-in-out;
+  height: 75% !important;
+  border-radius: 0 0 10px 10px;
+}
+
+.event__form--list-sport ul {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #178bf6;
+}
+
+/* Toggled State */
+.event__form--input-sport:checked ~ .event__form--list-sport {
+  z-index: 5;
+  opacity: 1;
+  top: 65px;
+}
+
+/* Event form skill level */
+
+.event__form--rating--container,
+.user__rating--input--container {
+  display: flex;
+  align-items: center;
+}
+
+.event__form--rating--container {
+  justify-content: space-between;
+}
+
+.event__form--rating,
+.user__rating--input {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+}
+
+.event__form--rating label,
+.user__rating--input label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.event__form--rating label:last-child,
+.user__rating--input label:last-child {
+  position: static;
+}
+
+.event__form--rating label:nth-child(1),
+.user__rating--input label:nth-child(1) {
+  z-index: 5;
+}
+
+.event__form--rating label:nth-child(2),
+.user__rating--input label:nth-child(2) {
+  z-index: 4;
+}
+
+.event__form--rating label:nth-child(3),
+.user__rating--input label:nth-child(3) {
+  z-index: 3;
+}
+
+.user__rating--input label:nth-child(4) {
+  z-index: 2;
+}
+
+.user__rating--input label:nth-child(5) {
+  z-index: 1;
+}
+
+.event__form--rating label input,
+.user__rating--input label input,
+.event__form--list-sport li input,
+.filter__sport__list input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.event__form--rating label .icon--rating,
+.user__rating--input label .icon--rating {
+  float: left;
+  color: transparent;
+  font-size: 30px;
+}
+
+.event__form--rating label:last-child .icon--rating,
+.user__rating--input label:last-child .icon--rating {
+  color: #63677c;
+}
+
+.event__form--rating:not(:hover) label input:checked ~ .icon--rating,
+.user__rating--input:not(:hover) label input:checked ~ .icon--rating,
+.event__form--rating:hover label:hover input ~ .icon--rating,
+.user__rating--input:hover label:hover input ~ .icon--rating {
+  color: #178bf6;
+}
+
+.event__form--rating label input:focus:not(:checked) ~ .icon--rating:last-child,
+.user__rating--input
+  label
+  input:focus:not(:checked)
+  ~ .icon--rating:last-child {
+  color: #63677c;
+  text-shadow: 0 0 5px #178bf6;
+}
+
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item {
+  height: 30px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 2px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff;
+}
+
+.react-datepicker__time-list-item :focus {
+  background: rgba(23, 139, 246, 0.3);
+  border: 1px solid #178bf6;
+}
+
+.react-datepicker-wrapper input::placeholder {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.react-datepicker-wrapper input {
+  max-width: 50px;
+}
+
+input::placeholder {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+/* Event form instant join checkbox */
+
+.event__form--switch {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.event__form--switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.event__form--switch--slider {
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  background-color: rgba(99, 103, 124, 0.5);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 264px;
+  width: 42px;
+  height: 22px;
+  margin-right: 25px;
+}
+
+.event__form--switch--slider:before {
+  position: absolute;
+  content: url("/assets/common/instantJoin-alt.svg");
+  height: 30px;
+  width: 30px;
+  left: -15px;
+  bottom: -4px;
+  background-color: #63677c;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event__form--switch input:focus + .event__form--switch--slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.event__form--switch input:checked + .event__form--switch--slider {
+  background-color: #1160c1;
+}
+
+.event__form--switch input:checked + .event__form--switch--slider:before {
+  -webkit-transform: translateX(40px);
+  -ms-transform: translateX(40px);
+  transform: translateX(40px);
+  background-color: #178bf6;
+}
+
+.ol-overlaycontainer-stopevent {
+  display: none;
+}
+
+/* FILTER BAR */
+
+/* TODO: width less than 100% */
+/* 
+  button colors will get set after merging with 
+  aamanzi_ui_login-screen branch
+*/
+
+.filter__list {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin: 0 10px;
+}
+
+.filter__list__item {
+  width: 33.3333%;
+  display: flex;
+  justify-content: center;
+  background-color: #ccc;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 0 !important;
+}
+
+.filter__list__item:nth-child(1) {
+  border-radius: 10px 0 0 10px !important;
+}
+
+.filter__list__item:nth-child(3) {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+.filter__sport {
+  overflow: scroll;
+  height: 80%;
+}
+
+.filter__sport__list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.filter__sport__list input:checked + li {
+  background-color: #37b3ed;
+}
+
+.filter__sport__list input:checked + li span {
+  color: #ffffff;
+}
+
+.filter__sport__list input:checked + li img {
+  filter: brightness(0) invert(1);
+}
+
+.filter__sport__list input:checked + li > img {
+  position: absolute;
+  opacity: 1;
+  top: 6px;
+  right: 6px;
+}
+
+.filter__sport__list li {
+  position: relative;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 12px rgba(12, 72, 128, 0.6);
+  border-radius: 10px;
+  margin: 12.5px 35px;
+  width: calc(50% - 52.5px);
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.filter__sport__list li > img {
+  position: absolute;
+  opacity: 0;
+}
+
+.filter__sport__list li:nth-child(2),
+.filter__sport__list li:nth-child(4) {
+  margin-top: 35px;
+}
+
+.filter__sport__list li:nth-child(2n) {
+  margin-right: 17.5px;
+}
+
+.filter__sport__list li:nth-child(4n) {
+  margin-right: 0;
+  margin-left: 17.5px;
+}
+
+.filter__location__dropdown {
+  position: relative;
+  height: 80%;
+  margin: 35px 10px 12.5px 10px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.filter__location__dropdown .map__container {
+  position: relative;
+}
+
+.filter__location__dropdown .map__container div {
+  height: 424px !important;
+  border-radius: 10px;
+  margin-top: -10px;
+}
+
+.button-location {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.filter__time {
+  margin-top: 35px;
+  width: 95%;
+  height: 80%;
+}
+
+.date__display__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date__display {
+  width: 170px;
+}
+
+.date__display img {
+  margin: 0 13px;
+}
+
+.date__display h3 {
+  margin: 0;
+}
+
+.date__display h2 {
+  margin: 11px 19px 0 0;
+  transition: color 0.2s ease-in-out;
+}
+
+.date-active {
+  border: 2px solid #37b3ed;
+  transition: border 0.2s ease-in-out;
+}
+
+.date-active h2 {
+  color: #63677c;
+}
+
+.input__content {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.datepicker__container {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* react-date-picker */
+
+.react-datepicker {
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-color: transparent;
+}
+
+.react-datepicker__navigation--next {
+  border-left-color: #71b0ce;
+}
+
+.react-datepicker__navigation--next:hover {
+  border-left-color: #178bf6;
+}
+
+.react-datepicker__navigation--previous:hover {
+  border-right-color: #178bf6;
+}
+
+.react-datepicker__navigation--previous {
+  left: 10px;
+  border-right-color: #37b3ed;
+}
+
+.react-datepicker__current-month {
+  color: #178bf6;
+}
+
+.react-datepicker__month-container {
+  float: inherit;
+}
+
+.react-datepicker__header {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  margin: 0;
+  width: 45px;
+  height: 45px;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range {
+  background: rgba(23, 139, 246, 0.3);
+  color: #178bf6;
+  border-radius: 0;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--in-range:hover {
+  background-color: #178bf6;
+  color: #ffffff;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day:nth-child(1) {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.react-datepicker__day--range-end,
+.react-datepicker__day:nth-child(7) {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.react-datepicker__header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* modal */
+
+.modal__cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: #453d3d77;
+}
+
+.modal__content {
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  background-color: #fff;
+}
+
+.modal__content-full {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 95%;
+  background-color: #178bf6;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 5px 7px rgba(23, 139, 246, 0.3);
+}
+
+.modal__cover-right {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+  left: 100%;
+  z-index: 100;
+  transition: right 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    left 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.modal__cover-right--active {
+  right: 0;
+  left: 0;
+  opacity: 1;
+}
+
+/* Login screen */
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+
+span {
+  font-size: 12px;
+}
+
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.button__login--container {
+  display: flex;
+  justify-content: center;
+}
+
+.button__login {
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  color: #178bf6;
+}
+
+.button,
+.button__login {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 0;
+  width: 156px;
+  transition: transform 80ms ease-in;
+  margin: 56px 1.5px 0 1.5px;
+}
+
+.button__login:active {
+  transform: scale(0.97);
+}
+
+.button__login:focus {
+  outline: none;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button.ghost,
+.button__login.ghost {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.form-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.input-login {
+  background-color: transparent;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  padding: 12px 0;
+  margin: 8px 0;
+  width: 100%;
+  transition: border 0.2s ease-in-out;
+}
+
+.input-login::placeholder {
+  color: #ffffff;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.input-login:focus {
+  outline: none;
+}
+
+.login__screen--container {
+  background-color: #178bf6;
+  background-image: url(/assets/tennis-player.jpg);
+  background-repeat: no-repeat;
+  background-position: 52%;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+  background-color: rgba(23, 139, 246, 0.56);
+}
+
+.log-in-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 80px 30px;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.text__login {
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff;
+  margin: 4.5px 0;
+}
+
+.login__screen--container.right-panel-active .log-in-container {
+  transform: translateX(-100%);
+}
+
+.form-signup__inline {
+  display: flex;
+  justify-content: center;
+}
+
+.form-signup__inline .input-login:nth-child(1) {
+  margin-right: 13px;
+}
+
+.form-signup__inline .input-login:nth-child(2) {
+  margin-left: 13px;
+}
+
+.sign-up__back {
+  cursor: pointer;
+  display: flex;
+  align-self: flex-start;
+  margin-bottom: 50px;
+}
+
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 30px 30px 80px 30px;
+  left: 100%;
+  width: 100%;
+  z-index: 2;
+  opacity: 1;
+}
+
+.login__screen--container.right-panel-active .sign-up-container {
+  transform: translateX(-100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+
+.button--back {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 101;
+}
+
+@media screen and (max-width: 1023px) {
+  .event__card--button-slide {
+    display: none;
+  }
+}

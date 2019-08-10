@@ -91,9 +91,10 @@ namespace FaliJedan.Domain.Repositories.Implementations
                 .FirstOrDefault(
                     eu =>
                         eu.UserId == userId &&
+                        eu.IsApproved &&
                         !eu.IsCanceled &&
                         !eu.IsReviewed &&
-                        DateTime.Compare(eu.Event.EventEnd, DateTime.Now) > 0);
+                        DateTime.Compare(eu.Event.EventEnd, DateTime.Now) < 0);
 
             return eventUser?.Event;
         }

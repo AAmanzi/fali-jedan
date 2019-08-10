@@ -64,6 +64,20 @@ namespace FaliJedan.Web.Controllers
         }
 
         [Authorize]
+        [HttpGet("get-unconfirmed")]
+        public IActionResult GetUnconfirmedEventUsers()
+        {
+            if (!(HttpContext.User.Identity is ClaimsIdentity identity)) return Forbid();
+            var claims = identity.Claims.ToList();
+            var userId = Guid.Parse(claims.First(c => c.Type == "userId").Value);
+
+            var wasConfirmSuccesful = _eventUserRepository.GetUnconfirmedEventUsers(userId);
+            if (wasConfirmSuccesful.Count > 0)
+                return Ok(wasConfirmSuccesful);
+            return NotFound();
+        }
+
+        [Authorize]
         [HttpPost("review")]
         public IActionResult ReviewEventUser(ReviewDTO review)
         {

@@ -16,5 +16,7 @@ namespace FaliJedan.Domain.Repositories.Interfaces
         bool ConfirmEventUser(EventUser eventUser);
 
         bool ReviewEventUser(ReviewDTO review);
+
+        List<EventUser> GetUnconfirmedEventUsers(Guid userId);
     }
 }

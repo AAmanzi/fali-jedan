@@ -29,4 +29,4 @@ Run _npm update_
 
 Start the app through VisualStudio
 
-\* Make sure _CashRegister.Web_ is set as the default project
+\* Make sure _FaliJedan.Web_ is set as the default project
